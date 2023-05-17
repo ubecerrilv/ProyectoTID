@@ -1,6 +1,6 @@
-package controlador;
+package tid.controlador;
 
-import modelo.Data;
+import tid.modelo.Data;
 
 public class ControlVPrincipal extends ControlAbs {
 

@@ -1,4 +1,4 @@
-package controlador;
+package tid.controlador;
 
 //CLASE PARA DEFINICION DE LOS STRINGS QUE SE USARAN COMO COMANDOS
 public class Comandos {

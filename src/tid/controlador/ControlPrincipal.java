@@ -1,44 +1,46 @@
-package gui;
+package tid.controlador;
 
-import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
+import tid.gui.Ventana;
+import tid.modelo.Data;
 
-import controlador.Control;
-
-@SuppressWarnings("serial")
-public abstract class VentanaAGeneral extends JFrame implements ActionListener {
-
+public class ControlPrincipal extends ControlAbs{
+	
+/*
+ * Esta clase es creada como un control de las ventanas, dirige cuando mostrase u ocultarse
+ */
+	
 /**********************************************************************************************************************************************
  * 
  * 																ATRIBUTOS
  * 
  *********************************************************************************************************************************************/
-
-	Control control;
-		
+	
+	private Ventana vent;
+	
+				
 /**********************************************************************************************************************************************
  * 
  * 																M�TODOS
  * 
  *********************************************************************************************************************************************/
 
-		public VentanaAGeneral(String titulo) {
-			super(titulo);
-		
-		}
-		
-		public VentanaAGeneral(Control control) {
-			this.control=control;
-		}
+	public ControlPrincipal(ControlVPrincipal CVP, Ventana venta) {
+		this.vent = venta;
+	}
+	
+	@Override
+	public Data ejecutaComando(String c, Data d, Data d2) {
+		switch(c) {
+		case Comandos.INICIA:
+			vent.setBounds(0, 0, 800, 600);
+			vent.setLocationRelativeTo(null);
+			vent.setVisible(true);
 			
-		
-		public VentanaAGeneral() {
-			super();
+		break;	
 		}
-			
+		return null;	
 		
-		public void setControl(Control control) {
-			this.control = control;
-		}
+	}
+
 }//FIN CLASE

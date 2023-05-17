@@ -1,4 +1,4 @@
-package modelo;
+package tid.modelo;
 
 public interface Data {
 

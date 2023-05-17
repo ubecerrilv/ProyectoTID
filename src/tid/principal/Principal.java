@@ -1,9 +1,9 @@
-package principal;
+package tid.principal;
 
-import controlador.Comandos;
-import controlador.ControlPrincipal;
-import controlador.ControlVPrincipal;
-import gui.Ventana;
+import tid.controlador.Comandos;
+import tid.controlador.ControlPrincipal;
+import tid.controlador.ControlVPrincipal;
+import tid.gui.Ventana;
 
 public class Principal {
 

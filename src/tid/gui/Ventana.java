@@ -1,4 +1,4 @@
-package gui;
+package tid.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
@@ -51,7 +51,7 @@ public class Ventana extends VentanaAGeneral{
 			
 		//CREAR BOTON DE MAPEAR
 		bBuscar = new JButton("Seleccionar imagen");
-		bBuscar.setActionCommand(controlador.Comandos.BUSCA);
+		bBuscar.setActionCommand(tid.controlador.Comandos.BUSCA);
 		bBuscar.addActionListener(this);
 		
 		rest.gridx = 0;

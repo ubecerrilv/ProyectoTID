@@ -1,4 +1,4 @@
-package controlador;
+package tid.controlador;
 
 
 public abstract class ControlAbs implements Control {

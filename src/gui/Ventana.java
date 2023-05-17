@@ -1,15 +1,11 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
@@ -20,54 +16,57 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 public class Ventana extends VentanaAGeneral{
 	
 	
-	JPanel panelCent;
-	JLabel paginas;
-	JTextArea pag;
-	JButton bBuscar;
-	JScrollPane sP;
+	JPanel panel;
+	JLabel autor, img;
+	JButton bBuscar, bAtras, bDelante, bGuardar;
 	
 	
 	public Ventana() {
-		super("<title>");
+		super("Tratamiento de imágenes");
 		
 		try {
 			UIManager.setLookAndFeel(new NimbusLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		this.setExtendedState(MAXIMIZED_BOTH);
+		
+		//CREAR E INSERTAR COMPONENTES
+		//CREACION DEL OBJETO DE RESTRICCIONES
+		GridBagConstraints rest = new GridBagConstraints();
 		
 		//CREAR PANELES
 		//PANEL CENTRAL
-		panelCent = new JPanel(new GridLayout(1,2));
-		panelCent.setBorder(new EmptyBorder(5,5,5,5));
-		panelCent.setBackground(Color.BLACK);
+		panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5,5,5,5));
 
 		//CREAR ETIQUETAS
-		paginas = new JLabel("PÁGINAS:");
+		autor = new JLabel("<html>Realizado por Ulises Becerril Valdés <br> Marcos Daniel Gómez Velázquez</html>");
+		rest.gridx = 3;
+		rest.gridy = 2;
+		rest.gridwidth = 1;
+		rest.gridheight = 1;
 		
-		//CREAR TEXTAREAS
-		pag = new JTextArea("");
+		panel.add(autor, rest);
+
 			
 		//CREAR BOTON DE MAPEAR
-		bBuscar = new JButton("Mapear página");
-		bBuscar.setActionCommand(controlador.Comandos.INICIA);//CREAR Y CAMBIAR COMANDO
+		bBuscar = new JButton("Seleccionar imagen");
+		bBuscar.setActionCommand(controlador.Comandos.BUSCA);
 		bBuscar.addActionListener(this);
 		
-		//CREAR SCROLLS
-		sP = new JScrollPane(pag, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);//CAMBIAR EL SETEO DEL TEXT AREA
+		rest.gridx = 0;
+		rest.gridy = 0;
+		rest.gridwidth = 2;
+		rest.gridheight = 1;
 		
+		panel.add(autor, rest);
 		
-		//AGREAGAR LOS ELEMENTOS A LOS PANELES
-		//PANEL CENTRAL
-			panelCent.add(sP);
 		
 		//AGREGAR LOS PANELES A LA VENTANA
-		this.add(panelCent, BorderLayout.CENTER);
+		this.add(panel);
 		
 	
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}//FIN CONSTRUCTOR DE LA VENTANA
 

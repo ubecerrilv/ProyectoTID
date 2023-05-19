@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,10 +45,15 @@ public class Ventana extends VentanaAGeneral{
 	JLabel dC, dR, imgRes;
 	JTextArea c1, c2, r1, r2;
 	
+	//COLLAGE
+	JPanel imgCollage, tamanos;
+	JButton agregarImg;
+	JLabel imgAgregadaA;
+	JCheckBox t1, t2, t3, t4, t5;
 	
 	public Ventana() {
 		super("Tratamiento de imágenes");
-		
+
 		try {
 			UIManager.setLookAndFeel(new NimbusLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
@@ -210,11 +216,13 @@ public class Ventana extends VentanaAGeneral{
 			
 			rest.weightx=0;
 			
-			
 			oBas.add(ec);
 			oBas.add(inv);
-			oBas.add(ad);
+			oBas.add(ad);//FIN OPERACIONES BASICAS
 			
+			imgCollage = new JPanel();
+			imgCollage.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Seleción de imágenes",TitledBorder.CENTER,TitledBorder.TOP));
+			imgCollage.setLayout(new GridBagLayout());
 				
 		
 		

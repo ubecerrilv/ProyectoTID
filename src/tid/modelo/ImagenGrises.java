@@ -3,8 +3,17 @@ package tid.modelo;
 public class ImagenGrises implements Data {
 
     private int[][] matrizIntensidades;
+    private String ruta;
 
-    public ImagenGrises() {
+    public String getRuta() {
+		return ruta;
+	}
+
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
+
+	public ImagenGrises() {
         super();
     }
 

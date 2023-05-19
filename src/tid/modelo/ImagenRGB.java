@@ -5,8 +5,17 @@ public class ImagenRGB implements Data {
     private int[][] matrizR;
     private int[][] matrizG;
     private int[][] matrizB;
+    String ruta;
 
-    public ImagenRGB() {
+    public String getRuta() {
+		return ruta;
+	}
+
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
+
+	public ImagenRGB() {
         super();
     }
 

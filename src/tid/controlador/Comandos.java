@@ -7,4 +7,11 @@ public class Comandos {
 	public static final String ATRAS = "atras";
 	public static final String BUSCA = "buscar";
 	public static final String GUARDA = "guardar";
+	public static final String ECUALIZAR = "ecualizar";
+	public static final String HISTA = "histograma anterior";
+	public static final String HISTN = "histograma nuevo";
+	public static final String INVB = "inversion binaria";
+	public static final String INVF = "inversion fotografica";
+	public static final String ADD = "adicionar";
+	public static final String SUS = "sustraer";
 }

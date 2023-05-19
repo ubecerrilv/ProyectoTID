@@ -9,7 +9,6 @@ import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
@@ -43,7 +42,7 @@ public class Operaciones {
         
         List<Mat> planosRGB = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
         Core.split(src, planosRGB); // Dividir la imagen en los planos RGB
-        int histTamano = 256; // Tamaï¿½o del histograma  
+        int histTamano = 256; // Tamanio del histograma  
         float[] rango = {0, 256}; // Rango del histograma
         MatOfFloat histRango = new MatOfFloat(rango); // Crear matriz de rango del histograma
         boolean acumular = false; // Acumular histograma
@@ -65,9 +64,32 @@ public class Operaciones {
         Core.normalize(histG, histG, 0, histImagen.rows(), Core.NORM_MINMAX);
         Core.normalize(histR, histR, 0, histImagen.rows(), Core.NORM_MINMAX);
 
-        //TODO Dibujar para cada canal
-        return null;
+        //Obtener datos para generar las gráficas
+        float[] bHistData = new float[(int) (histB.total() * histB.channels())];
+        histB.get(0, 0, bHistData);
+        float[] gHistData = new float[(int) (histG.total() * histG.channels())];
+        histG.get(0, 0, gHistData);
+        float[] rHistData = new float[(int) (histR.total() * histR.channels())];
+        histR.get(0, 0, rHistData);
+        // Graficación de cada punto para el histograma
+        for(int j = 1; j < histTamano; j++ ) {
+            Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(bHistData[j - 1])),
+                    new Point(binW * (j), histH - Math.round(bHistData[j])), new Scalar(255, 0, 0), 2);
+            Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(gHistData[j - 1])),
+                    new Point(binW * (j), histH - Math.round(gHistData[j])), new Scalar(0, 255, 0), 2);
+            Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(rHistData[j - 1])),
+                    new Point(binW * (j), histH - Math.round(rHistData[j])), new Scalar(0, 0, 255), 2);
+        }
+        return histImagen;
 
     }
+    
+    public Mat Inversion(ImagenGrises i) {
+    	Mat src = Imgcodecs.imread(i.getRuta());
+    	Mat dst = new Mat();
+    	Core.bitwise_not( src, dst); // Funcion que invierte los bits.
+    	return dst;
+    }
+    
 
 }

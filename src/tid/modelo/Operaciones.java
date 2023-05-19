@@ -43,7 +43,7 @@ public class Operaciones {
         
         List<Mat> planosRGB = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
         Core.split(src, planosRGB); // Dividir la imagen en los planos RGB
-        int histTamaño = 256; // Tamaño del histograma  
+        int histTamano = 256; // Tamaï¿½o del histograma  
         float[] rango = {0, 256}; // Rango del histograma
         MatOfFloat histRango = new MatOfFloat(rango); // Crear matriz de rango del histograma
         boolean acumular = false; // Acumular histograma
@@ -51,13 +51,13 @@ public class Operaciones {
         Mat histG = new Mat();
         Mat histB = new Mat(); // Crear matriz para guardar el histograma del plano R, G y B
         // Histograma del plano R, G y B
-        Imgproc.calcHist(planosRGB, new MatOfInt(0), new Mat(), histB, new MatOfInt(histTamaño), histRango, acumular);
-        Imgproc.calcHist(planosRGB, new MatOfInt(1), new Mat(), histG, new MatOfInt(histTamaño), histRango, acumular);
-        Imgproc.calcHist(planosRGB, new MatOfInt(2), new Mat(), histR, new MatOfInt(histTamaño), histRango, acumular);
+        Imgproc.calcHist(planosRGB, new MatOfInt(0), new Mat(), histB, new MatOfInt(histTamano), histRango, acumular);
+        Imgproc.calcHist(planosRGB, new MatOfInt(1), new Mat(), histG, new MatOfInt(histTamano), histRango, acumular);
+        Imgproc.calcHist(planosRGB, new MatOfInt(2), new Mat(), histR, new MatOfInt(histTamano), histRango, acumular);
         // Crear imagen para dibujar el histograma
         int histW = 512; 
         int histH = 400;
-        int binW = (int) Math.round((double) histW / histTamaño);
+        int binW = (int) Math.round((double) histW / histTamano);
         Mat histImagen = new Mat( histH, histW, CvType.CV_8UC3, new Scalar( 0,0,0));
 
         // Normalizar el histograma entre 0 y histImagen.rows() para que se encuentre en el rango

@@ -14,4 +14,6 @@ public class Comandos {
 	public static final String INVF = "inversion fotografica";
 	public static final String ADD = "adicionar";
 	public static final String SUS = "sustraer";
+	public static final String ACOLLAGE = "agregar imagen al collage";
+	public static final String GCOLLAGE = "generar el collage";
 }

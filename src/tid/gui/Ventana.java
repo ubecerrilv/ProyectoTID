@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
@@ -47,9 +49,10 @@ public class Ventana extends VentanaAGeneral{
 	
 	//COLLAGE
 	JPanel imgCollage, tamanos;
-	JButton agregarImg;
+	JButton agregarImg, generarCollage;
 	JLabel imgAgregadaA;
-	JCheckBox t1, t2, t3, t4, t5;
+	ButtonGroup grupo;
+	JRadioButton t1, t2, t3, t4;
 	
 	public Ventana() {
 		super("Tratamiento de imágenes");
@@ -65,7 +68,7 @@ public class Ventana extends VentanaAGeneral{
 		//CREACION DE LOS ELEMENTOS DE LOS PANELES PRINCIPALES
 		//CREACION Y ANAÑIR LOS PANELES DEL MENU
 			oBas = new JPanel(new GridLayout(3,1));
-			collage = new JPanel();
+			collage = new JPanel(new GridLayout(2,1));
 			rotacion = new JPanel();
 			filtros = new JPanel();
 			morfo = new JPanel();
@@ -167,7 +170,7 @@ public class Ventana extends VentanaAGeneral{
 			ad.add(r2, rest);//R2 AGREGADO
 			rest.fill=GridBagConstraints.CENTER;
 			
-			dC = new JLabel("<- de la columna a la columna->");
+			dC = new JLabel("←- de la columna a la columna -→");
 			rest.gridx = 1;
 			rest.gridy = 0;
 			rest.gridwidth = 1;
@@ -175,7 +178,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			ad.add(dC, rest);//DC AGREGADO
 			
-			dR = new JLabel("<- del renglón al renglón->");
+			dR = new JLabel("←- del renglón al renglón -→");
 			rest.gridx = 1;
 			rest.gridy = 1;
 			rest.gridwidth = 1;
@@ -220,11 +223,80 @@ public class Ventana extends VentanaAGeneral{
 			oBas.add(inv);
 			oBas.add(ad);//FIN OPERACIONES BASICAS
 			
+			//COLLAGE
 			imgCollage = new JPanel();
 			imgCollage.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Seleción de imágenes",TitledBorder.CENTER,TitledBorder.TOP));
 			imgCollage.setLayout(new GridBagLayout());
-				
+			agregarImg = new JButton("Agregar imagen");
+			agregarImg.setActionCommand(Comandos.ACOLLAGE);
+			agregarImg.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			imgCollage.add(agregarImg, rest);//AGREGAR IMAGEN AGREGADO
+			
+			imgAgregadaA = new JLabel();//AUN NO SE AGREGA HASTA TENER POR LO MENOS UNA IMAGEN
+			/*rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 2;
+			rest.gridheight = 1;
+			imgCollage.add(imgAgregadaA, rest);//ETIQUETA DE IMAGEN AGREGADO*/
+			
+			
+			tamanos = new JPanel();
+			tamanos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Tamaños",TitledBorder.CENTER,TitledBorder.TOP));
+			tamanos.setLayout(new GridBagLayout());
+			generarCollage = new JButton("Generar collage");
+			generarCollage.setActionCommand(Comandos.GCOLLAGE);
+			generarCollage.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 5;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			tamanos.add(generarCollage, rest);//BOTON DE GENERAR COLLAGE AGREGADO
+			
+			grupo = new ButtonGroup();
+			
+			t1 = new JRadioButton();
+			t1.setText("600x600");//COLOCAR ACTION COMMAND
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			grupo.add(t1);
+			tamanos.add(t1, rest);//TAMANO1 AGREGADO
+			
+			t2 = new JRadioButton();
+			t2.setText("600x750");
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			grupo.add(t2);
+			tamanos.add(t2, rest);//TAMANO2 AGREGADO
+			
+			t3 = new JRadioButton();
+			t3.setText("1080x1350");
+			rest.gridx = 0;
+			rest.gridy = 2;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			grupo.add(t3);
+			tamanos.add(t3, rest);//TAMANO3 AGREGADO
+			
+			t4 = new JRadioButton();
+			t4.setText("1080x1920");
+			rest.gridx = 0;
+			rest.gridy = 3;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			grupo.add(t4);
+			tamanos.add(t4, rest);//TAMANO3 AGREGADO
 		
+			collage.add(imgCollage);
+			collage.add(tamanos);
+			
 		
 		//CREAR E INSERTAR COMPONENTES
 		
@@ -278,7 +350,7 @@ public class Ventana extends VentanaAGeneral{
 		panel.add(bBuscar, rest);
 		
 		
-		bAtras = new JButton("<--");
+		bAtras = new JButton("←-");
 		bAtras.setActionCommand(tid.controlador.Comandos.ATRAS);
 		bAtras.addActionListener(this);
 		
@@ -290,7 +362,7 @@ public class Ventana extends VentanaAGeneral{
 		panel.add(bAtras, rest);
 		
 		
-		bDelante = new JButton("-->");
+		bDelante = new JButton("-→");
 		bDelante.setActionCommand(tid.controlador.Comandos.ADELANTE);
 		bDelante.addActionListener(this);
 		
@@ -385,6 +457,12 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.SUS://SUSTRACION
+		break;
+		
+	case Comandos.GCOLLAGE://GENERAR EL COLLAGE
+		break;
+		
+	case Comandos.ACOLLAGE://AGREGAR UNA IMAGEN AL COLLAGE
 		break;
 		}//FIN SWITCH
 	}//FIN ACTION

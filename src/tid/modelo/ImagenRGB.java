@@ -23,13 +23,14 @@ public class ImagenRGB implements Data {
 	private BufferedImage bufImg;
     
     public ImagenRGB(String ruta) {
+    	this.ruta = ruta;
     	this.matrizActual = Imgcodecs.imread(ruta);
     	this.bufImg  = (BufferedImage) HighGui.toBufferedImage(this.matrizActual);
     }
     
     public ImageIcon convertirMatAImg() {
     	Image img = HighGui.toBufferedImage(this.matrizActual);
-    	this.imagenActual = new ImageIcon(img);
+    	this.imagenActual = new ImageIcon(img.getScaledInstance(379, 439, 0));
     	return imagenActual;
     	
     }

@@ -40,6 +40,9 @@ import tid.modelo.ImagenRGB;
 @SuppressWarnings("serial")
 public class Ventana extends VentanaAGeneral{
 	BufferedImage imagenAct ;
+	ImagenRGB imgActRGB;
+	ImagenGrises imgActGris;
+	int cont1 =0;
 	
 	JPanel panel;
 	JLabel autor, img;
@@ -439,7 +442,11 @@ public void actionPerformed(ActionEvent e) {
 		
 		img.setIcon(icono);
 		imgRes.setText("Resolución de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
+
+		imgActRGB = new ImagenRGB(imagen.getSelectedFile().getPath());
 		
+		
+		this.cont1=0;
 		this.repaint();
 		
 		break;		
@@ -454,22 +461,25 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.ECUALIZAR://ECUALIZAR IMAGEN
-		if(this.imagenAct!=null) {
+		if(this.imagenAct!=null && cont1 ==0) {
 			if(esImagenRGB()) {
 				 if(JOptionPane.showConfirmDialog(this, "La imagen será transformada a escala de grises")==0) {
-					 ImagenRGB in = new ImagenRGB(), out;
-					 in.setBufImg(imagenAct);
-					 out = (ImagenRGB) this.control.ejecutaComando(Comandos.ECUALIZARGB, in,null );
-					 img.setIcon(out.getImagenActual());
+					 imgActGris = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB,null );
+					 img.setIcon(imgActGris.convertirMatAImg());
 					 this.repaint();
+					cont1++;
 				 }
 			}else {
-				ImagenGrises in = new ImagenGrises(), out;
-				in.setBufImg(imagenAct);
-				out = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZAGRIS, in, null);
-				img.setIcon(out.getImagenActual());
+				imgActGris = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB, null);
+				img.setIcon(imgActGris.convertirMatAImg());
 				this.repaint();
+				cont1++;
 			}
+		}else if(cont1 !=0){
+			imgActGris = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZAGRIS, this.imgActGris, null);
+			img.setIcon(imgActGris.convertirMatAImg());
+			this.repaint();
+			System.out.println(cont1);
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen primero");
 		}

@@ -19,18 +19,16 @@ public class Operaciones {
         return null;
     }
 
-    public ImagenRGB ecualizarImagenRGB(ImagenRGB i){
+    public ImagenGrises ecualizarImagenRGB(ImagenRGB i){
         Mat src = i.getMatrizActual();
-        System.out.println(i.getMatrizActual());
         Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY); // Convertir a escala de grises
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada
 
-        Imgproc.equalizeHist(src, dst); // Ecualizar imagen
-        i.setMatrizActual(dst);
-
         Imgproc.equalizeHist(src, dst); // Ecualizar imagenGris
-        i.setMatrizActual(dst);
-        return i;
+        ImagenGrises i2 = new ImagenGrises(i.getRuta());
+        i2.setMatrizActual(dst);
+  
+        return i2;
     }
 
     public ImagenGrises ecualizarImagen(ImagenGrises i){

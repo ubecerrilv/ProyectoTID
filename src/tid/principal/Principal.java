@@ -1,5 +1,7 @@
 package tid.principal;
 
+import org.opencv.core.Core;
+
 import tid.controlador.Comandos;
 import tid.controlador.ControlPrincipal;
 import tid.controlador.ControlVPrincipal;
@@ -9,6 +11,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 		//VARIABLES NECESARIAS
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 				ControlPrincipal CP; //CONTROL PRINCIPAL
 				
 				Ventana Vent;

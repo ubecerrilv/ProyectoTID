@@ -22,23 +22,23 @@ public class Operaciones {
         return null;
     }
 
-    public Mat ecualizarImagenRGB(ImagenRGB i){
-        Mat src = Imgcodecs.imread(i.getRuta()); // Cargar imagen 
+    public void ecualizarImagenRGB(ImagenRGB i){
+        Mat src = i.getMatrizActual();
         Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY); // Convertir a escala de grises
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada
         Imgproc.equalizeHist(src, dst); // Ecualizar imagen
-        return dst;
+        i.convertirMatAImg(dst);
     }
 
-    public Mat ecualizarImagen(ImagenGrises i){
+    public void ecualizarImagen(ImagenGrises i){
         Mat src = Imgcodecs.imread(i.getRuta()); // Cargar imagen
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada  
         Imgproc.equalizeHist(src, dst); // Ecualizar imagen
-        return dst; 
+        i.convertirMatAImg(dst);
     }
 
     public Mat ObtenerHistogramaOriginal(ImagenRGB i){
-        Mat src = Imgcodecs.imread(i.getRuta()); // Cargar imagen
+    	 Mat src = i.getMatrizActual(); // Cargar imagen
         
         List<Mat> planosRGB = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
         Core.split(src, planosRGB); // Dividir la imagen en los planos RGB
@@ -84,11 +84,11 @@ public class Operaciones {
 
     }
     
-    public Mat Inversion(ImagenGrises i) {
+    public void Inversion(ImagenGrises i) {
     	Mat src = Imgcodecs.imread(i.getRuta());
     	Mat dst = new Mat();
     	Core.bitwise_not( src, dst); // Funcion que invierte los bits.
-    	return dst;
+    	i.convertirMatAImg(dst);
     }
     
 

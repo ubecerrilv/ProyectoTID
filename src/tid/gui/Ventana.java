@@ -5,7 +5,11 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
@@ -302,7 +306,7 @@ public class Ventana extends VentanaAGeneral{
 		
 		//CREAR FILE CHOOSER
 		imagen = new JFileChooser();
-		imagen.setFileFilter(new FileNameExtensionFilter ("png","PNG", "jpg", "JPG", "tiff", "TIFF", "jpeg", "JPEG", "bmp", "BMP", "ppm", "PPM"));
+		imagen.setFileFilter(new FileNameExtensionFilter ("png","PNG", "jpg", "JPG", "tif", "TIF", "jpeg", "JPEG", "bmp", "BMP", "ppm", "PPM"));
 		
 		//CREAR PANELES
 		//PANEL CENTRAL
@@ -419,11 +423,17 @@ public void actionPerformed(ActionEvent e) {
 	switch (e.getActionCommand()) {//CASO DE LOS COMANDOS (BOTONES)
 	case Comandos.BUSCA://BUSCAR IMAGEN
 		imagen.showOpenDialog(this);
-		ImageIcon imagenR = new ImageIcon(imagen.getSelectedFile().getPath());
-		Icon icono = new ImageIcon(imagenR.getImage().getScaledInstance(img.getWidth(), img.getHeight(), Image.SCALE_DEFAULT));
+		BufferedImage imagenR = null;
+		try {
+			imagenR = ImageIO.read(new File(imagen.getSelectedFile().getPath()));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Icon icono = new ImageIcon(imagenR.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
 		
 		img.setIcon(icono);
-		imgRes.setText("Resolución de la imagen: "+imagenR.getIconWidth()+"x"+imagenR.getIconHeight());
+		imgRes.setText("Resolución de la imagen: "+imagenR.getWidth()+"x"+imagenR.getHeight());
 		
 		this.repaint();
 		

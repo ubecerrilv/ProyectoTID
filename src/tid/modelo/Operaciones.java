@@ -12,9 +12,6 @@ import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-import tid.modelo.ImagenGrises;
-import tid.modelo.ImagenRGB;
-
 public class Operaciones {
     public int[][] rGB2Gris(ImagenRGB i) {
         ImagenGrises imagenGris = new ImagenGrises();
@@ -24,6 +21,7 @@ public class Operaciones {
 
     public ImagenRGB ecualizarImagenRGB(ImagenRGB i){
         Mat src = i.getMatrizActual();
+        System.out.println(i.getMatrizActual());
         Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY); // Convertir a escala de grises
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada
 

@@ -1,5 +1,6 @@
 package tid.gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
@@ -28,13 +30,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import javax.xml.crypto.Data;
 
 import tid.controlador.Comandos;
+import tid.modelo.ImagenGrises;
+import tid.modelo.ImagenRGB;
 
 
 @SuppressWarnings("serial")
 public class Ventana extends VentanaAGeneral{
-	
+	BufferedImage imagenAct ;
 	
 	JPanel panel;
 	JLabel autor, img;
@@ -423,17 +428,17 @@ public void actionPerformed(ActionEvent e) {
 	switch (e.getActionCommand()) {//CASO DE LOS COMANDOS (BOTONES)
 	case Comandos.BUSCA://BUSCAR IMAGEN
 		imagen.showOpenDialog(this);
-		BufferedImage imagenR = null;
+		
 		try {
-			imagenR = ImageIO.read(new File(imagen.getSelectedFile().getPath()));
+			imagenAct = ImageIO.read(new File(imagen.getSelectedFile().getPath()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Icon icono = new ImageIcon(imagenR.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
+		Icon icono = new ImageIcon(imagenAct.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
 		
 		img.setIcon(icono);
-		imgRes.setText("Resolución de la imagen: "+imagenR.getWidth()+"x"+imagenR.getHeight());
+		imgRes.setText("Resolución de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
 		
 		this.repaint();
 		
@@ -449,6 +454,26 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.ECUALIZAR://ECUALIZAR IMAGEN
+		if(this.imagenAct!=null) {
+			if(esImagenRGB()) {
+				 if(JOptionPane.showConfirmDialog(this, "La imagen será transformada a escala de grises")==0) {
+					 ImagenRGB in = new ImagenRGB(), out;
+					 in.setBufImg(imagenAct);
+					 out = (ImagenRGB) this.control.ejecutaComando(Comandos.ECUALIZARGB, in,null );
+					 img.setIcon(out.getImagenActual());
+					 this.repaint();
+				 }
+			}else {
+				ImagenGrises in = new ImagenGrises(), out;
+				in.setBufImg(imagenAct);
+				out = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZAGRIS, in, null);
+				img.setIcon(out.getImagenActual());
+				this.repaint();
+			}
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen primero");
+		}
+		
 		
 		break;
 		
@@ -477,5 +502,22 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		}//FIN SWITCH
 	}//FIN ACTION
+
+public boolean esImagenRGB() {
+    int ancho = imagenAct.getWidth();
+    int alto = imagenAct.getHeight();
+
+    for (int y = 0; y < alto; y++) {
+        for (int x = 0; x < ancho; x++) {
+            int color = imagenAct.getRGB(x, y);
+            Color c = new Color(color);
+            if (c.getRed() != c.getGreen() || c.getRed() != c.getBlue() || c.getGreen() != c.getBlue()) {
+                return true; // Se encontró al menos un píxel con componente de color diferente
+            }
+        }
+    }
+
+    return false; // Todos los píxeles tienen las mismas componentes de color (escala de grises)
+}
 	
 }//FIN CLASE VENTANA

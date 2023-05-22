@@ -20,13 +20,15 @@ public class ImagenRGB implements Data {
     
     private Mat matrizActual;
     private ImageIcon imagenActual;
+	private BufferedImage bufImg;
     
     public ImagenRGB(String ruta) {
     	this.matrizActual = Imgcodecs.imread(ruta);
+    	this.bufImg  = (BufferedImage) HighGui.toBufferedImage(this.matrizActual);
     }
     
-    public ImageIcon convertirMatAImg(Mat m) {
-    	Image img = HighGui.toBufferedImage(m);
+    public ImageIcon convertirMatAImg() {
+    	Image img = HighGui.toBufferedImage(this.matrizActual);
     	this.imagenActual = new ImageIcon(img);
     	return imagenActual;
     	
@@ -83,5 +85,14 @@ public class ImagenRGB implements Data {
 	public void setImagenActual(ImageIcon imagenActual) {
 		this.imagenActual = imagenActual;
 	}
+
+	public BufferedImage getBufImg() {
+		return bufImg;
+	}
+
+	public void setBufImg(BufferedImage bufImg) {
+		this.bufImg = bufImg;
+	}
+	
 
 }

@@ -22,23 +22,25 @@ public class Operaciones {
         return null;
     }
 
-    public void ecualizarImagenRGB(ImagenRGB i){
+    public ImagenRGB ecualizarImagenRGB(ImagenRGB i){
         Mat src = i.getMatrizActual();
         Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY); // Convertir a escala de grises
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada
 
         Imgproc.equalizeHist(src, dst); // Ecualizar imagen
-        i.convertirMatAImg(dst);
+        i.setMatrizActual(dst);
 
         Imgproc.equalizeHist(src, dst); // Ecualizar imagenGris
-        i.convertirMatAImg(dst);
+        i.setMatrizActual(dst);
+        return i;
     }
 
-    public void ecualizarImagen(ImagenGrises i){
-        Mat src = Imgcodecs.imread(i.getRuta()); // Cargar imagen
+    public ImagenGrises ecualizarImagen(ImagenGrises i){
+        Mat src = i.getMatrizActual(); // Cargar imagen
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada  
         Imgproc.equalizeHist(src, dst); // Ecualizar imagen
-        i.convertirMatAImg(dst);
+        i.setMatrizActual(dst);
+        return i;
     }
 
     public Mat ObtenerHistogramaOriginal(ImagenRGB i){
@@ -92,7 +94,7 @@ public class Operaciones {
     	Mat src = Imgcodecs.imread(i.getRuta());
     	Mat dst = new Mat();
     	Core.bitwise_not( src, dst); // Funcion que invierte los bits.
-    	i.convertirMatAImg(dst);
+    	i.setMatrizActual(dst);
     }
     
 

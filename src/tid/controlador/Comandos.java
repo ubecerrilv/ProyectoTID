@@ -8,6 +8,8 @@ public class Comandos {
 	public static final String BUSCA = "buscar";
 	public static final String GUARDA = "guardar";
 	public static final String ECUALIZAR = "ecualizar";
+	public static final String ECUALIZARGB = "ecualizarRGB";
+	public static final String ECUALIZAGRIS = "ecualizarGRIS";
 	public static final String HISTA = "histograma anterior";
 	public static final String HISTN = "histograma nuevo";
 	public static final String INVB = "inversion binaria";

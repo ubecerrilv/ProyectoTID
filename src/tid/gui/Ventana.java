@@ -449,6 +449,7 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.ECUALIZAR://ECUALIZAR IMAGEN
+		
 		break;
 		
 	case Comandos.HISTA://MOSTRAR HISTOGRAMA ANTERIOR

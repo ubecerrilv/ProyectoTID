@@ -26,7 +26,7 @@ public class Operaciones {
         Mat src = Imgcodecs.imread(i.getRuta()); // Cargar imagen 
         Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY); // Convertir a escala de grises
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada
-        Imgproc.equalizeHist(src, dst); // Ecualizar imagen
+        Imgproc.equalizeHist(src, dst); // Ecualizar imagenGris
         return dst;
     }
 
@@ -64,14 +64,14 @@ public class Operaciones {
         Core.normalize(histG, histG, 0, histImagen.rows(), Core.NORM_MINMAX);
         Core.normalize(histR, histR, 0, histImagen.rows(), Core.NORM_MINMAX);
 
-        //Obtener datos para generar las gráficas
+        //Obtener datos para generar las grï¿½ficas
         float[] bHistData = new float[(int) (histB.total() * histB.channels())];
         histB.get(0, 0, bHistData);
         float[] gHistData = new float[(int) (histG.total() * histG.channels())];
         histG.get(0, 0, gHistData);
         float[] rHistData = new float[(int) (histR.total() * histR.channels())];
         histR.get(0, 0, rHistData);
-        // Graficación de cada punto para el histograma
+        // Graficaciï¿½n de cada punto para el histograma
         for(int j = 1; j < histTamano; j++ ) {
             Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(bHistData[j - 1])),
                     new Point(binW * (j), histH - Math.round(bHistData[j])), new Scalar(255, 0, 0), 2);

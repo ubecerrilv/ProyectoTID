@@ -53,6 +53,15 @@ public class ControlVPrincipal extends ControlAbs {
 				return null;
 			}
 			
+		case Comandos.HISTA:
+			Imagen img2 = (Imagen)d;
+			op.ObtenerHistogramaOriginal(img2, "original");
+			break;
+			
+		case Comandos.HISTN:
+			Imagen img3 = (Imagen)d;
+			op.ObtenerHistogramaOriginal(img3, "ecualizado");
+			break;
 			
 		}
 		return null;//REGRESAR UN MODELO

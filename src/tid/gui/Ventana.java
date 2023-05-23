@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -17,7 +15,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,7 +28,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.xml.crypto.Data;
 
 import tid.controlador.Comandos;
 import tid.modelo.Imagen;
@@ -386,7 +382,7 @@ public class Ventana extends VentanaAGeneral{
 		
 		
 		bGuardar = new JButton("Guardar imagen");
-		bGuardar.setActionCommand(tid.controlador.Comandos.ADELANTE);
+		bGuardar.setActionCommand(tid.controlador.Comandos.GUARDA);
 		bGuardar.addActionListener(this);
 		
 		rest.gridx = 2;
@@ -469,6 +465,15 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.GUARDA://GUARDAR IMAGEN
+		try {
+			File archivo = new File("C:\\Users\\ulise\\Downloads\\no.png");
+			archivo.createNewFile();
+			ImageIO.write(imgActRGB.getBufImg(), "png", archivo);
+			JOptionPane.showMessageDialog(this, "Imagen guardada");
+			
+		}catch(IOException e1){
+			JOptionPane.showMessageDialog(this, "Error al guardar la imagen");
+		}
 		break;
 		
 	case Comandos.ECUALIZAR://ECUALIZAR IMAGEN
@@ -498,9 +503,11 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.HISTA://MOSTRAR HISTOGRAMA ANTERIOR
+		this.control.ejecutaComando(Comandos.HISTA, imgActRGB, null);
 		break;
 		
 	case Comandos.HISTN://MOSTRAR HISTOGRAMA NUEVO
+		this.control.ejecutaComando(Comandos.HISTN, imgActRGB, null);
 		break;
 		
 	case Comandos.INVB://INVERSION BINARIA

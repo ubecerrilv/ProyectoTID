@@ -1,9 +1,6 @@
 package tid.modelo;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 
 import javax.swing.ImageIcon;
 
@@ -29,8 +26,8 @@ public class Imagen implements Data {
     }
     
     public ImageIcon convertirMatAImg() {
-    	Image img = HighGui.toBufferedImage(this.matrizActual);
-    	this.imagenActual = new ImageIcon(img.getScaledInstance(379, 439, 0));
+    	this.bufImg  = (BufferedImage) HighGui.toBufferedImage(this.matrizActual);
+    	this.imagenActual =new ImageIcon(bufImg.getScaledInstance(379, 439, 0));
     	return imagenActual;
     	
     }
@@ -94,6 +91,5 @@ public class Imagen implements Data {
 	public void setBufImg(BufferedImage bufImg) {
 		this.bufImg = bufImg;
 	}
-	
 
 }

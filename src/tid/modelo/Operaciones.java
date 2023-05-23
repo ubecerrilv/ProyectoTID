@@ -9,6 +9,7 @@ import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
+import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
@@ -34,7 +35,7 @@ public class Operaciones {
         return i;
     }
 
-    public Mat ObtenerHistogramaOriginal(Imagen i){
+    public Mat ObtenerHistogramaOriginal(Imagen i, String s){
     	 Mat src = i.getMatrizActual(); // Cargar imagen
         
         List<Mat> planosRGB = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
@@ -77,6 +78,7 @@ public class Operaciones {
             Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(rHistData[j - 1])),
                     new Point(binW * (j), histH - Math.round(rHistData[j])), new Scalar(0, 0, 255), 2);
         }
+        HighGui.imshow("Hitograma"+ s, histImagen);
         return histImagen;
 
     }

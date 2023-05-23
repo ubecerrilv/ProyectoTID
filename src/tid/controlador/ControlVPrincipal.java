@@ -54,14 +54,15 @@ public class ControlVPrincipal extends ControlAbs {
 			}
 			
 		case Comandos.HISTA:
-			Imagen img2 = (Imagen)d;
-			op.ObtenerHistogramaOriginal(img2, "original");
-			break;
+			Imagen respuesta = new Imagen();
+			respuesta.setMatrizActual(op.ObtenerHistogramaOriginal(imagenes.get(0), "original"));
+			return respuesta;		
 			
 		case Comandos.HISTN:
 			Imagen img3 = (Imagen)d;
-			op.ObtenerHistogramaOriginal(img3, "ecualizado");
-			break;
+			Imagen respuesta1 = new Imagen();
+			respuesta1.setMatrizActual(op.ObtenerHistogramaOriginal(img3, "ecualizado"));
+			return respuesta1;
 			
 		}
 		return null;//REGRESAR UN MODELO

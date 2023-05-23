@@ -62,7 +62,7 @@ public class Ventana extends VentanaAGeneral{
 	JRadioButton t1, t2, t3, t4;
 	
 	public Ventana() {
-		super("Tratamiento de imágenes");
+		super("Tratamiento de imÃ¡genes");
 
 		try {
 			UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -73,7 +73,7 @@ public class Ventana extends VentanaAGeneral{
 		GridBagConstraints rest = new GridBagConstraints();
 		
 		//CREACION DE LOS ELEMENTOS DE LOS PANELES PRINCIPALES
-		//CREACION Y ANAÑIR LOS PANELES DEL MENU
+		//CREACION Y ANAÃ‘IR LOS PANELES DEL MENU
 			oBas = new JPanel(new GridLayout(3,1));
 			collage = new JPanel(new GridLayout(2,1));
 			rotacion = new JPanel();
@@ -83,7 +83,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			//FALTA AGREGAR LO QUE LLEVA CADA PANEL
 			ec = new JPanel();
-			ec.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Ecualización",TitledBorder.CENTER,TitledBorder.TOP));
+			ec.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"EcualizaciÃ³n",TitledBorder.CENTER,TitledBorder.TOP));
 			ec.setLayout(new GridBagLayout());
 			btnEcz = new JButton("Ecualizar imagen");
 			btnEcz.setActionCommand(Comandos.ECUALIZAR);
@@ -117,9 +117,9 @@ public class Ventana extends VentanaAGeneral{
 
 			
 			inv =  new JPanel();
-			inv.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Inversión",TitledBorder.CENTER,TitledBorder.TOP));
+			inv.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"InversiÃ³n",TitledBorder.CENTER,TitledBorder.TOP));
 			inv.setLayout(new GridBagLayout());
-			btnInvB = new JButton("Inversión binaria");
+			btnInvB = new JButton("InversiÃ³n binaria");
 			btnInvB.setActionCommand(Comandos.INVB);
 			btnInvB.addActionListener(this);
 			rest.gridx = 0;
@@ -129,7 +129,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			inv.add(btnInvB, rest);//INVERSION BINARIA AGREGADO
 			
-			btnInvF = new JButton("Inversión fotográfica");
+			btnInvF = new JButton("InversiÃ³n fotogrÃ¡fica");
 			btnInvF.setActionCommand(Comandos.INVF);
 			btnInvF.addActionListener(this);
 			rest.gridx = 2;
@@ -140,7 +140,7 @@ public class Ventana extends VentanaAGeneral{
 			inv.add(btnInvF, rest);//INVERSION FOTOGRAFICA AGREGADO
 			
 			ad = new JPanel();
-			ad.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Adición y sustracción",TitledBorder.CENTER,TitledBorder.TOP));
+			ad.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"AdiciÃ³n y sustracciÃ³n",TitledBorder.CENTER,TitledBorder.TOP));
 			ad.setLayout(new GridBagLayout());
 			c1 = new JTextArea();
 			rest.gridx = 0;
@@ -177,7 +177,7 @@ public class Ventana extends VentanaAGeneral{
 			ad.add(r2, rest);//R2 AGREGADO
 			rest.fill=GridBagConstraints.CENTER;
 			
-			dC = new JLabel("←- de la columna a la columna -→");
+			dC = new JLabel("â†�- de la columna a la columna -â†’");
 			rest.gridx = 1;
 			rest.gridy = 0;
 			rest.gridwidth = 1;
@@ -185,7 +185,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			ad.add(dC, rest);//DC AGREGADO
 			
-			dR = new JLabel("←- del renglón al renglón -→");
+			dR = new JLabel("â†�- del renglÃ³n al renglÃ³n -â†’");
 			rest.gridx = 1;
 			rest.gridy = 1;
 			rest.gridwidth = 1;
@@ -232,7 +232,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			//COLLAGE
 			imgCollage = new JPanel();
-			imgCollage.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Seleción de imágenes",TitledBorder.CENTER,TitledBorder.TOP));
+			imgCollage.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"SeleciÃ³n de imÃ¡genes",TitledBorder.CENTER,TitledBorder.TOP));
 			imgCollage.setLayout(new GridBagLayout());
 			agregarImg = new JButton("Agregar imagen");
 			agregarImg.setActionCommand(Comandos.ACOLLAGE);
@@ -252,7 +252,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			
 			tamanos = new JPanel();
-			tamanos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Tamaños",TitledBorder.CENTER,TitledBorder.TOP));
+			tamanos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"TamaÃ±os",TitledBorder.CENTER,TitledBorder.TOP));
 			tamanos.setLayout(new GridBagLayout());
 			generarCollage = new JButton("Generar collage");
 			generarCollage.setActionCommand(Comandos.GCOLLAGE);
@@ -318,7 +318,7 @@ public class Ventana extends VentanaAGeneral{
 		panel.setBorder(new EmptyBorder(5,5,5,5));
 
 		//CREAR ETIQUETAS
-		autor = new JLabel("<html>Realizado por:<br><ul><li>Ulises Becerril Valdés</li> <li>Marcos Daniel Gómez Velázquez</li><li>Raúl Salazar Godínez</li></ul></html>");
+		autor = new JLabel("<html>Realizado por:<br><ul><li>Ulises Becerril ValdÃ©s</li> <li>Marcos Daniel GÃ³mez VelÃ¡zquez</li><li>RaÃºl Salazar GodÃ­nez</li></ul></html>");
 		rest.gridx = 3;
 		rest.gridy = 2;
 		rest.weightx = 1.0;
@@ -357,7 +357,7 @@ public class Ventana extends VentanaAGeneral{
 		panel.add(bBuscar, rest);
 		
 		
-		bAtras = new JButton("←-");
+		bAtras = new JButton("â†�-");
 		bAtras.setActionCommand(tid.controlador.Comandos.ATRAS);
 		bAtras.addActionListener(this);
 		
@@ -369,7 +369,7 @@ public class Ventana extends VentanaAGeneral{
 		panel.add(bAtras, rest);
 		
 		
-		bDelante = new JButton("-→");
+		bDelante = new JButton("-â†’");
 		bDelante.setActionCommand(tid.controlador.Comandos.ADELANTE);
 		bDelante.addActionListener(this);
 		
@@ -395,11 +395,11 @@ public class Ventana extends VentanaAGeneral{
 		
 		//CREAR, AGREGAR LOS ELEMENTOS Y AGREGAR MENU
 		menu = new JTabbedPane();
-		menu.addTab("Básicos", oBas);
+		menu.addTab("BÃ¡sicos", oBas);
 		menu.addTab("Collage", collage);
-		menu.addTab("Rotación", rotacion);
+		menu.addTab("RotaciÃ³n", rotacion);
 		menu.addTab("Filtros", filtros);
-		menu.addTab("Op. morfológicas", morfo);
+		menu.addTab("Op. morfolÃ³gicas", morfo);
 		menu.addTab("Segmentacion", segmentacion);
 		
 		rest.gridx = 3;
@@ -436,7 +436,7 @@ public void actionPerformed(ActionEvent e) {
 		Icon icono = new ImageIcon(imagenAct.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
 		
 		img.setIcon(icono);
-		imgRes.setText("Resolución de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
+		imgRes.setText("ResoluciÃ³n de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
 
 		imgActRGB = new Imagen(imagen.getSelectedFile().getPath());
 		
@@ -479,7 +479,7 @@ public void actionPerformed(ActionEvent e) {
 	case Comandos.ECUALIZAR://ECUALIZAR IMAGEN
 		if(this.imagenAct!=null && cont1 ==0) {
 			if(esImagenRGB()) {
-				 if(JOptionPane.showConfirmDialog(this, "La imagen será transformada a escala de grises")==0) {
+				 if(JOptionPane.showConfirmDialog(this, "La imagen serÃ¡ transformada a escala de grises")==0) {
 					 imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB,null );
 					 img.setIcon(imgActRGB.convertirMatAImg());
 					 this.repaint();
@@ -503,11 +503,13 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.HISTA://MOSTRAR HISTOGRAMA ANTERIOR
-		this.control.ejecutaComando(Comandos.HISTA, imgActRGB, null);
+		Imagen img = (Imagen) this.control.ejecutaComando(Comandos.HISTA, null, null);
+		JOptionPane.showMessageDialog(this, new JLabel(img.convertirMatAImg()));
 		break;
 		
 	case Comandos.HISTN://MOSTRAR HISTOGRAMA NUEVO
-		this.control.ejecutaComando(Comandos.HISTN, imgActRGB, null);
+		Imagen img1 = (Imagen) this.control.ejecutaComando(Comandos.HISTN, imgActRGB, null);
+		JOptionPane.showMessageDialog(this, new JLabel(img1.convertirMatAImg()));
 		break;
 		
 	case Comandos.INVB://INVERSION BINARIA
@@ -539,12 +541,12 @@ public boolean esImagenRGB() {
             int color = imagenAct.getRGB(x, y);
             Color c = new Color(color);
             if (c.getRed() != c.getGreen() || c.getRed() != c.getBlue() || c.getGreen() != c.getBlue()) {
-                return true; // Se encontró al menos un píxel con componente de color diferente
+                return true; // Se encontrÃ³ al menos un pÃ­xel con componente de color diferente
             }
         }
     }
 
-    return false; // Todos los píxeles tienen las mismas componentes de color (escala de grises)
+    return false; // Todos los pÃ­xeles tienen las mismas componentes de color (escala de grises)
 }
 	
 }//FIN CLASE VENTANA

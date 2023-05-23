@@ -38,19 +38,14 @@ public class Operaciones {
     public Mat ObtenerHistogramaOriginal(Imagen i, String s){
     	 Mat src = i.getMatrizActual(); // Cargar imagen
         
-        List<Mat> planosRGB = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
-        Core.split(src, planosRGB); // Dividir la imagen en los planos RGB
+        List<Mat> plano = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
+        Core.split(src, plano);
         int histTamano = 256; // Tamanio del histograma  
         float[] rango = {0, 256}; // Rango del histograma
         MatOfFloat histRango = new MatOfFloat(rango); // Crear matriz de rango del histograma
         boolean acumular = false; // Acumular histograma
-        Mat histR = new Mat();
-        Mat histG = new Mat();
-        Mat histB = new Mat(); // Crear matriz para guardar el histograma del plano R, G y B
-        // Histograma del plano R, G y B
-        Imgproc.calcHist(planosRGB, new MatOfInt(0), new Mat(), histB, new MatOfInt(histTamano), histRango, acumular);
-        Imgproc.calcHist(planosRGB, new MatOfInt(1), new Mat(), histG, new MatOfInt(histTamano), histRango, acumular);
-        Imgproc.calcHist(planosRGB, new MatOfInt(2), new Mat(), histR, new MatOfInt(histTamano), histRango, acumular);
+        Mat hist = new Mat();
+        Imgproc.calcHist(plano, new MatOfInt(0), new Mat(), hist, new MatOfInt(histTamano), histRango, acumular);
         // Crear imagen para dibujar el histograma
         int histW = 512; 
         int histH = 400;
@@ -58,27 +53,19 @@ public class Operaciones {
         Mat histImagen = new Mat( histH, histW, CvType.CV_8UC3, new Scalar( 0,0,0));
 
         // Normalizar el histograma entre 0 y histImagen.rows() para que se encuentre en el rango
-        Core.normalize(histB, histB, 0, histImagen.rows(), Core.NORM_MINMAX);
-        Core.normalize(histG, histG, 0, histImagen.rows(), Core.NORM_MINMAX);
-        Core.normalize(histR, histR, 0, histImagen.rows(), Core.NORM_MINMAX);
+        Core.normalize(hist, hist, 0, histImagen.rows(), Core.NORM_MINMAX);
 
         //Obtener datos para generar las gr�ficas
-        float[] bHistData = new float[(int) (histB.total() * histB.channels())];
-        histB.get(0, 0, bHistData);
-        float[] gHistData = new float[(int) (histG.total() * histG.channels())];
-        histG.get(0, 0, gHistData);
-        float[] rHistData = new float[(int) (histR.total() * histR.channels())];
-        histR.get(0, 0, rHistData);
+        float[] bHistData = new float[(int) (hist.total() * hist.channels())];
+        hist.get(0, 0, bHistData);
         // Graficaci�n de cada punto para el histograma
         for(int j = 1; j < histTamano; j++ ) {
             Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(bHistData[j - 1])),
                     new Point(binW * (j), histH - Math.round(bHistData[j])), new Scalar(255, 0, 0), 2);
-            Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(gHistData[j - 1])),
-                    new Point(binW * (j), histH - Math.round(gHistData[j])), new Scalar(0, 255, 0), 2);
-            Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(rHistData[j - 1])),
-                    new Point(binW * (j), histH - Math.round(rHistData[j])), new Scalar(0, 0, 255), 2);
         }
-        HighGui.imshow("Hitograma"+ s, histImagen);
+        System.out.println("sexo?");
+        HighGui.imshow("Histograma"+ s, histImagen);
+        System.out.println("delicioso");
         return histImagen;
 
     }

@@ -34,15 +34,13 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.xml.crypto.Data;
 
 import tid.controlador.Comandos;
-import tid.modelo.ImagenGrises;
-import tid.modelo.ImagenRGB;
+import tid.modelo.Imagen;
 
 
 @SuppressWarnings("serial")
 public class Ventana extends VentanaAGeneral{
 	BufferedImage imagenAct ;
-	ImagenRGB imgActRGB;
-	ImagenGrises imgActGris;
+	Imagen imgActRGB;
 	int cont1 =0;
 	
 	JPanel panel;
@@ -444,7 +442,7 @@ public void actionPerformed(ActionEvent e) {
 		img.setIcon(icono);
 		imgRes.setText("Resolución de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
 
-		imgActRGB = new ImagenRGB(imagen.getSelectedFile().getPath());
+		imgActRGB = new Imagen(imagen.getSelectedFile().getPath());
 		
 		this.control.ejecutaComando(Comandos.BUSCA, imgActRGB, null);
 		
@@ -454,10 +452,20 @@ public void actionPerformed(ActionEvent e) {
 		break;		
 	
 	case Comandos.ATRAS: //REGRESAR UN PASO
+		imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ATRAS, null, null);
 		
+		if(imgActRGB != null) {
+			img.setIcon(imgActRGB.convertirMatAImg());
+			this.repaint();
+		}
 		break;
 		
 	case Comandos.ADELANTE:// ADELANTAR UN PASO
+		imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ADELANTE, null, null);
+		if(imgActRGB != null) {
+			img.setIcon(imgActRGB.convertirMatAImg());
+			this.repaint();
+		}
 		break;
 		
 	case Comandos.GUARDA://GUARDAR IMAGEN
@@ -467,20 +475,20 @@ public void actionPerformed(ActionEvent e) {
 		if(this.imagenAct!=null && cont1 ==0) {
 			if(esImagenRGB()) {
 				 if(JOptionPane.showConfirmDialog(this, "La imagen será transformada a escala de grises")==0) {
-					 imgActGris = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB,null );
-					 img.setIcon(imgActGris.convertirMatAImg());
+					 imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB,null );
+					 img.setIcon(imgActRGB.convertirMatAImg());
 					 this.repaint();
 					cont1++;
 				 }
 			}else {
-				imgActGris = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB, null);
-				img.setIcon(imgActGris.convertirMatAImg());
+				imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB, null);
+				img.setIcon(imgActRGB.convertirMatAImg());
 				this.repaint();
 				cont1++;
 			}
 		}else if(cont1 !=0){
-			imgActGris = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZAGRIS, this.imgActGris, null);
-			img.setIcon(imgActGris.convertirMatAImg());
+			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ECUALIZAGRIS, this.imgActRGB, null);
+			img.setIcon(imgActRGB.convertirMatAImg());
 			this.repaint();
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen primero");

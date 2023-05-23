@@ -12,7 +12,7 @@ import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 
 // Clase que contiene la imagen RGB 
-public class ImagenRGB implements Data {
+public class Imagen implements Data {
     private int[][] matrizR;
     private int[][] matrizG;
     private int[][] matrizB;
@@ -22,7 +22,7 @@ public class ImagenRGB implements Data {
     private ImageIcon imagenActual;
 	private BufferedImage bufImg;
     
-    public ImagenRGB(String ruta) {
+    public Imagen(String ruta) {
     	this.ruta = ruta;
     	this.matrizActual = Imgcodecs.imread(ruta);
     	this.bufImg  = (BufferedImage) HighGui.toBufferedImage(this.matrizActual);
@@ -43,7 +43,7 @@ public class ImagenRGB implements Data {
 		this.ruta = ruta;
 	}
 
-	public ImagenRGB() {
+	public Imagen() {
         super();
     }
 

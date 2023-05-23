@@ -3,13 +3,12 @@ package tid.controlador;
 import java.util.ArrayList;
 
 import tid.modelo.Data;
-import tid.modelo.ImagenGrises;
-import tid.modelo.ImagenRGB;
+import tid.modelo.Imagen;
 import tid.modelo.Operaciones;
 
 public class ControlVPrincipal extends ControlAbs {
 	Operaciones op;
-	ArrayList<Data> imagenes;
+	ArrayList<Imagen> imagenes;
 	int imgInd;
 
 	@Override
@@ -17,22 +16,22 @@ public class ControlVPrincipal extends ControlAbs {
 		op = new Operaciones();
 		switch(c) {
 		case Comandos.BUSCA:
-			imagenes =  new ArrayList<Data>();
+			imagenes =  new ArrayList<Imagen>();
 			imgInd=0;
-			ImagenRGB img0 = (ImagenRGB)d;
+			Imagen img0 = (Imagen)d;
 			imagenes.add(img0);
 			break;
 				
 		case Comandos.ECUALIZARGB:
-			ImagenRGB img = (ImagenRGB) d;
-			ImagenGrises res = op.ecualizarImagenRGB(img);
+			Imagen img = (Imagen) d;
+			Imagen res = op.ecualizarImagenRGB(img);
 			imagenes.add(res);
 			imgInd++;
 			return res;
 			
 		case Comandos.ECUALIZAGRIS:
-			ImagenGrises img1 = (ImagenGrises)d;
-			ImagenGrises res2 = op.ecualizarImagen(img1);
+			Imagen img1 = (Imagen)d;
+			Imagen res2 = op.ecualizarImagen(img1);
 			imagenes.add(res2);
 			imgInd++;
 			return res2;
@@ -40,7 +39,18 @@ public class ControlVPrincipal extends ControlAbs {
 		case Comandos.ATRAS:
 			if(imgInd>0) {
 				imgInd-=1;
+				System.out.println(imgInd);
 				return imagenes.get(imgInd);
+			}else {
+				return null;
+			}
+			
+		case Comandos.ADELANTE:
+			if(imgInd<imagenes.size()-1) {
+				imgInd+=1;
+				return imagenes.get(imgInd);
+			}else {
+				return null;
 			}
 			
 			

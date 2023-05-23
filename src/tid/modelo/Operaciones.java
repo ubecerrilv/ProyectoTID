@@ -13,25 +13,20 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class Operaciones {
-    public int[][] rGB2Gris(ImagenRGB i) {
-        ImagenGrises imagenGris = new ImagenGrises();
 
-        return null;
-    }
-
-    public ImagenGrises ecualizarImagenRGB(ImagenRGB i){
+    public Imagen ecualizarImagenRGB(Imagen i){
         Mat src = i.getMatrizActual();
         Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY); // Convertir a escala de grises
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada
 
         Imgproc.equalizeHist(src, dst); // Ecualizar imagenGris
-        ImagenGrises i2 = new ImagenGrises(i.getRuta());
+        Imagen i2 = new Imagen(i.getRuta());
         i2.setMatrizActual(dst);
   
         return i2;
     }
 
-    public ImagenGrises ecualizarImagen(ImagenGrises i){
+    public Imagen ecualizarImagen(Imagen i){
         Mat src = i.getMatrizActual(); // Cargar imagen
         Mat dst = new Mat(); // Crear matriz para guardar la imagen ecualizada  
         Imgproc.equalizeHist(src, dst); // Ecualizar imagen
@@ -39,7 +34,7 @@ public class Operaciones {
         return i;
     }
 
-    public Mat ObtenerHistogramaOriginal(ImagenRGB i){
+    public Mat ObtenerHistogramaOriginal(Imagen i){
     	 Mat src = i.getMatrizActual(); // Cargar imagen
         
         List<Mat> planosRGB = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
@@ -86,7 +81,7 @@ public class Operaciones {
 
     }
     
-    public void Inversion(ImagenGrises i) {
+    public void Inversion(Imagen i) {
     	Mat src = Imgcodecs.imread(i.getRuta());
     	Mat dst = new Mat();
     	Core.bitwise_not( src, dst); // Funcion que invierte los bits.

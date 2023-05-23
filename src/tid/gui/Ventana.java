@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -445,6 +446,7 @@ public void actionPerformed(ActionEvent e) {
 
 		imgActRGB = new ImagenRGB(imagen.getSelectedFile().getPath());
 		
+		this.control.ejecutaComando(Comandos.BUSCA, imgActRGB, null);
 		
 		this.cont1=0;
 		this.repaint();
@@ -452,6 +454,7 @@ public void actionPerformed(ActionEvent e) {
 		break;		
 	
 	case Comandos.ATRAS: //REGRESAR UN PASO
+		
 		break;
 		
 	case Comandos.ADELANTE:// ADELANTAR UN PASO
@@ -479,7 +482,6 @@ public void actionPerformed(ActionEvent e) {
 			imgActGris = (ImagenGrises) this.control.ejecutaComando(Comandos.ECUALIZAGRIS, this.imgActGris, null);
 			img.setIcon(imgActGris.convertirMatAImg());
 			this.repaint();
-			System.out.println(cont1);
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen primero");
 		}

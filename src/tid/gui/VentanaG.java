@@ -43,6 +43,7 @@ public class VentanaG extends VentanaAGeneral {
 		carpeta.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
 		GridBagConstraints rest = new GridBagConstraints();
+		rest.fill = GridBagConstraints.HORIZONTAL;
 		rest.weighty = 1.0;
 		rest.weightx=1.0;
 		//CREAR PANEL Y LAYOUT
@@ -109,8 +110,8 @@ public class VentanaG extends VentanaAGeneral {
 		panel.add(guardar, rest);
 		
 		this.add(panel);
-		this.setResizable(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}//FIN CONSTRUCTOR
 
 	@Override
@@ -159,6 +160,15 @@ public class VentanaG extends VentanaAGeneral {
 	public void setExtention(String extention) {
 		this.extention = extention;
 	}
+
+	public JTextArea getNombreR() {
+		return nombreR;
+	}
+
+	public void setNombreR(JTextArea nombreR) {
+		this.nombreR = nombreR;
+	}
+	
 	
 	
 

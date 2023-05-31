@@ -1,9 +1,11 @@
 package tid.controlador;
 
 
+import java.util.ArrayList;
+
 import tid.gui.Ventana;
-import tid.gui.VentanaG;
 import tid.modelo.Data;
+import tid.modelo.Imagen;
 
 public class ControlPrincipal extends ControlAbs{
 	
@@ -43,6 +45,12 @@ public class ControlPrincipal extends ControlAbs{
 		}
 		return null;	
 		
+	}
+
+	@Override
+	public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }//FIN CLASE

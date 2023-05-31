@@ -52,7 +52,6 @@ public class ControlVPrincipal extends ControlAbs {
 		case Comandos.ATRAS:
 			if(imgInd>0) {
 				imgInd-=1;
-				System.out.println(imgInd);
 				return imagenes.get(imgInd);
 			}else {
 				return null;
@@ -68,18 +67,20 @@ public class ControlVPrincipal extends ControlAbs {
 			
 		case Comandos.HISTA:
 			Imagen respuesta = new Imagen();
-			respuesta.setMatrizActual(op.ObtenerHistogramaOriginal(imagenes.get(0), "original"));
+			respuesta.setMatrizActual(op.ObtenerHistogramaOriginal(imagenes.get(0)));
 			return respuesta;		
 			
 		case Comandos.HISTN:
 			Imagen img3 = (Imagen)d;
 			Imagen respuesta1 = new Imagen();
-			respuesta1.setMatrizActual(op.ObtenerHistogramaOriginal(img3, "ecualizado"));
+			respuesta1.setMatrizActual(op.ObtenerHistogramaOriginal(img3));
 			return respuesta1;
 
 		case Comandos.GUARDA:
 			ventGuar.setBounds(0, 0, 500, 150);
 			ventGuar.setLocationRelativeTo(null);
+			ventGuar.getNombreR().setSelectionStart(0);
+			ventGuar.getNombreR().setSelectionEnd(ventGuar.getNombreR().getText().length());
 			ventGuar.setVisible(true);
 			this.ag = (Imagen)d;
 			break;
@@ -101,9 +102,42 @@ public class ControlVPrincipal extends ControlAbs {
 			ventGuar.setVisible(false);
 			
 			break;
+			
+		case Comandos.INVB:
+			Imagen img4 = (Imagen)d;
+			Imagen respuesta2 = op.InversionB(img4);
+			this.imagenes.add(respuesta2);
+			return respuesta2;
+			
+		case Comandos.INVF:
+			Imagen img5 = (Imagen)d;
+			Imagen respuesta3 = op.InversionF(img5);
+			this.imagenes.add(respuesta3);
+			return respuesta3;
+			
+		case Comandos.ADD:
+			Imagen img6 = (Imagen)d;
+			Imagen img7 = (Imagen)d2;
+			Imagen respuesta4 = op.sumar(img6, img7);
+			this.imagenes.add(respuesta4);
+			return respuesta4;
+			
+		case Comandos.SUS:
+			Imagen img8 = (Imagen)d;
+			Imagen img9 = (Imagen)d2;
+			Imagen respuesta5 = op.restar(img8, img9);
+			this.imagenes.add(respuesta5);
+			return respuesta5;
 		}//FIN SWITCH
 		
+		
 		return null;//REGRESAR UN MODELO
-	}
+	}//FIN EJECUTA  COMANDO
+	
+	public Imagen  collage(ArrayList<Imagen> imagenes, int x, int y) {
+		op = new Operaciones();
+		Imagen res = op.collage(imagenes, x, y);
+		return res;
+	}//FIN COLLAGE
 
-}
+}//FIN CLASE

@@ -20,5 +20,6 @@ public class Comandos {
 							   GCOLLAGE = "generar el collage",
 							   BUSCARRUTA = "busca ruta para guardar imagen",
 							   GUARDARREALMENTE = "guardar la imagen",
-							   GUARDO ="se debe guardar la imagen";
+							   GUARDO ="se debe guardar la imagen",
+							   BUSCARSUS = "buscar imagen para sustraer o adicionar";
 }

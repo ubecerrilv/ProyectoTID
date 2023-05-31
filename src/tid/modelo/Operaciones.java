@@ -9,7 +9,6 @@ import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
@@ -35,7 +34,7 @@ public class Operaciones {
         return i;
     }
 
-    public Mat ObtenerHistogramaOriginal(Imagen i, String s){
+    public Mat ObtenerHistogramaOriginal(Imagen i){
     	 Mat src = i.getMatrizActual(); // Cargar imagen
         
         List<Mat> plano = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
@@ -63,16 +62,31 @@ public class Operaciones {
             Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(bHistData[j - 1])),
                     new Point(binW * (j), histH - Math.round(bHistData[j])), new Scalar(255, 0, 0), 2);
         }
-        HighGui.imshow("Histograma"+ s, histImagen);
         return histImagen;
 
     }
     
-    public void Inversion(Imagen i) {
-    	Mat src = Imgcodecs.imread(i.getRuta());
+    public Imagen InversionB(Imagen i) {//INVERSION BINARIA
+    	Mat src = Imgcodecs.imread(i.getRuta());//MODIFICAR ESTO
     	Mat dst = new Mat();
     	Core.bitwise_not( src, dst); // Funcion que invierte los bits.
     	i.setMatrizActual(dst);
+    	return null;
+    }
+    
+    public Imagen InversionF(Imagen i) {//INVERSION FOTOGRAFICA (ESCALA DE GRISES)
+    	return null;
+    }
+    
+    public Imagen sumar(Imagen i, Imagen i2) {//SUMAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÑO
+    	return null;
+    }
+    
+    public Imagen restar(Imagen i, Imagen i2) {//RESTAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÑO
+    	return null;
+    }
+    public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {//SE DA UN ARRGEL0 DE IMAGENES, REGRESA UNA IMAGEN DE LAS DIMENSIONES X x Y
+    	return null;
     }
     
 

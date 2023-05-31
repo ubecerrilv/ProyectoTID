@@ -8,10 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,7 +19,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
@@ -35,10 +34,12 @@ import tid.modelo.Imagen;
 
 @SuppressWarnings("serial")
 public class Ventana extends VentanaAGeneral{
+	GridBagConstraints rest;
 	BufferedImage imagenAct ;
-	Imagen imgActRGB;
-	int cont1 =0;
+	Imagen imgActRGB, segundaAux;
+	int cont1 =0, conti = 1;
 	VentanaG ventanaGuar;
+	ArrayList<Imagen> imagenesCollage;
 	
 	JPanel panel;
 	JLabel autor, img;
@@ -51,16 +52,14 @@ public class Ventana extends VentanaAGeneral{
 	//ELEMENTOS DE LOS PANELES PARA LAS OPERACIONES
 	//OP BASICAS
 	JPanel ec, inv, ad;
-	JButton btnEcz, btnEcA, btnEcN, btnInvB, btnInvF, btnAdd, btnSus;
-	JLabel dC, dR, imgRes;
-	JTextArea c1, c2, r1, r2;
+	JButton btnEcz, btnEcA, btnEcN, btnInvB, btnInvF, btnAdd, btnSus, btnSeleccionarSus;
+	JLabel imgRes, segundaImg;
 	
 	//COLLAGE
 	JPanel imgCollage, tamanos;
 	JButton agregarImg, generarCollage;
-	JLabel imgAgregadaA;
-	ButtonGroup grupo;
-	JRadioButton t1, t2, t3, t4;
+	JLabel imgAgregadaA, columnas, renglones;
+	JTextArea c, r;
 	
 	public Ventana() {
 		super("Tratamiento de imagenes");
@@ -71,7 +70,8 @@ public class Ventana extends VentanaAGeneral{
 			e.printStackTrace();
 		}
 		//CREACION DEL OBJETO DE RESTRICCIONES
-		GridBagConstraints rest = new GridBagConstraints();
+		rest = new GridBagConstraints();
+		imagenesCollage = new ArrayList<Imagen>();
 		
 		//CREACION DE LOS ELEMENTOS DE LOS PANELES PRINCIPALES
 		//CREACION Y ANAÃ‘IR LOS PANELES DEL MENU
@@ -143,56 +143,22 @@ public class Ventana extends VentanaAGeneral{
 			ad = new JPanel();
 			ad.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Adicion y sustraccion",TitledBorder.CENTER,TitledBorder.TOP));
 			ad.setLayout(new GridBagLayout());
-			c1 = new JTextArea();
+			
+			btnSeleccionarSus = new JButton("Selecciona la imagen a adicionar o sustraer");
+			btnSeleccionarSus.setActionCommand(Comandos.BUSCARSUS);
+			btnSeleccionarSus.addActionListener(this);
 			rest.gridx = 0;
 			rest.gridy = 0;
-			rest.gridwidth = 1;
+			rest.gridwidth = 2;
 			rest.gridheight = 1;
-			rest.fill=GridBagConstraints.HORIZONTAL;
-			rest.weightx=1.0;
+			ad.add(btnSeleccionarSus, rest);
 			
-			ad.add(c1, rest);//C1 AGREGADO
-			
-			c2 = new JTextArea();
-			rest.gridx = 2;
-			rest.gridy = 0;
-			rest.gridwidth = 1;
-			rest.gridheight = 1;
-			
-			ad.add(c2, rest);//C2 AGREGADO
-			
-			r1 = new JTextArea();
+			segundaImg = new JLabel();
 			rest.gridx = 0;
 			rest.gridy = 1;
-			rest.gridwidth = 1;
+			rest.gridwidth = 2;
 			rest.gridheight = 1;
-			
-			ad.add(r1, rest);//R1 AGREGADO
-			
-			r2 = new JTextArea();
-			rest.gridx = 2;
-			rest.gridy = 1;
-			rest.gridwidth = 1;
-			rest.gridheight = 1;
-			
-			ad.add(r2, rest);//R2 AGREGADO
-			rest.fill=GridBagConstraints.CENTER;
-			
-			dC = new JLabel("â†�- de la columna a la columna -â†’");
-			rest.gridx = 1;
-			rest.gridy = 0;
-			rest.gridwidth = 1;
-			rest.gridheight = 1;
-			
-			ad.add(dC, rest);//DC AGREGADO
-			
-			dR = new JLabel("â†�- del renglÃ³n al renglÃ³n -â†’");
-			rest.gridx = 1;
-			rest.gridy = 1;
-			rest.gridwidth = 1;
-			rest.gridheight = 1;
-			
-			ad.add(dR, rest);//R2 AGREGADO
+			ad.add(segundaImg, rest);
 			
 			btnAdd = new JButton("Adicionar");
 			btnAdd.setActionCommand(Comandos.ADD);
@@ -201,29 +167,18 @@ public class Ventana extends VentanaAGeneral{
 			rest.gridy = 2;
 			rest.gridwidth = 1;
 			rest.gridheight = 1;
-			rest.fill=GridBagConstraints.EAST;
 			
 			ad.add(btnAdd, rest);//ADD AGREGADO
 			
 			btnSus = new JButton("Sustraer");
-			btnSus.setActionCommand(Comandos.ADD);
+			btnSus.setActionCommand(Comandos.SUS);
 			btnSus.addActionListener(this);
-			rest.gridx = 2;
+			rest.gridx = 1;
 			rest.gridy = 2;
 			rest.gridwidth = 1;
 			rest.gridheight = 1;
-			rest.fill=GridBagConstraints.WEST;
 			
 			ad.add(btnSus, rest);//SUS AGREGADO
-			rest.fill=GridBagConstraints.CENTER;
-			
-			imgRes = new JLabel();
-			rest.gridx = 0;
-			rest.gridy = 3;
-			rest.gridwidth = 3;
-			rest.gridheight = 1;
-			
-			ad.add(imgRes, rest);//RES AGREGADO
 			
 			rest.weightx=0;
 			
@@ -245,11 +200,6 @@ public class Ventana extends VentanaAGeneral{
 			imgCollage.add(agregarImg, rest);//AGREGAR IMAGEN AGREGADO
 			
 			imgAgregadaA = new JLabel();//AUN NO SE AGREGA HASTA TENER POR LO MENOS UNA IMAGEN
-			/*rest.gridx = 0;
-			rest.gridy = 1;
-			rest.gridwidth = 2;
-			rest.gridheight = 1;
-			imgCollage.add(imgAgregadaA, rest);//ETIQUETA DE IMAGEN AGREGADO*/
 			
 			
 			tamanos = new JPanel();
@@ -258,49 +208,41 @@ public class Ventana extends VentanaAGeneral{
 			generarCollage = new JButton("Generar collage");
 			generarCollage.setActionCommand(Comandos.GCOLLAGE);
 			generarCollage.addActionListener(this);
-			rest.gridx = 1;
-			rest.gridy = 5;
-			rest.gridwidth = 1;
+			rest.gridx = 0;
+			rest.gridy = 2;
+			rest.gridwidth = 2;
 			rest.gridheight = 1;
 			tamanos.add(generarCollage, rest);//BOTON DE GENERAR COLLAGE AGREGADO
 			
-			grupo = new ButtonGroup();
-			
-			t1 = new JRadioButton();
-			t1.setText("600x600");//COLOCAR ACTION COMMAND
+			columnas = new JLabel("Columnas:");
 			rest.gridx = 0;
 			rest.gridy = 0;
 			rest.gridwidth = 1;
 			rest.gridheight = 1;
-			grupo.add(t1);
-			tamanos.add(t1, rest);//TAMANO1 AGREGADO
+			rest.fill = GridBagConstraints.HORIZONTAL;
+			tamanos.add(columnas, rest);//ETIQUETA DE COLUMNAS AGREGADO
 			
-			t2 = new JRadioButton();
-			t2.setText("600x750");
+			c = new JTextArea();
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			tamanos.add(c, rest);//AREA DE COLUMNAS AGREGADO
+			
+			renglones = new JLabel("Renglones:");
 			rest.gridx = 0;
 			rest.gridy = 1;
 			rest.gridwidth = 1;
 			rest.gridheight = 1;
-			grupo.add(t2);
-			tamanos.add(t2, rest);//TAMANO2 AGREGADO
+			tamanos.add(renglones, rest);//ETIQUETA DE RENGLONES AGREGADO
 			
-			t3 = new JRadioButton();
-			t3.setText("1080x1350");
-			rest.gridx = 0;
-			rest.gridy = 2;
+			r = new JTextArea();
+			rest.gridx = 1;
+			rest.gridy = 1;
 			rest.gridwidth = 1;
 			rest.gridheight = 1;
-			grupo.add(t3);
-			tamanos.add(t3, rest);//TAMANO3 AGREGADO
-			
-			t4 = new JRadioButton();
-			t4.setText("1080x1920");
-			rest.gridx = 0;
-			rest.gridy = 3;
-			rest.gridwidth = 1;
-			rest.gridheight = 1;
-			grupo.add(t4);
-			tamanos.add(t4, rest);//TAMANO3 AGREGADO
+			tamanos.add(r, rest);//AREA DE RENGLONES AGREGADO
+			rest.fill = GridBagConstraints.NONE;
 		
 			collage.add(imgCollage);
 			collage.add(tamanos);
@@ -357,8 +299,17 @@ public class Ventana extends VentanaAGeneral{
 		
 		panel.add(bBuscar, rest);
 		
+		imgRes = new JLabel();//LABEL DE RESOLUCION
+		rest.gridx = 2;
+		rest.gridy = 0;
+		rest.weightx=1.0;
+		rest.gridwidth = 1;
+		rest.gridheight = 1;
 		
-		bAtras = new JButton("â†�-");
+		panel.add(imgRes, rest);//RES AGREGADO
+		
+		
+		bAtras = new JButton("<-");
 		bAtras.setActionCommand(tid.controlador.Comandos.ATRAS);
 		bAtras.addActionListener(this);
 		
@@ -370,7 +321,7 @@ public class Ventana extends VentanaAGeneral{
 		panel.add(bAtras, rest);
 		
 		
-		bDelante = new JButton("-â†’");
+		bDelante = new JButton("->");
 		bDelante.setActionCommand(tid.controlador.Comandos.ADELANTE);
 		bDelante.addActionListener(this);
 		
@@ -431,7 +382,6 @@ public void actionPerformed(ActionEvent e) {
 		try {
 			imagenAct = ImageIO.read(new File(imagen.getSelectedFile().getPath()));
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Icon icono = new ImageIcon(imagenAct.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
@@ -501,31 +451,93 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.HISTA://MOSTRAR HISTOGRAMA ANTERIOR
-		Imagen img = (Imagen) this.control.ejecutaComando(Comandos.HISTA, null, null);
-		JOptionPane.showMessageDialog(this, new JLabel(img.convertirMatAImg()));
-		break;
+		if( imgActRGB != null) {
+			Imagen img = (Imagen) this.control.ejecutaComando(Comandos.HISTA, null, null);
+			JOptionPane.showMessageDialog(this, new JLabel(img.convertirMatAImg()));
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		break;			
 		
 	case Comandos.HISTN://MOSTRAR HISTOGRAMA NUEVO
-		Imagen img1 = (Imagen) this.control.ejecutaComando(Comandos.HISTN, imgActRGB, null);
-		JOptionPane.showMessageDialog(this, new JLabel(img1.convertirMatAImg()));
-		break;
+		if(cont1 >0) {
+			Imagen img1 = (Imagen) this.control.ejecutaComando(Comandos.HISTN, imgActRGB, null);
+			JOptionPane.showMessageDialog(this, new JLabel(img1.convertirMatAImg()));
+		}else {
+			JOptionPane.showMessageDialog(this, "Ecualiza la imagen primero");
+		}
+		break;			
+		
 		
 	case Comandos.INVB://INVERSION BINARIA
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.INVB, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+			repaint();			
+		}else {
+			JOptionPane.showMessageDialog(this,"Selecciona una imagen");
+		}
 		break;
 		
 	case Comandos.INVF://INVERSION FOTOGRAFICA
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.INVF, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+			repaint();			
+		}else {
+			JOptionPane.showMessageDialog(this,"Selecciona una imagen");
+		}
+		break;
+		
+	case Comandos.BUSCARSUS:
+		imagen.showOpenDialog(this);
+		segundaAux = new Imagen(imagen.getSelectedFile().getPath());
+		segundaImg.setText(imagen.getSelectedFile().getName());
 		break;
 		
 	case Comandos.ADD://ADICION
+		if(imgActRGB != null && segundaImg!=null) {
+			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ADD, imgActRGB, segundaAux);			
+		}else {
+			JOptionPane.showMessageDialog(this, "Elige las imagenes a sumar");
+		}
 		break;
 		
 	case Comandos.SUS://SUSTRACION
+		if(imgActRGB != null && segundaImg!=null) {
+			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.SUS, imgActRGB, segundaAux);			
+		}else {
+			JOptionPane.showMessageDialog(this, "Elige las imagenes a sustraer");
+		}
 		break;
 		
 	case Comandos.GCOLLAGE://GENERAR EL COLLAGE
+		int x = Integer.parseInt(c.getText());
+		int y = Integer.parseInt(r.getText());
+		if(!imagenesCollage.isEmpty() && x!=0 && y!= 0) {
+			imgActRGB  = this.control.collage(imagenesCollage, x, y);
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona por lo menos una imagen");
+		}
+		//RESETEAR PANEL Y ARREGLO DE IMAGENES AL FINAL O AGREGAR BOTON DE LIMPIAR Y REGENERAR EL COLLAGE
 		break;
 		
 	case Comandos.ACOLLAGE://AGREGAR UNA IMAGEN AL COLLAGE
+		if(conti <9) {
+			imagen.showOpenDialog(this);
+			imagenesCollage.add(new Imagen(imagen.getSelectedFile().getPath()));
+			imgAgregadaA = new JLabel(imagen.getSelectedFile().getName());
+			
+			rest.gridx = 0;
+			rest.gridy = conti;
+			rest.gridwidth = 2;
+			rest.gridheight = 1;
+			imgCollage.add(imgAgregadaA, rest);
+			conti++;
+		}else {
+			JOptionPane.showMessageDialog(this, "Maximo 8 imagenes por collage");
+		}
+		repaint();
 		break;
 		}//FIN SWITCH
 	}//FIN ACTION

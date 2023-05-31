@@ -88,6 +88,12 @@ public class Operaciones {
     public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {//SE DA UN ARRGEL0 DE IMAGENES, REGRESA UNA IMAGEN DE LAS DIMENSIONES X x Y
     	return null;
     }
+    public Imagen rotIzq(Imagen i) {//ROTAR 90 A LA IZQUIERDA
+    	return null;
+    }
+    public Imagen rotDer(Imagen i) {//ROTAR 90 A LA DERECHA
+    	return null;
+    }
     
 
 }

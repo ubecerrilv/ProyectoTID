@@ -57,9 +57,13 @@ public class Ventana extends VentanaAGeneral{
 	
 	//COLLAGE
 	JPanel imgCollage, tamanos;
-	JButton agregarImg, generarCollage;
+	JButton agregarImg, generarCollage, regenerarCollage, reset;
 	JLabel imgAgregadaA, columnas, renglones;
 	JTextArea c, r;
+	
+	//ROTACION Y ESPEJO
+	JPanel rot, espejo;
+	JButton rotDer, rotIzq, espj;
 	
 	public Ventana() {
 		super("Tratamiento de imagenes");
@@ -77,7 +81,7 @@ public class Ventana extends VentanaAGeneral{
 		//CREACION Y ANAÃ‘IR LOS PANELES DEL MENU
 			oBas = new JPanel(new GridLayout(3,1));
 			collage = new JPanel(new GridLayout(2,1));
-			rotacion = new JPanel();
+			rotacion = new JPanel(new GridLayout(2,1));
 			filtros = new JPanel();
 			morfo = new JPanel();
 			segmentacion = new JPanel();
@@ -214,12 +218,30 @@ public class Ventana extends VentanaAGeneral{
 			rest.gridheight = 1;
 			tamanos.add(generarCollage, rest);//BOTON DE GENERAR COLLAGE AGREGADO
 			
+			regenerarCollage = new JButton("Generar otra distribucion");
+			regenerarCollage.setActionCommand(Comandos.REGENERAR);
+			regenerarCollage.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 3;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			rest.fill = GridBagConstraints.HORIZONTAL;
+			tamanos.add(regenerarCollage, rest);
+			
+			reset = new JButton("Limpiar imagenes");
+			reset.setActionCommand(Comandos.RESET);
+			reset.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 3;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			tamanos.add(reset, rest);
+			
 			columnas = new JLabel("Columnas:");
 			rest.gridx = 0;
 			rest.gridy = 0;
 			rest.gridwidth = 1;
 			rest.gridheight = 1;
-			rest.fill = GridBagConstraints.HORIZONTAL;
 			tamanos.add(columnas, rest);//ETIQUETA DE COLUMNAS AGREGADO
 			
 			c = new JTextArea();
@@ -246,6 +268,44 @@ public class Ventana extends VentanaAGeneral{
 		
 			collage.add(imgCollage);
 			collage.add(tamanos);
+			
+			//ROTACION Y ESPEJO
+			rot = new JPanel();
+			rot.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Rotaciones",TitledBorder.CENTER,TitledBorder.TOP));
+			rot.setLayout(new GridBagLayout());
+			rotIzq = new JButton("Rotar 90 a la izquierda");
+			rotIzq.setActionCommand(Comandos.ROTARIZQUIERDA);
+			rotIzq.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			rot.add(rotIzq, rest);//ROTAR IZQUIERDA
+			
+			rotDer = new JButton("Rotar 90 a la derecha");
+			rotDer.setActionCommand(Comandos.ROTARDERECHA);
+			rotDer.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			rot.add(rotDer, rest);//ROTAR DERECHA
+			
+			espejo = new JPanel();
+			espejo.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Espejo",TitledBorder.CENTER,TitledBorder.TOP));
+			espejo.setLayout(new GridBagLayout());
+			espj = new JButton("Efecto espejo");
+			espj.setActionCommand(Comandos.ESPEJO);
+			espj.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			espejo.add(espj, rest);//ROTAR DERECHA
+			
+			rotacion.add(rot);
+			rotacion.add(espejo);
+			
 			
 		
 		//CREAR E INSERTAR COMPONENTES
@@ -512,16 +572,19 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.GCOLLAGE://GENERAR EL COLLAGE
-		int x = Integer.parseInt(c.getText());
-		int y = Integer.parseInt(r.getText());
+		int x =0, y =0;
+		if(c.getText().compareTo("")!=0 && r.getText().compareTo("")!=0) {
+			x = Integer.parseInt(c.getText());
+			y = Integer.parseInt(r.getText());			
+		}
+		
 		if(!imagenesCollage.isEmpty() && x!=0 && y!= 0) {
 			imgActRGB  = this.control.collage(imagenesCollage, x, y);
 			this.img.setIcon(imgActRGB.convertirMatAImg());
 			repaint();
 		}else {
-			JOptionPane.showMessageDialog(this, "Selecciona por lo menos una imagen");
+			JOptionPane.showMessageDialog(this, "Selecciona por lo menos una imagen y coloca el tamano");
 		}
-		//RESETEAR PANEL Y ARREGLO DE IMAGENES AL FINAL O AGREGAR BOTON DE LIMPIAR Y REGENERAR EL COLLAGE
 		break;
 		
 	case Comandos.ACOLLAGE://AGREGAR UNA IMAGEN AL COLLAGE
@@ -539,6 +602,31 @@ public void actionPerformed(ActionEvent e) {
 		}else {
 			JOptionPane.showMessageDialog(this, "Maximo 8 imagenes por collage");
 		}
+		repaint();
+		break;
+		
+	case Comandos.REGENERAR:
+		int x1 =0, y1 =0;
+		if(c.getText().compareTo("")!=0 && r.getText().compareTo("")!=0) {
+			x1 = Integer.parseInt(c.getText());
+			y1 = Integer.parseInt(r.getText());			
+		}
+		
+		if(!imagenesCollage.isEmpty() && x1!=0 && y1!= 0) {
+			imgActRGB  = this.control.collage(imagenesCollage, x1, y1);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+			repaint();
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona por lo menos una imagen y coloca el tamano");
+		}
+		//RESETEAR PANEL Y ARREGLO DE IMAGENES AL FINAL O AGREGAR BOTON DE LIMPIAR Y REGENERAR EL COLLAGE
+		break;
+		
+	case Comandos.RESET:
+		for(int i =imagenesCollage.size(); i>0;i--) {
+			imgCollage.remove(i);
+		}
+		imagenesCollage = new ArrayList<Imagen>();
 		repaint();
 		break;
 		}//FIN SWITCH

@@ -21,5 +21,11 @@ public class Comandos {
 							   BUSCARRUTA = "busca ruta para guardar imagen",
 							   GUARDARREALMENTE = "guardar la imagen",
 							   GUARDO ="se debe guardar la imagen",
-							   BUSCARSUS = "buscar imagen para sustraer o adicionar";
+							   BUSCARSUS = "buscar imagen para sustraer o adicionar",
+							   REGENERAR = "regenerar collage",
+							   RESET = "resetear collage",
+							   ROTARIZQUIERDA ="rotar a la izquierda",
+							   ROTARDERECHA ="rotar a la derecha",
+							   ESPEJO="espejo";
+							   
 }

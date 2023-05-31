@@ -588,18 +588,22 @@ public void actionPerformed(ActionEvent e) {
 		
 	case Comandos.ADD://ADICION
 		if(imgActRGB != null && segundaImg!=null) {
-			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ADD, imgActRGB, segundaAux);			
+			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ADD, imgActRGB, segundaAux);	
+			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Elige las imagenes a sumar");
 		}
+		repaint();
 		break;
 		
 	case Comandos.SUS://SUSTRACION
 		if(imgActRGB != null && segundaImg!=null) {
-			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.SUS, imgActRGB, segundaAux);			
+			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.SUS, imgActRGB, segundaAux);		
+			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Elige las imagenes a sustraer");
 		}
+		repaint();
 		break;
 		
 	case Comandos.GCOLLAGE://GENERAR EL COLLAGE
@@ -663,26 +667,32 @@ public void actionPerformed(ActionEvent e) {
 		
 	case Comandos.ROTARIZQUIERDA:
 		if(imgActRGB!=null) {
-			this.control.ejecutaComando(Comandos.ROTARIZQUIERDA, imgActRGB, null);
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ROTARIZQUIERDA, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}
+		repaint();
 		break;
 		
 	case Comandos.ROTARDERECHA:
 		if(imgActRGB!=null) {
-			this.control.ejecutaComando(Comandos.ROTARDERECHA, imgActRGB, null);
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ROTARDERECHA, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}
+		repaint();
 		break;
 		
 	case Comandos.ESPEJO:
 		if(imgActRGB!=null) {
-			this.control.ejecutaComando(Comandos.ESPEJO, imgActRGB, null);
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ESPEJO, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}
+		repaint();
 		break;
 		}//FIN SWITCH
 	}//FIN ACTION

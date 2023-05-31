@@ -2,6 +2,7 @@ package tid.controlador;
 
 
 import tid.gui.Ventana;
+import tid.gui.VentanaG;
 import tid.modelo.Data;
 
 public class ControlPrincipal extends ControlAbs{
@@ -17,6 +18,7 @@ public class ControlPrincipal extends ControlAbs{
  *********************************************************************************************************************************************/
 	
 	private Ventana vent;
+
 	
 				
 /**********************************************************************************************************************************************

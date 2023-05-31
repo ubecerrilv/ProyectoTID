@@ -6,6 +6,7 @@ import tid.controlador.Comandos;
 import tid.controlador.ControlPrincipal;
 import tid.controlador.ControlVPrincipal;
 import tid.gui.Ventana;
+import tid.gui.VentanaG;
 
 public class Principal {
 
@@ -17,15 +18,18 @@ public class Principal {
 				Ventana Vent;
 				ControlVPrincipal CV; //VENTANA Y SU CONTROL
 				
+				VentanaG ventanaG;
+				ventanaG = new VentanaG();
+				
 				//CREACION DE LOS OBJETOS
-				CV = new ControlVPrincipal();
+				CV = new ControlVPrincipal(ventanaG);
 				Vent = new Ventana();
 				
 				CP = new ControlPrincipal(CV, Vent);//VENTANA Y CONTROL EN EL PRINCIPAL
 				
-				
 				//CONTROL DE LA VENTANA
 				Vent.setControl(CV);
+				ventanaG.setControl(CV);
 				
 				
 				//INICIA EL PROGRAMA

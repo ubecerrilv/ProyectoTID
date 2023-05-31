@@ -1,7 +1,13 @@
 package tid.controlador;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+
+import tid.gui.VentanaG;
 import tid.modelo.Data;
 import tid.modelo.Imagen;
 import tid.modelo.Operaciones;
@@ -10,6 +16,13 @@ public class ControlVPrincipal extends ControlAbs {
 	Operaciones op;
 	ArrayList<Imagen> imagenes;
 	int imgInd;
+	VentanaG ventGuar;
+	Imagen ag;
+	
+	public ControlVPrincipal(VentanaG ventG) {
+		this.ventGuar = ventG;
+	}
+	
 
 	@Override
 	public Data ejecutaComando(String c, Data d, Data d2) {//EN ESTA CLASE, REALIZAR TRABAJOS DEL MODELO
@@ -63,8 +76,33 @@ public class ControlVPrincipal extends ControlAbs {
 			Imagen respuesta1 = new Imagen();
 			respuesta1.setMatrizActual(op.ObtenerHistogramaOriginal(img3, "ecualizado"));
 			return respuesta1;
+
+		case Comandos.GUARDA:
+			ventGuar.setBounds(0, 0, 500, 150);
+			ventGuar.setLocationRelativeTo(null);
+			ventGuar.setVisible(true);
+			this.ag = (Imagen)d;
+			break;
 			
-		}
+		case Comandos.GUARDO:
+			String nombre = ventGuar.getName();
+			String ruta = ventGuar.getRoute();
+			String ext = ventGuar.getExtention();
+			
+			try {
+				File archivo = new File(ruta+"\\"+nombre+"."+ext);
+				archivo.createNewFile();
+				ImageIO.write(this.ag.getBufImg(), ext, archivo);
+				JOptionPane.showMessageDialog(null, "Imagen guardada");
+				
+			}catch(IOException e1){
+				JOptionPane.showMessageDialog(null, "Error al guardar la imagen");
+			}//FIN TRY
+			ventGuar.setVisible(false);
+			
+			break;
+		}//FIN SWITCH
+		
 		return null;//REGRESAR UN MODELO
 	}
 

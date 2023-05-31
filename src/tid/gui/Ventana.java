@@ -38,6 +38,7 @@ public class Ventana extends VentanaAGeneral{
 	BufferedImage imagenAct ;
 	Imagen imgActRGB;
 	int cont1 =0;
+	VentanaG ventanaGuar;
 	
 	JPanel panel;
 	JLabel autor, img;
@@ -62,7 +63,7 @@ public class Ventana extends VentanaAGeneral{
 	JRadioButton t1, t2, t3, t4;
 	
 	public Ventana() {
-		super("Tratamiento de imÃ¡genes");
+		super("Tratamiento de imagenes");
 
 		try {
 			UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -83,7 +84,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			//FALTA AGREGAR LO QUE LLEVA CADA PANEL
 			ec = new JPanel();
-			ec.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"EcualizaciÃ³n",TitledBorder.CENTER,TitledBorder.TOP));
+			ec.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Ecualizacion",TitledBorder.CENTER,TitledBorder.TOP));
 			ec.setLayout(new GridBagLayout());
 			btnEcz = new JButton("Ecualizar imagen");
 			btnEcz.setActionCommand(Comandos.ECUALIZAR);
@@ -117,9 +118,9 @@ public class Ventana extends VentanaAGeneral{
 
 			
 			inv =  new JPanel();
-			inv.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"InversiÃ³n",TitledBorder.CENTER,TitledBorder.TOP));
+			inv.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Inversion",TitledBorder.CENTER,TitledBorder.TOP));
 			inv.setLayout(new GridBagLayout());
-			btnInvB = new JButton("InversiÃ³n binaria");
+			btnInvB = new JButton("Inversion binaria");
 			btnInvB.setActionCommand(Comandos.INVB);
 			btnInvB.addActionListener(this);
 			rest.gridx = 0;
@@ -129,7 +130,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			inv.add(btnInvB, rest);//INVERSION BINARIA AGREGADO
 			
-			btnInvF = new JButton("InversiÃ³n fotogrÃ¡fica");
+			btnInvF = new JButton("Inversion fotografica");
 			btnInvF.setActionCommand(Comandos.INVF);
 			btnInvF.addActionListener(this);
 			rest.gridx = 2;
@@ -140,7 +141,7 @@ public class Ventana extends VentanaAGeneral{
 			inv.add(btnInvF, rest);//INVERSION FOTOGRAFICA AGREGADO
 			
 			ad = new JPanel();
-			ad.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"AdiciÃ³n y sustracciÃ³n",TitledBorder.CENTER,TitledBorder.TOP));
+			ad.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Adicion y sustraccion",TitledBorder.CENTER,TitledBorder.TOP));
 			ad.setLayout(new GridBagLayout());
 			c1 = new JTextArea();
 			rest.gridx = 0;
@@ -232,7 +233,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			//COLLAGE
 			imgCollage = new JPanel();
-			imgCollage.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"SeleciÃ³n de imÃ¡genes",TitledBorder.CENTER,TitledBorder.TOP));
+			imgCollage.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Selecion de imagenes",TitledBorder.CENTER,TitledBorder.TOP));
 			imgCollage.setLayout(new GridBagLayout());
 			agregarImg = new JButton("Agregar imagen");
 			agregarImg.setActionCommand(Comandos.ACOLLAGE);
@@ -252,7 +253,7 @@ public class Ventana extends VentanaAGeneral{
 			
 			
 			tamanos = new JPanel();
-			tamanos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"TamaÃ±os",TitledBorder.CENTER,TitledBorder.TOP));
+			tamanos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Tamanos",TitledBorder.CENTER,TitledBorder.TOP));
 			tamanos.setLayout(new GridBagLayout());
 			generarCollage = new JButton("Generar collage");
 			generarCollage.setActionCommand(Comandos.GCOLLAGE);
@@ -318,7 +319,7 @@ public class Ventana extends VentanaAGeneral{
 		panel.setBorder(new EmptyBorder(5,5,5,5));
 
 		//CREAR ETIQUETAS
-		autor = new JLabel("<html>Realizado por:<br><ul><li>Ulises Becerril ValdÃ©s</li> <li>Marcos Daniel GÃ³mez VelÃ¡zquez</li><li>RaÃºl Salazar GodÃ­nez</li></ul></html>");
+		autor = new JLabel("<html>Realizado por:<br><ul><li>Ulises Becerril Valdes</li> <li>Marcos Daniel Gomez Velazquez</li><li>Raul Salazar Godinez</li></ul></html>");
 		rest.gridx = 3;
 		rest.gridy = 2;
 		rest.weightx = 1.0;
@@ -395,11 +396,11 @@ public class Ventana extends VentanaAGeneral{
 		
 		//CREAR, AGREGAR LOS ELEMENTOS Y AGREGAR MENU
 		menu = new JTabbedPane();
-		menu.addTab("BÃ¡sicos", oBas);
+		menu.addTab("Basicos", oBas);
 		menu.addTab("Collage", collage);
-		menu.addTab("RotaciÃ³n", rotacion);
+		menu.addTab("Rotacion", rotacion);
 		menu.addTab("Filtros", filtros);
-		menu.addTab("Op. morfolÃ³gicas", morfo);
+		menu.addTab("Op. morfologicas", morfo);
 		menu.addTab("Segmentacion", segmentacion);
 		
 		rest.gridx = 3;
@@ -436,7 +437,7 @@ public void actionPerformed(ActionEvent e) {
 		Icon icono = new ImageIcon(imagenAct.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
 		
 		img.setIcon(icono);
-		imgRes.setText("ResoluciÃ³n de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
+		imgRes.setText("Resolucion de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
 
 		imgActRGB = new Imagen(imagen.getSelectedFile().getPath());
 		
@@ -465,21 +466,18 @@ public void actionPerformed(ActionEvent e) {
 		break;
 		
 	case Comandos.GUARDA://GUARDAR IMAGEN
-		try {
-			File archivo = new File("C:\\Users\\ulise\\Downloads\\no.png");
-			archivo.createNewFile();
-			ImageIO.write(imgActRGB.getBufImg(), "png", archivo);
-			JOptionPane.showMessageDialog(this, "Imagen guardada");
-			
-		}catch(IOException e1){
-			JOptionPane.showMessageDialog(this, "Error al guardar la imagen");
-		}
+		if(imgActRGB != null) {
+			this.control.ejecutaComando(Comandos.GUARDA, imgActRGB, null);
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen y realiza un procedimiento para poder guardarla");
+		}//FIN IF DE IMAGEN NULA
+		
 		break;
 		
 	case Comandos.ECUALIZAR://ECUALIZAR IMAGEN
 		if(this.imagenAct!=null && cont1 ==0) {
 			if(esImagenRGB()) {
-				 if(JOptionPane.showConfirmDialog(this, "La imagen serÃ¡ transformada a escala de grises")==0) {
+				 if(JOptionPane.showConfirmDialog(this, "La imagen sera transformada a escala de grises")==0) {
 					 imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ECUALIZARGB, this.imgActRGB,null );
 					 img.setIcon(imgActRGB.convertirMatAImg());
 					 this.repaint();
@@ -547,6 +545,16 @@ public boolean esImagenRGB() {
     }
 
     return false; // Todos los pÃ­xeles tienen las mismas componentes de color (escala de grises)
+}//FIN ES RGB
+
+public VentanaG getVentanaGuar() {
+	return ventanaGuar;
 }
+
+public void setVentanaGuar(VentanaG ventanaGuar) {
+	this.ventanaGuar = ventanaGuar;
+}
+
+
 	
 }//FIN CLASE VENTANA

@@ -63,9 +63,7 @@ public class Operaciones {
             Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(bHistData[j - 1])),
                     new Point(binW * (j), histH - Math.round(bHistData[j])), new Scalar(255, 0, 0), 2);
         }
-        System.out.println("sexo?");
         HighGui.imshow("Histograma"+ s, histImagen);
-        System.out.println("delicioso");
         return histImagen;
 
     }

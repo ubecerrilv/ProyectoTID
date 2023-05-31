@@ -516,6 +516,8 @@ public void actionPerformed(ActionEvent e) {
 		int y = Integer.parseInt(r.getText());
 		if(!imagenesCollage.isEmpty() && x!=0 && y!= 0) {
 			imgActRGB  = this.control.collage(imagenesCollage, x, y);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+			repaint();
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona por lo menos una imagen");
 		}

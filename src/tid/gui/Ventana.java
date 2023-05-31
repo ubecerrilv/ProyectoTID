@@ -65,6 +65,11 @@ public class Ventana extends VentanaAGeneral{
 	JPanel rot, espejo;
 	JButton rotDer, rotIzq, espj;
 	
+	//FILTROS
+	JButton moda, media, mediana, gauss, n1,n2,n3,n4,n5,n6,n7,n8,n9, lp4, lp8,
+	pre, sobel, robert;
+	JPanel estad, gaussianos, maxMin, laplace, contornos;
+	
 	public Ventana() {
 		super("Tratamiento de imagenes");
 
@@ -82,7 +87,7 @@ public class Ventana extends VentanaAGeneral{
 			oBas = new JPanel(new GridLayout(3,1));
 			collage = new JPanel(new GridLayout(2,1));
 			rotacion = new JPanel(new GridLayout(2,1));
-			filtros = new JPanel();
+			filtros = new JPanel(new GridLayout(5,1));
 			morfo = new JPanel();
 			segmentacion = new JPanel();
 			
@@ -306,7 +311,33 @@ public class Ventana extends VentanaAGeneral{
 			rotacion.add(rot);
 			rotacion.add(espejo);
 			
+			//FILTROS
+			estad = new JPanel();
+			estad.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtros estadisticos",TitledBorder.CENTER,TitledBorder.TOP));
+			estad.setLayout(new GridBagLayout());
+
+
+			gaussianos = new JPanel();
+			gaussianos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtro gaussiano",TitledBorder.CENTER,TitledBorder.TOP));
+			gaussianos.setLayout(new GridBagLayout());
 			
+			maxMin = new JPanel();
+			maxMin.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtro de maximos y minimos",TitledBorder.CENTER,TitledBorder.TOP));
+			maxMin.setLayout(new GridBagLayout());
+			
+			laplace = new JPanel();
+			laplace.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtros laplacianos",TitledBorder.CENTER,TitledBorder.TOP));
+			laplace.setLayout(new GridBagLayout());
+			
+			contornos = new JPanel();
+			contornos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Deteccion de contornos",TitledBorder.CENTER,TitledBorder.TOP));
+			contornos.setLayout(new GridBagLayout());
+			
+			filtros.add(estad);
+			filtros.add(gaussianos);
+			filtros.add(maxMin);
+			filtros.add(laplace);
+			filtros.add(contornos);
 		
 		//CREAR E INSERTAR COMPONENTES
 		
@@ -628,6 +659,30 @@ public void actionPerformed(ActionEvent e) {
 		}
 		imagenesCollage = new ArrayList<Imagen>();
 		repaint();
+		break;
+		
+	case Comandos.ROTARIZQUIERDA:
+		if(imgActRGB!=null) {
+			this.control.ejecutaComando(Comandos.ROTARIZQUIERDA, imgActRGB, null);
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		break;
+		
+	case Comandos.ROTARDERECHA:
+		if(imgActRGB!=null) {
+			this.control.ejecutaComando(Comandos.ROTARDERECHA, imgActRGB, null);
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		break;
+		
+	case Comandos.ESPEJO:
+		if(imgActRGB!=null) {
+			this.control.ejecutaComando(Comandos.ESPEJO, imgActRGB, null);
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
 		break;
 		}//FIN SWITCH
 	}//FIN ACTION

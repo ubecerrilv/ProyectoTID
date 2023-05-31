@@ -94,6 +94,10 @@ public class Operaciones {
     public Imagen rotDer(Imagen i) {//ROTAR 90 A LA DERECHA
     	return null;
     }
+    public Imagen espejo(Imagen i) {
+    	return null;
+    }
+    
     
 
 }

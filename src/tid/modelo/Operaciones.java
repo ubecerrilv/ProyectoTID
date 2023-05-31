@@ -67,7 +67,7 @@ public class Operaciones {
     }
     
     public Imagen InversionB(Imagen i) {//INVERSION BINARIA
-    	Mat src = Imgcodecs.imread(i.getRuta());//MODIFICAR ESTO
+    	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Core.bitwise_not( src, dst); // Funcion que invierte los bits.
     	i.setMatrizActual(dst);
@@ -79,6 +79,10 @@ public class Operaciones {
     }
     
     public Imagen sumar(Imagen i, Imagen i2) {//SUMAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÑO
+    	Mat src1 = i.getMatrizActual();
+    	Mat src2 = i2.getMatrizActual();
+    	Mat dst = new Mat();
+    	Core.add(src1, src2, dst); // Falta hacer las imagenes del mismo tamano para evitar errores.
     	return null;
     }
     
@@ -89,10 +93,18 @@ public class Operaciones {
     	return null;
     }
     public Imagen rotIzq(Imagen i) {//ROTAR 90 A LA IZQUIERDA
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	Core.rotate(src, dst, Core.ROTATE_90_COUNTERCLOCKWISE);
+    	i.setMatrizActual(dst);
+    	return i;
     }
     public Imagen rotDer(Imagen i) {//ROTAR 90 A LA DERECHA
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	Core.rotate(src, dst, Core.ROTATE_90_CLOCKWISE);
+    	i.setMatrizActual(dst);
+    	return i;
     }
     
 

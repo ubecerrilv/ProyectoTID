@@ -9,7 +9,6 @@ import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class Operaciones {
@@ -109,6 +108,80 @@ public class Operaciones {
     public Imagen espejo(Imagen i) {
     	return null;
     }
+    
+    //OPERACIONES PARA FILTROS
+    public Imagen media(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen mediana(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen moda(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen gaussiano(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen laplace4(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen laplace8(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n1(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n2(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n3(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n4(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n5(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n6(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n7(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n8(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen n9(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen prewitt(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen sobel(Imagen i) {
+    	return null;
+    }
+    
+    public Imagen roberts(Imagen i) {
+    	return null;
+    }
+    
     
     
 

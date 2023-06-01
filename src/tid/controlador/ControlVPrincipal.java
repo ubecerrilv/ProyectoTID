@@ -145,6 +145,114 @@ public class ControlVPrincipal extends ControlAbs {
 			res = op.espejo(img1);
 			imagenes.add(res);
 			return res;
+			
+		case Comandos.MEDIA:
+			img1 = (Imagen)d;
+			res =op.media(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.MEDIANA:
+			img1 = (Imagen)d;
+			res =op.mediana(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.MODA:
+			img1 = (Imagen)d;
+			res =op.moda(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.GAUSS:
+			img1 = (Imagen)d;
+			res =op.gaussiano(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N1:
+			img1 = (Imagen)d;
+			res =op.n1(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N2:
+			img1 = (Imagen)d;
+			res =op.n2(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N3:
+			img1 = (Imagen)d;
+			res =op.n3(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N4:
+			img1 = (Imagen)d;
+			res =op.n4(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N5:
+			img1 = (Imagen)d;
+			res =op.n5(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N6:
+			img1 = (Imagen)d;
+			res =op.n6(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N7:
+			img1 = (Imagen)d;
+			res =op.n7(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N8:
+			img1 = (Imagen)d;
+			res =op.n8(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N9:
+			img1 = (Imagen)d;
+			res =op.n9(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.LP4:
+			img1 = (Imagen)d;
+			res =op.laplace4(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.LP8:
+			img1 = (Imagen)d;
+			res =op.laplace8(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.PRE:
+			img1 = (Imagen)d;
+			res =op.prewitt(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.SOBEL:
+			img1 = (Imagen)d;
+			res =op.sobel(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.ROBERT:
+			img1 = (Imagen)d;
+			res =op.roberts(img1);
+			imagenes.add(res);
+			return res;
 		}//FIN SWITCH
 		
 		

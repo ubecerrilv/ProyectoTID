@@ -44,7 +44,7 @@ public class Comandos {
 							   LP8 = "filtro laplaciano8",
 							   PRE = "filtro prewitt",
 							   SOBEL="filtro sobel",
-							   ROBERT="filtro roberts";
-							   
-							   
+							   ROBERT="filtro roberts",
+							   EROSION = "erosiona",
+							   DILATACION ="dilata";
 }

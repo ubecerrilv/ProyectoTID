@@ -182,7 +182,13 @@ public class Operaciones {
     	return null;
     }
     
-    
+    //OPERACIONES DE MORFOLOGÍA
+    public Imagen erosion(Imagen i, int[] estruc) {
+    	return null;
+    }
+    public Imagen dilatacion(Imagen i, int[] estruc) {
+    	return null;
+    }
     
 
 }

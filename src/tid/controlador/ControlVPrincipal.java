@@ -253,6 +253,18 @@ public class ControlVPrincipal extends ControlAbs {
 			res =op.roberts(img1);
 			imagenes.add(res);
 			return res;
+			
+		case Comandos.EROSION://CAMBIAR ESTTO
+			img1 = (Imagen)d;
+			res =op.erosion(img1, null);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.DILATACION://CAMBIAR ESTTO
+			img1 = (Imagen)d;
+			res =op.dilatacion(img1, null);
+			imagenes.add(res);
+			return res;	
 		}//FIN SWITCH
 		
 		

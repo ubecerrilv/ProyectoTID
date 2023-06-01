@@ -70,6 +70,10 @@ public class Ventana extends VentanaAGeneral{
 	pre, sobel, robert;
 	JPanel estad, gaussianos, maxMin, laplace, contornos;
 	
+	//OPERACIONES MORFO
+	JButton ero, dila, estruc;
+	JPanel defEstruc, pDefMor;
+	
 	public Ventana() {
 		super("Tratamiento de imagenes");
 
@@ -88,10 +92,40 @@ public class Ventana extends VentanaAGeneral{
 			collage = new JPanel(new GridLayout(2,1));
 			rotacion = new JPanel(new GridLayout(2,1));
 			filtros = new JPanel(new GridBagLayout());
-			morfo = new JPanel();
+			morfo = new JPanel(new GridLayout(2,1));
 			segmentacion = new JPanel();
 			
 			//FALTA AGREGAR LO QUE LLEVA CADA PANEL
+			//MORFO
+			defEstruc = new JPanel();
+			defEstruc.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Elemento estructurante",TitledBorder.CENTER,TitledBorder.TOP));
+			defEstruc.setLayout(new GridBagLayout());
+			
+			pDefMor = new JPanel();
+			pDefMor.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Operaciones morfologicas",TitledBorder.CENTER,TitledBorder.TOP));
+			pDefMor.setLayout(new GridBagLayout());
+			ero = new JButton("Erosionar");
+			ero.setActionCommand(Comandos.EROSION);
+			ero.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			pDefMor.add(ero, rest);//EROSIONAR AGREGADO
+			
+			dila = new JButton("Dilatar");
+			dila.setActionCommand(Comandos.DILATACION);
+			dila.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			pDefMor.add(dila, rest);//DILATAR AGREGADO
+			
+			morfo.add(defEstruc);
+			morfo.add(pDefMor);
+			
+			//OPERACIONES BASICAS
 			ec = new JPanel();
 			ec.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Ecualizacion",TitledBorder.CENTER,TitledBorder.TOP));
 			ec.setLayout(new GridBagLayout());
@@ -1026,6 +1060,26 @@ public void actionPerformed(ActionEvent e) {
 	case Comandos.ROBERT:
 		if(imgActRGB!=null) {
 			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ROBERT, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.EROSION:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.EROSION, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.DILATACION:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.DILATACION, imgActRGB, null);
 			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");

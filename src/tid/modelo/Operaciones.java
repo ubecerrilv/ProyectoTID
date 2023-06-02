@@ -87,6 +87,11 @@ public class Operaciones {
     }
     
     public Imagen restar(Imagen i, Imagen i2) {//RESTAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÑO
+    	Mat src1 = i.getMatrizActual();
+    	Mat src2 = i2.getMatrizActual();
+    	Mat dst = new Mat();
+    	
+    	Core.subtract(src1, src2, dst); // Falta hacer las imagenes del mismo tamano para evitar errores.
     	return null;
     }
     public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {//SE DA UN ARRGEL0 DE IMAGENES, REGRESA UNA IMAGEN DE LAS DIMENSIONES X x Y

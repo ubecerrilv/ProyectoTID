@@ -192,15 +192,25 @@ public class Operaciones {
     public Imagen laplace4(Imagen i) {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
+    	float kdata[] = {-1,-1,-1,-1,9,-1,-1,-1,-1};
     	Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY);
     	Imgproc.Laplacian(src, dst,-1, 1);
     	Imagen i2 = new Imagen(i.getRuta());
     	i2.setMatrizActual(dst);
     	return i2;
     }
-    
+    // filtro con 8 vecinos terminado, falta comprobar resultados
     public Imagen laplace8(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	float kdata[] = {-1,-1,-1,-1,9,-1,-1,-1,-1};
+    	Mat kernel = new Mat(3,3,CvType.CV_32F);
+    	kernel.put( 0, 0, kdata);
+    	Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY);
+    	Imgproc.filter2D(src, dst, -1, kernel);
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n1(Imagen i) {

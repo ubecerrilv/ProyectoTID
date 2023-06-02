@@ -164,7 +164,12 @@ public class Operaciones {
     }
     
     public Imagen mediana(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	Imgproc.medianBlur(src, dst, 3);
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen moda(Imagen i) {

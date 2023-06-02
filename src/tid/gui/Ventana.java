@@ -682,20 +682,19 @@ public void actionPerformed(ActionEvent e) {
 		break;		
 	
 	case Comandos.ATRAS: //REGRESAR UN PASO
-		imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ATRAS, null, null);
-		
 		if(imgActRGB != null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ATRAS, null, null);
 			img.setIcon(imgActRGB.convertirMatAImg());
-			this.repaint();
 		}
+		repaint();
 		break;
 		
 	case Comandos.ADELANTE:// ADELANTAR UN PASO
-		imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ADELANTE, null, null);
 		if(imgActRGB != null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ADELANTE, null, null);
 			img.setIcon(imgActRGB.convertirMatAImg());
-			this.repaint();
 		}
+		repaint();
 		break;
 		
 	case Comandos.GUARDA://GUARDAR IMAGEN

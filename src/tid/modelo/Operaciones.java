@@ -84,15 +84,20 @@ public class Operaciones {
     }
     
     public Imagen sumar(Imagen i, Imagen i2) {//SUMAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÃ‘O
-    	Mat src1 = Imgcodecs.imread("C:/Users/marco/OneDrive/Documentos/Universidad/Tecnico Reparador Computadoras/R.jpeg");
-        Mat src2 = Imgcodecs.imread("C:/Users/marco/OneDrive/Documentos/Universidad/Tecnico Reparador Computadoras/OIP.jpeg");
+    	Mat src1 = i.getMatrizActual();
+    	Mat src2 = i2.getMatrizActual();
     	Mat dst = new Mat();
     	int sizeSrc1= src1.height()*src1.width();
     	int sizeSrc2= src2.height()*src2.width();
-    	
+    	if(sizeSrc1 > sizeSrc2) {
+    		Imgproc.resize(src2, src2, src1.size(), 0, 0, Imgproc.INTER_LINEAR);
+    	}else {
+    		Imgproc.resize(src1, src1, src2.size(), 0, 0, Imgproc.INTER_LINEAR);
+    	}
     	Core.addWeighted(src1, 0.3, src2, 0.7, 0.0, dst);
-    	
-    	return i;
+    	Imagen i3 = new Imagen(i.getRuta());
+    	i3.setMatrizActual(dst);
+    	return i3;
     }
     
     public Imagen restar(Imagen i, Imagen i2) {//RESTAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÃ‘O
@@ -106,9 +111,11 @@ public class Operaciones {
     	}else {
     		Imgproc.resize(src1, src1, src2.size(), 0, 0, Imgproc.INTER_LINEAR);
     	}
-    	
-    	Core.subtract(src1, src2, dst);
-    	return i;
+    	//TODO arreglar que sale solo un fondo negro
+    	Core.absdiff(src1, src2, dst);
+    	Imagen i3 = new Imagen(i.getRuta());
+    	i3.setMatrizActual(dst);
+    	return i3;
     }
     public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {//SE DA UN ARRGEL0 DE IMAGENES, REGRESA UNA IMAGEN DE LAS DIMENSIONES X x Y
     	return null;
@@ -117,15 +124,17 @@ public class Operaciones {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Core.rotate(src, dst, Core.ROTATE_90_COUNTERCLOCKWISE);
-    	i.setMatrizActual(dst);
-    	return i;
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     public Imagen rotDer(Imagen i) {//ROTAR 90 A LA DERECHA
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Core.rotate(src, dst, Core.ROTATE_90_CLOCKWISE);
-    	i.setMatrizActual(dst);
-    	return i;
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     public Imagen espejo(Imagen i) {
     	Mat src = i.getMatrizActual();
@@ -160,7 +169,9 @@ public class Operaciones {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Imgproc.GaussianBlur(src, dst, new Size(5, 5), 0);
-    	return i;
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen laplace4(Imagen i) {

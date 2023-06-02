@@ -75,12 +75,19 @@ public class Operaciones {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Core.bitwise_not( src, dst); // Funcion que invierte los bits.
-    	i.setMatrizActual(dst);
-    	return null;
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
-    
+    //TODO adaptar codigo pues InversionB e InversionF hacen lo mismo
     public Imagen InversionF(Imagen i) {//INVERSION FOTOGRAFICA (ESCALA DE GRISES)
-    	return null;
+    	
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	Core.bitwise_not( src, dst); // Funcion que invierte los bits.
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen sumar(Imagen i, Imagen i2) {//SUMAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÃ‘O

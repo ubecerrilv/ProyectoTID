@@ -151,12 +151,9 @@ public class Operaciones {
     	int height = src.rows()/2;
     	Size sz = new Size(width,height);
     	// TODO falta hacer el espejo, este es un metodo para generar un "collage"
-    	for(int o = 0; o<2; o++) {
-    		for(int j = 0; j<2; j++) {
-    			Imgproc.resize(src, src, sz);
-    			src.copyTo(dst.submat(new Rect(j * width, o * height, width, height)));
-    		}
-    	}
+    	Imgproc.resize(src, src, sz);
+    	src.copyTo(dst.submat(new Rect(1 * width, 0 * height, width, height)));
+    
     	return null;
     }
     
@@ -195,9 +192,11 @@ public class Operaciones {
     public Imagen laplace4(Imagen i) {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
-    	//TODO crear imagen grises porque laplaciano trabaja solo con grises
-    	Imgproc.Laplacian(src, dst, CvType.CV_16S, 1);
-    	return i;
+    	Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY);
+    	Imgproc.Laplacian(src, dst,-1, 1);
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen laplace8(Imagen i) {

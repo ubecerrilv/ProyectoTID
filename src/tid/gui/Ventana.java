@@ -37,7 +37,7 @@ public class Ventana extends VentanaAGeneral{
 	GridBagConstraints rest;
 	BufferedImage imagenAct ;
 	Imagen imgActRGB, segundaAux;
-	int cont1 =0, conti = 1;
+	int cont1 =0, conti = 1, perd=1;
 	VentanaG ventanaGuar;
 	ArrayList<Imagen> imagenesCollage;
 	
@@ -660,26 +660,51 @@ public void actionPerformed(ActionEvent e) {
 		
 	switch (e.getActionCommand()) {//CASO DE LOS COMANDOS (BOTONES)
 	case Comandos.BUSCA://BUSCAR IMAGEN
-		imagen.showOpenDialog(this);
-		
-		try {
-			imagenAct = ImageIO.read(new File(imagen.getSelectedFile().getPath()));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		if(imgActRGB!=null) {
+			perd = JOptionPane.showConfirmDialog(this, "La imagen actual se perdera si no la haz guardado");
+			if(perd == 0) {
+				imagen.showOpenDialog(this);
+				try {
+					imagenAct = ImageIO.read(new File(imagen.getSelectedFile().getPath()));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				Icon icono = new ImageIcon(imagenAct.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
+				
+				img.setIcon(icono);
+				imgRes.setText("Resolucion de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
+				
+				imgActRGB = new Imagen(imagen.getSelectedFile().getPath());
+				
+				this.control.ejecutaComando(Comandos.BUSCA, imgActRGB, null);
+				
+				this.cont1=0;
+				this.repaint();
+				perd=1;
+			}
+			
+			break;
+		}else {
+			imagen.showOpenDialog(this);
+			try {
+				imagenAct = ImageIO.read(new File(imagen.getSelectedFile().getPath()));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			Icon icono = new ImageIcon(imagenAct.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
+			
+			img.setIcon(icono);
+			imgRes.setText("Resolucion de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
+			
+			imgActRGB = new Imagen(imagen.getSelectedFile().getPath());
+			
+			this.control.ejecutaComando(Comandos.BUSCA, imgActRGB, null);
+			
+			this.cont1=0;
+			this.repaint();
+			perd=1;
+			break;
 		}
-		Icon icono = new ImageIcon(imagenAct.getScaledInstance(img.getWidth(), img.getHeight(), DO_NOTHING_ON_CLOSE));
-		
-		img.setIcon(icono);
-		imgRes.setText("Resolucion de la imagen: "+imagenAct.getWidth()+"x"+imagenAct.getHeight());
-
-		imgActRGB = new Imagen(imagen.getSelectedFile().getPath());
-		
-		this.control.ejecutaComando(Comandos.BUSCA, imgActRGB, null);
-		
-		this.cont1=0;
-		this.repaint();
-		
-		break;		
 	
 	case Comandos.ATRAS: //REGRESAR UN PASO
 		if(imgActRGB != null) {
@@ -781,6 +806,8 @@ public void actionPerformed(ActionEvent e) {
 		if(imgActRGB != null && segundaImg!=null) {
 			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ADD, imgActRGB, segundaAux);	
 			this.img.setIcon(imgActRGB.convertirMatAImg());
+			segundaAux = null;
+			segundaImg.setText("");
 		}else {
 			JOptionPane.showMessageDialog(this, "Elige las imagenes a sumar");
 		}
@@ -791,6 +818,8 @@ public void actionPerformed(ActionEvent e) {
 		if(imgActRGB != null && segundaImg!=null) {
 			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.SUS, imgActRGB, segundaAux);		
 			this.img.setIcon(imgActRGB.convertirMatAImg());
+			segundaAux = null;
+			segundaImg.setText("");
 		}else {
 			JOptionPane.showMessageDialog(this, "Elige las imagenes a sustraer");
 		}

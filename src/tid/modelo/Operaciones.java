@@ -8,8 +8,12 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.core.CvType;
 import org.opencv.imgproc.Imgproc;
+
 
 public class Operaciones {
 
@@ -53,10 +57,10 @@ public class Operaciones {
         // Normalizar el histograma entre 0 y histImagen.rows() para que se encuentre en el rango
         Core.normalize(hist, hist, 0, histImagen.rows(), Core.NORM_MINMAX);
 
-        //Obtener datos para generar las gr�ficas
+        //Obtener datos para generar las grï¿½ficas
         float[] bHistData = new float[(int) (hist.total() * hist.channels())];
         hist.get(0, 0, bHistData);
-        // Graficaci�n de cada punto para el histograma
+        // Graficaciï¿½n de cada punto para el histograma
         for(int j = 1; j < histTamano; j++ ) {
             Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(bHistData[j - 1])),
                     new Point(binW * (j), histH - Math.round(bHistData[j])), new Scalar(255, 0, 0), 2);
@@ -77,21 +81,35 @@ public class Operaciones {
     	return null;
     }
     
-    public Imagen sumar(Imagen i, Imagen i2) {//SUMAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÑO
+    public Imagen sumar(Imagen i, Imagen i2) {//SUMAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÃ‘O
     	Mat src1 = i.getMatrizActual();
     	Mat src2 = i2.getMatrizActual();
     	Mat dst = new Mat();
-    	Core.add(src1, src2, dst); // Falta hacer las imagenes del mismo tamano para evitar errores.
-    	return null;
+    	int sizeSrc1= src1.height()*src1.width();
+    	int sizeSrc2= src2.height()*src2.width();
+    	if(sizeSrc1 > sizeSrc2) {
+    		Imgproc.resize(src2, src2, src1.size(), 0, 0, Imgproc.INTER_LINEAR);
+    	}else {
+    		Imgproc.resize(src1, src1, src2.size(), 0, 0, Imgproc.INTER_LINEAR);
+    	}
+    	Core.add(src1, src2, dst);
+    	return i;
     }
     
-    public Imagen restar(Imagen i, Imagen i2) {//RESTAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÑO
+    public Imagen restar(Imagen i, Imagen i2) {//RESTAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÃ‘O
     	Mat src1 = i.getMatrizActual();
     	Mat src2 = i2.getMatrizActual();
     	Mat dst = new Mat();
+    	int sizeSrc1= src1.height()*src1.width();
+    	int sizeSrc2= src2.height()*src2.width();
+    	if(sizeSrc1 > sizeSrc2) {
+    		Imgproc.resize(src2, src2, src1.size(), 0, 0, Imgproc.INTER_LINEAR);
+    	}else {
+    		Imgproc.resize(src1, src1, src2.size(), 0, 0, Imgproc.INTER_LINEAR);
+    	}
     	
-    	Core.subtract(src1, src2, dst); // Falta hacer las imagenes del mismo tamano para evitar errores.
-    	return null;
+    	Core.subtract(src1, src2, dst);
+    	return i;
     }
     public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {//SE DA UN ARRGEL0 DE IMAGENES, REGRESA UNA IMAGEN DE LAS DIMENSIONES X x Y
     	return null;
@@ -111,6 +129,18 @@ public class Operaciones {
     	return i;
     }
     public Imagen espejo(Imagen i) {
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat(src.width(), src.height(), src.depth());
+    	int width = src.cols()/2;
+    	int height = src.rows()/2;
+    	Size sz = new Size(width,height);
+    	// TODO falta hacer el espejo, este es un metodo para generar un "collage"
+    	for(int o = 0; o<2; o++) {
+    		for(int j = 0; j<2; j++) {
+    			Imgproc.resize(src, src, sz);
+    			src.copyTo(dst.submat(new Rect(j * width, o * height, width, height)));
+    		}
+    	}
     	return null;
     }
     
@@ -128,7 +158,10 @@ public class Operaciones {
     }
     
     public Imagen gaussiano(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	Imgproc.GaussianBlur(src, dst, new Size(5, 5), 0);
+    	return i;
     }
     
     public Imagen laplace4(Imagen i) {
@@ -187,7 +220,7 @@ public class Operaciones {
     	return null;
     }
     
-    //OPERACIONES DE MORFOLOGÍA
+    //OPERACIONES DE MORFOLOGÃ�A
     public Imagen erosion(Imagen i, int[] estruc) {
     	return null;
     }

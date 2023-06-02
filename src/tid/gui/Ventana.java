@@ -65,6 +65,15 @@ public class Ventana extends VentanaAGeneral{
 	JPanel rot, espejo;
 	JButton rotDer, rotIzq, espj;
 	
+	//FILTROS
+	JButton moda, media, mediana, gauss, n1,n2,n3,n4,n5,n6,n7,n8,n9, lp4, lp8,
+	pre, sobel, robert;
+	JPanel estad, gaussianos, maxMin, laplace, contornos;
+	
+	//OPERACIONES MORFO
+	JButton ero, dila, estruc;
+	JPanel defEstruc, pDefMor;
+	
 	public Ventana() {
 		super("Tratamiento de imagenes");
 
@@ -82,11 +91,41 @@ public class Ventana extends VentanaAGeneral{
 			oBas = new JPanel(new GridLayout(3,1));
 			collage = new JPanel(new GridLayout(2,1));
 			rotacion = new JPanel(new GridLayout(2,1));
-			filtros = new JPanel();
-			morfo = new JPanel();
+			filtros = new JPanel(new GridBagLayout());
+			morfo = new JPanel(new GridLayout(2,1));
 			segmentacion = new JPanel();
 			
 			//FALTA AGREGAR LO QUE LLEVA CADA PANEL
+			//MORFO
+			defEstruc = new JPanel();
+			defEstruc.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Elemento estructurante",TitledBorder.CENTER,TitledBorder.TOP));
+			defEstruc.setLayout(new GridBagLayout());
+			
+			pDefMor = new JPanel();
+			pDefMor.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Operaciones morfologicas",TitledBorder.CENTER,TitledBorder.TOP));
+			pDefMor.setLayout(new GridBagLayout());
+			ero = new JButton("Erosionar");
+			ero.setActionCommand(Comandos.EROSION);
+			ero.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			pDefMor.add(ero, rest);//EROSIONAR AGREGADO
+			
+			dila = new JButton("Dilatar");
+			dila.setActionCommand(Comandos.DILATACION);
+			dila.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			pDefMor.add(dila, rest);//DILATAR AGREGADO
+			
+			morfo.add(defEstruc);
+			morfo.add(pDefMor);
+			
+			//OPERACIONES BASICAS
 			ec = new JPanel();
 			ec.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Ecualizacion",TitledBorder.CENTER,TitledBorder.TOP));
 			ec.setLayout(new GridBagLayout());
@@ -306,7 +345,191 @@ public class Ventana extends VentanaAGeneral{
 			rotacion.add(rot);
 			rotacion.add(espejo);
 			
+			//FILTROS
+			estad = new JPanel();
+			estad.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtros estadisticos",TitledBorder.CENTER,TitledBorder.TOP));
+			estad.setLayout(new GridBagLayout());
+			media = new JButton("Filtro de media");
+			media.setActionCommand(Comandos.MEDIA);
+			media.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			estad.add(media, rest);//FILTRO MEDIA
 			
+			mediana = new JButton("Filtro mediana");
+			mediana.setActionCommand(Comandos.MEDIANA);
+			mediana.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			estad.add(mediana, rest);//FILTRO MEDIANA
+			
+			moda = new  JButton("Filtro moda");
+			moda.setActionCommand(Comandos.MODA);
+			moda.addActionListener(this);
+			rest.gridx = 2;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			estad.add(moda, rest);//FILTRO MODA
+
+			gaussianos = new JPanel();
+			gaussianos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtro gaussiano",TitledBorder.CENTER,TitledBorder.TOP));
+			gaussianos.setLayout(new GridBagLayout());
+			gauss = new JButton("Gaussiano");
+			gauss.setActionCommand(Comandos.GAUSS);
+			gauss.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			gaussianos.add(gauss, rest);//FILTRO GAUSSIANO
+			
+			maxMin = new JPanel();
+			maxMin.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtro de maximos y minimos",TitledBorder.CENTER,TitledBorder.TOP));
+			maxMin.setLayout(new GridBagLayout());
+			n1 = new JButton("n = 1");
+			n1.setActionCommand(Comandos.N1);
+			n1.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n1,rest);//N1
+			
+			n2 = new JButton("n = 2");
+			n2.setActionCommand(Comandos.N2);
+			n2.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n2,rest);//N2
+			
+			n3 = new JButton("n = 3");
+			n3.setActionCommand(Comandos.N3);
+			n3.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n3,rest);//N3
+			
+			n4 = new JButton("n = 4");
+			n4.setActionCommand(Comandos.N4);
+			n4.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n4,rest);//N4
+			
+			n5 = new JButton("n = 5");
+			n5.setActionCommand(Comandos.N5);
+			n5.addActionListener(this);
+			rest.gridx = 2;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n5,rest);//N5
+			
+			n6 = new JButton("n = 6");
+			n6.setActionCommand(Comandos.N6);
+			n6.addActionListener(this);
+			rest.gridx = 2;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n6,rest);//N
+			
+			n7 = new JButton("n = 7");
+			n7.setActionCommand(Comandos.N7);
+			n7.addActionListener(this);
+			rest.gridx = 3;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n7,rest);//N7
+			
+			n8 = new JButton("n = 8");
+			n8.setActionCommand(Comandos.N8);
+			n8.addActionListener(this);
+			rest.gridx = 3;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n8,rest);//N8
+			
+			n9 = new JButton("n = 9");
+			n9.setActionCommand(Comandos.N9);
+			n9.addActionListener(this);
+			rest.gridx = 4;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxMin.add(n9,rest);//N9
+			
+			laplace = new JPanel();
+			laplace.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Filtros laplacianos",TitledBorder.CENTER,TitledBorder.TOP));
+			laplace.setLayout(new GridBagLayout());
+			lp4 = new JButton("Laplace 4 vecinos");
+			lp4.setActionCommand(Comandos.LP4);
+			lp4.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			laplace.add(lp4, rest);//FILTRO LP4
+			
+			lp8 = new JButton("Laplace 8 vecinos");
+			lp8.setActionCommand(Comandos.LP8);
+			lp8.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			laplace.add(lp8, rest);//FILTRO LP8
+			
+			contornos = new JPanel();
+			contornos.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Deteccion de contornos",TitledBorder.CENTER,TitledBorder.TOP));
+			contornos.setLayout(new GridBagLayout());
+			pre = new JButton("Prewitt");
+			pre.setActionCommand(Comandos.PRE);
+			pre.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			contornos.add(pre, rest);//FILTRO PREWITT
+			
+			sobel = new JButton("Sobel");
+			sobel.setActionCommand(Comandos.SOBEL);
+			sobel.addActionListener(this);
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			contornos.add(sobel, rest);//FILTRO SOBEL
+			
+			robert = new JButton("Roberts");
+			robert.setActionCommand("Roberts");
+			robert.addActionListener(this);
+			rest.gridx = 3;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			contornos.add(robert, rest);//FILTRO ROBERTS
+			
+			rest.fill=GridBagConstraints.BOTH;
+			rest.gridx = 0;rest.gridy = 0;
+			filtros.add(estad,rest);rest.gridx = 0;rest.gridy = 1;
+			filtros.add(gaussianos,rest);rest.gridx = 0;rest.gridy = 2;
+			filtros.add(maxMin,rest);rest.gridx = 0;rest.gridy = 3;
+			filtros.add(laplace,rest);rest.gridx = 0;rest.gridy = 4;
+			filtros.add(contornos,rest);rest.fill=GridBagConstraints.NONE;
 		
 		//CREAR E INSERTAR COMPONENTES
 		
@@ -557,18 +780,22 @@ public void actionPerformed(ActionEvent e) {
 		
 	case Comandos.ADD://ADICION
 		if(imgActRGB != null && segundaImg!=null) {
-			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ADD, imgActRGB, segundaAux);			
+			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.ADD, imgActRGB, segundaAux);	
+			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Elige las imagenes a sumar");
 		}
+		repaint();
 		break;
 		
 	case Comandos.SUS://SUSTRACION
 		if(imgActRGB != null && segundaImg!=null) {
-			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.SUS, imgActRGB, segundaAux);			
+			imgActRGB = (Imagen) this.control.ejecutaComando(Comandos.SUS, imgActRGB, segundaAux);		
+			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Elige las imagenes a sustraer");
 		}
+		repaint();
 		break;
 		
 	case Comandos.GCOLLAGE://GENERAR EL COLLAGE
@@ -627,6 +854,236 @@ public void actionPerformed(ActionEvent e) {
 			imgCollage.remove(i);
 		}
 		imagenesCollage = new ArrayList<Imagen>();
+		repaint();
+		break;
+		
+	case Comandos.ROTARIZQUIERDA:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ROTARIZQUIERDA, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.ROTARDERECHA:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ROTARDERECHA, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.ESPEJO:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ESPEJO, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.MEDIA:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.MEDIA, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.MEDIANA:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.MEDIANA, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.MODA:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.MODA, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.GAUSS:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.GAUSS, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N1:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N1, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N2:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N2, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N3:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N3, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N4:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N4, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N5:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N5, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N6:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N6, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N7:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N7, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N8:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N8, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.N9:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.N9, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.LP4:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.LP4, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.LP8:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.LP8, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.PRE:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.PRE, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.SOBEL:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.SOBEL, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.ROBERT:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.ROBERT, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.EROSION:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.EROSION, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.DILATACION:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.DILATACION, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
 		repaint();
 		break;
 		}//FIN SWITCH

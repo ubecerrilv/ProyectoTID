@@ -17,7 +17,7 @@ public class ControlVPrincipal extends ControlAbs {
 	ArrayList<Imagen> imagenes;
 	int imgInd;
 	VentanaG ventGuar;
-	Imagen ag;
+	Imagen ag, img1, img2, res;
 	
 	public ControlVPrincipal(VentanaG ventG) {
 		this.ventGuar = ventG;
@@ -31,23 +31,23 @@ public class ControlVPrincipal extends ControlAbs {
 		case Comandos.BUSCA:
 			imagenes =  new ArrayList<Imagen>();
 			imgInd=0;
-			Imagen img0 = (Imagen)d;
-			imagenes.add(img0);
+			img1 = (Imagen)d;
+			imagenes.add(img1);
 			break;
 				
 		case Comandos.ECUALIZARGB:
-			Imagen img = (Imagen) d;
-			Imagen res = op.ecualizarImagenRGB(img);
+			img1 = (Imagen) d;
+			res = op.ecualizarImagenRGB(img1);
 			imagenes.add(res);
 			imgInd++;
 			return res;
 			
 		case Comandos.ECUALIZAGRIS:
-			Imagen img1 = (Imagen)d;
-			Imagen res2 = op.ecualizarImagen(img1);
-			imagenes.add(res2);
+			img1 = (Imagen)d;
+			res = op.ecualizarImagen(img1);
+			imagenes.add(res);
 			imgInd++;
-			return res2;
+			return res;
 			
 		case Comandos.ATRAS:
 			if(imgInd>0) {
@@ -66,15 +66,15 @@ public class ControlVPrincipal extends ControlAbs {
 			}
 			
 		case Comandos.HISTA:
-			Imagen respuesta = new Imagen();
-			respuesta.setMatrizActual(op.ObtenerHistogramaOriginal(imagenes.get(0)));
-			return respuesta;		
+			res = new Imagen();
+			res.setMatrizActual(op.ObtenerHistogramaOriginal(imagenes.get(0)));
+			return res;		
 			
 		case Comandos.HISTN:
-			Imagen img3 = (Imagen)d;
-			Imagen respuesta1 = new Imagen();
-			respuesta1.setMatrizActual(op.ObtenerHistogramaOriginal(img3));
-			return respuesta1;
+			img1 = (Imagen)d;
+			Imagen res = new Imagen();
+			res.setMatrizActual(op.ObtenerHistogramaOriginal(img1));
+			return res;
 
 		case Comandos.GUARDA:
 			ventGuar.setBounds(0, 0, 500, 150);
@@ -104,30 +104,167 @@ public class ControlVPrincipal extends ControlAbs {
 			break;
 			
 		case Comandos.INVB:
-			Imagen img4 = (Imagen)d;
-			Imagen respuesta2 = op.InversionB(img4);
-			this.imagenes.add(respuesta2);
-			return respuesta2;
+			img1 = (Imagen)d;
+			res = op.InversionB(img1);
+			this.imagenes.add(res);
+			return res;
 			
 		case Comandos.INVF:
-			Imagen img5 = (Imagen)d;
-			Imagen respuesta3 = op.InversionF(img5);
-			this.imagenes.add(respuesta3);
-			return respuesta3;
+			img1 = (Imagen)d;
+			res = op.InversionF(img1);
+			this.imagenes.add(res);
+			return res;
 			
 		case Comandos.ADD:
-			Imagen img6 = (Imagen)d;
-			Imagen img7 = (Imagen)d2;
-			Imagen respuesta4 = op.sumar(img6, img7);
-			this.imagenes.add(respuesta4);
-			return respuesta4;
+			img1 = (Imagen)d;
+			img2 = (Imagen)d2;
+			res = op.sumar(img1, img2);
+			this.imagenes.add(res);
+			return res;
 			
 		case Comandos.SUS:
-			Imagen img8 = (Imagen)d;
-			Imagen img9 = (Imagen)d2;
-			Imagen respuesta5 = op.restar(img8, img9);
-			this.imagenes.add(respuesta5);
-			return respuesta5;
+			img1 = (Imagen)d;
+			img2 = (Imagen)d2;
+			res = op.restar(img2, img2);
+			this.imagenes.add(res);
+			return res;
+			
+		case Comandos.ROTARIZQUIERDA:
+			img1 = (Imagen)d;
+			res = op.rotIzq(img1);
+			imagenes.add(res);
+			return res;
+		case Comandos.ROTARDERECHA:
+			img1 = (Imagen)d;
+			res = op.rotDer(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.ESPEJO:
+			img1 = (Imagen)d;
+			res = op.espejo(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.MEDIA:
+			img1 = (Imagen)d;
+			res =op.media(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.MEDIANA:
+			img1 = (Imagen)d;
+			res =op.mediana(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.MODA:
+			img1 = (Imagen)d;
+			res =op.moda(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.GAUSS:
+			img1 = (Imagen)d;
+			res =op.gaussiano(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N1:
+			img1 = (Imagen)d;
+			res =op.n1(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N2:
+			img1 = (Imagen)d;
+			res =op.n2(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N3:
+			img1 = (Imagen)d;
+			res =op.n3(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N4:
+			img1 = (Imagen)d;
+			res =op.n4(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N5:
+			img1 = (Imagen)d;
+			res =op.n5(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N6:
+			img1 = (Imagen)d;
+			res =op.n6(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N7:
+			img1 = (Imagen)d;
+			res =op.n7(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N8:
+			img1 = (Imagen)d;
+			res =op.n8(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.N9:
+			img1 = (Imagen)d;
+			res =op.n9(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.LP4:
+			img1 = (Imagen)d;
+			res =op.laplace4(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.LP8:
+			img1 = (Imagen)d;
+			res =op.laplace8(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.PRE:
+			img1 = (Imagen)d;
+			res =op.prewitt(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.SOBEL:
+			img1 = (Imagen)d;
+			res =op.sobel(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.ROBERT:
+			img1 = (Imagen)d;
+			res =op.roberts(img1);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.EROSION://CAMBIAR ESTTO
+			img1 = (Imagen)d;
+			res =op.erosion(img1, null);
+			imagenes.add(res);
+			return res;
+			
+		case Comandos.DILATACION://CAMBIAR ESTTO
+			img1 = (Imagen)d;
+			res =op.dilatacion(img1, null);
+			imagenes.add(res);
+			return res;	
 		}//FIN SWITCH
 		
 		

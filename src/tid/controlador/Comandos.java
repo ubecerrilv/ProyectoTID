@@ -26,6 +26,25 @@ public class Comandos {
 							   RESET = "resetear collage",
 							   ROTARIZQUIERDA ="rotar a la izquierda",
 							   ROTARDERECHA ="rotar a la derecha",
-							   ESPEJO="espejo";
-							   
+							   ESPEJO="espejo",
+							   MODA = "filtro moda",
+							   MEDIA = "filtro media",
+							   MEDIANA = "filtro mediana",
+							   GAUSS = "filtro gaussiano",
+							   N1="n1",
+							   N2="n2",
+							   N3="n3",
+						   	   N4="n4",
+						 	   N5="n5",
+							   N6="n6",
+							   N7="n7",
+							   N8="n8",
+							   N9="n9",
+							   LP4 = "filtro laplaciano4",
+							   LP8 = "filtro laplaciano8",
+							   PRE = "filtro prewitt",
+							   SOBEL="filtro sobel",
+							   ROBERT="filtro roberts",
+							   EROSION = "erosiona",
+							   DILATACION ="dilata";
 }

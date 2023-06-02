@@ -93,6 +93,7 @@ public class Operaciones {
     		Imgproc.resize(src1, src1, src2.size(), 0, 0, Imgproc.INTER_LINEAR);
     	}
     	Core.add(src1, src2, dst);
+    	
     	return i;
     }
     
@@ -118,15 +119,17 @@ public class Operaciones {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Core.rotate(src, dst, Core.ROTATE_90_COUNTERCLOCKWISE);
-    	i.setMatrizActual(dst);
-    	return i;
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     public Imagen rotDer(Imagen i) {//ROTAR 90 A LA DERECHA
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Core.rotate(src, dst, Core.ROTATE_90_CLOCKWISE);
-    	i.setMatrizActual(dst);
-    	return i;
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     public Imagen espejo(Imagen i) {
     	Mat src = i.getMatrizActual();
@@ -161,7 +164,9 @@ public class Operaciones {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	Imgproc.GaussianBlur(src, dst, new Size(5, 5), 0);
-    	return i;
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen laplace4(Imagen i) {

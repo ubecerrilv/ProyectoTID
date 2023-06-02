@@ -2,6 +2,10 @@ package tid.modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -122,6 +126,7 @@ public class Operaciones {
     	Core.absdiff(src1, src2, dst);
     	Imagen i3 = new Imagen(i.getRuta());
     	i3.setMatrizActual(dst);
+    	JOptionPane.showMessageDialog(null, new JLabel(i3.convertirMatAImg()));
     	return i3;
     }
     public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {//SE DA UN ARRGEL0 DE IMAGENES, REGRESA UNA IMAGEN DE LAS DIMENSIONES X x Y

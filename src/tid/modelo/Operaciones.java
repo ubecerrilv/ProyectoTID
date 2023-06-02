@@ -165,7 +165,11 @@ public class Operaciones {
     }
     
     public Imagen laplace4(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	//TODO crear imagen grises porque laplaciano trabaja solo con grises
+    	Imgproc.Laplacian(src, dst, CvType.CV_16S, 1);
+    	return i;
     }
     
     public Imagen laplace8(Imagen i) {

@@ -135,6 +135,7 @@ public class Operaciones {
     	Imagen i2 = new Imagen(i.getRuta());
     	i2.setMatrizActual(dst);
     	return i2;
+    	
     }
     public Imagen espejo(Imagen i) {
     	Mat src = i.getMatrizActual();
@@ -154,7 +155,12 @@ public class Operaciones {
     
     //OPERACIONES PARA FILTROS
     public Imagen media(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	Imgproc.blur(src, dst, new Size(3, 3));
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen mediana(Imagen i) {

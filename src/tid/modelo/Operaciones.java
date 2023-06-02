@@ -11,6 +11,8 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.highgui.HighGui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.core.CvType;
 import org.opencv.imgproc.Imgproc;
 
@@ -82,17 +84,14 @@ public class Operaciones {
     }
     
     public Imagen sumar(Imagen i, Imagen i2) {//SUMAR DOS IMAGENES, CONSIDERAR QUE PUEDEN SER DE DIFERENTE TAMAÃ‘O
-    	Mat src1 = i.getMatrizActual();
-    	Mat src2 = i2.getMatrizActual();
+    	Mat src1 = Imgcodecs.imread("C:/Users/marco/OneDrive/Documentos/Universidad/Tecnico Reparador Computadoras/R.jpeg");
+        Mat src2 = Imgcodecs.imread("C:/Users/marco/OneDrive/Documentos/Universidad/Tecnico Reparador Computadoras/OIP.jpeg");
     	Mat dst = new Mat();
     	int sizeSrc1= src1.height()*src1.width();
     	int sizeSrc2= src2.height()*src2.width();
-    	if(sizeSrc1 > sizeSrc2) {
-    		Imgproc.resize(src2, src2, src1.size(), 0, 0, Imgproc.INTER_LINEAR);
-    	}else {
-    		Imgproc.resize(src1, src1, src2.size(), 0, 0, Imgproc.INTER_LINEAR);
-    	}
-    	Core.add(src1, src2, dst);
+    	
+    	Core.addWeighted(src1, 0.3, src2, 0.7, 0.0, dst);
+    	
     	return i;
     }
     

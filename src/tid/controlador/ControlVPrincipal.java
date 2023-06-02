@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import tid.gui.VentanaG;
@@ -127,7 +128,7 @@ public class ControlVPrincipal extends ControlAbs {
 		case Comandos.SUS:
 			img1 = (Imagen)d;
 			img2 = (Imagen)d2;
-			res = op.restar(img2, img2);
+			res = op.restar(img1, img2);
 			this.imagenes.add(res);
 			imgInd++;
 			return res;

@@ -501,7 +501,11 @@ private static int getNValor(Mat subMatriz, int n) {
     	Mat src = i.getMatrizActual();
     	Mat srcGris = new Mat();
     	Mat dst = new Mat();
-    	Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	if(src.channels()!=1) {
+    		Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	}else {
+    		srcGris = src;
+    	}
     	float kdatax[] = {1,1,1,0,0,0,-1,-1,-1};
     	float kdatay[] = {-1,0,1,-1,0,1,-1,0,1};
     	Mat kernelx = new Mat(3,3,CvType.CV_32F);
@@ -516,13 +520,18 @@ private static int getNValor(Mat subMatriz, int n) {
     	return i2;
     }
     
+   
     public Imagen sobel(Imagen i) {
     	Mat src = i.getMatrizActual();
     	Mat srcGris = new Mat();
     	Mat dst = new Mat();
     	Mat aux1 = new Mat();
     	Mat aux2 = new Mat();
-    	Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	if(src.channels()!=1) {
+    		Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	}else {
+    		srcGris = src;
+    	}
     	Imgproc.GaussianBlur(srcGris, srcGris, new Size(3, 3), 0);
     	Imgproc.Sobel(srcGris, aux1, -1, 1, 0, 3);
     	Imgproc.Sobel(srcGris, aux2, -1, 0, 1, 3);
@@ -536,7 +545,11 @@ private static int getNValor(Mat subMatriz, int n) {
     	Mat src = i.getMatrizActual();
     	Mat srcGris = new Mat();
     	Mat dst = new Mat();
-    	Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	if(src.channels()!=1) {
+    		Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	}else {
+    		srcGris = src;
+    	}
     	float kdatax[] = {1,0,0,-1};
     	float kdatay[] = {0,1,-1,0};
     	Mat kernelx = new Mat(2,2,CvType.CV_32F);
@@ -548,7 +561,6 @@ private static int getNValor(Mat subMatriz, int n) {
     	Imgproc.filter2D(srcGris, dst, -1, kernely);
     	Imagen i2 = new Imagen(i.getRuta());
     	i2.setMatrizActual(dst);
-    	System.out.println("Hola");
     	return i2;
     }
     

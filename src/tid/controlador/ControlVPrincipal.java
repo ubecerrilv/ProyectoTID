@@ -68,12 +68,12 @@ public class ControlVPrincipal extends ControlAbs {
 			}
 			
 		case Comandos.HISTA:
-			res.setMatrizActual(op.ObtenerHistogramaOriginal(imagenes.get(0)));
+			res=op.ObtenerHistogramaOriginal(imagenes.get(0));
 			return res;		
 			
 		case Comandos.HISTN:
 			img1 = (Imagen)d;
-			res.setMatrizActual(op.ObtenerHistogramaOriginal(img1));
+			res = op.ObtenerHistogramaOriginal(img1);
 			return res;
 
 		case Comandos.GUARDA:
@@ -139,6 +139,7 @@ public class ControlVPrincipal extends ControlAbs {
 			imagenes.add(res);
 			imgInd++;
 			return res;
+			
 		case Comandos.ROTARDERECHA:
 			img1 = (Imagen)d;
 			res = op.rotDer(img1);

@@ -46,7 +46,7 @@ public class Operaciones {
         return i;
     }
 
-    public Mat ObtenerHistogramaOriginal(Imagen i){
+    public Imagen ObtenerHistogramaOriginal(Imagen i){
     	 Mat src = i.getMatrizActual(); // Cargar imagen
         
         List<Mat> plano = new ArrayList<>(); // Crear lista de matrices para guardar los planos de la imagen
@@ -74,7 +74,10 @@ public class Operaciones {
             Imgproc.line(histImagen, new Point(binW * (j - 1), histH - Math.round(bHistData[j - 1])),
                     new Point(binW * (j), histH - Math.round(bHistData[j])), new Scalar(255, 0, 0), 2);
         }
-        return histImagen;
+        Imagen in = new Imagen(i.getRuta());
+        in.setMatrizActual(histImagen);
+       
+        return in;
 
     }
     

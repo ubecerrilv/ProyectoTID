@@ -1,7 +1,9 @@
 package tid.modelo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -122,7 +124,6 @@ public class Operaciones {
     	}else {
     		Imgproc.resize(src1, src1, src2.size(), 0, 0, Imgproc.INTER_LINEAR);
     	}
-    	//TODO arreglar que sale solo un fondo negro
     	Core.absdiff(src1, src2, dst);
     	Imagen i3 = new Imagen(i.getRuta());
     	i3.setMatrizActual(dst);
@@ -181,9 +182,47 @@ public class Operaciones {
     }
     
     public Imagen moda(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+    	Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+    	for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int modeValue = getValorModa(subMatrix);
+                dst.put(o, j, modeValue);
+            }
+        }
+
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
+    private static int getValorModa(Mat subMatrix) {
+        HashMap<Integer, Integer> mapaFrecuencias = new HashMap<>();
+        for (int i = 0; i < subMatrix.rows(); i++) {
+            for (int j = 0; j < subMatrix.cols(); j++) {
+                int value = (int) subMatrix.get(i, j)[0];
+                if (mapaFrecuencias.containsKey(value)) {
+                    mapaFrecuencias.put(value, mapaFrecuencias.get(value) + 1);
+                } else {
+                    mapaFrecuencias.put(value, 1);
+                }
+            }
+        }
+        int valorModa = 0;
+        int maxFrecuencia = 0;
+        for (Map.Entry<Integer, Integer> entry : mapaFrecuencias.entrySet()) {
+            int valor = entry.getKey();
+            int frecuencia = entry.getValue();
+            if (frecuencia > maxFrecuencia) {
+                maxFrecuencia = frecuencia;
+                valorModa = valor;
+            }
+        }
+        return valorModa;
+    }
     public Imagen gaussiano(Imagen i) {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();

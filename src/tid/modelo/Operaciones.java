@@ -267,11 +267,19 @@ public class Operaciones {
     	i2.setMatrizActual(dst);
     	return i2;
     }
+    public Mat checarGris(Mat src) {
+    	Mat srcGris = new Mat();
+    	if(src.channels()!=1) {
+    		Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	}else {
+    		srcGris = src;
+    	}
+    	return srcGris;
+    }
     // TODO agregar condicion por si la imagen ya es gris, no convertirla y evitar errores.
     public Imagen n1(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Mat srcGris = checarGris(src);
 
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
@@ -307,9 +315,7 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n2(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
-
+    	Mat srcGris = checarGris(src);
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
 
@@ -331,8 +337,7 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n3(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Mat srcGris = checarGris(src);
 
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
@@ -355,9 +360,7 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n4(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
-
+    	Mat srcGris = checarGris(src);
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
 
@@ -379,8 +382,7 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n5(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Mat srcGris = checarGris(src);
 
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
@@ -403,8 +405,7 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n6(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Mat srcGris = checarGris(src);
 
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
@@ -427,8 +428,7 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n7(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Mat srcGris = checarGris(src);
 
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
@@ -451,8 +451,7 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n8(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Mat srcGris = checarGris(src);
 
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
@@ -475,15 +474,11 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n9(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
-        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
-
+    	Mat srcGris = checarGris(src);
         // Crear una nueva matriz para almacenar la imagen filtrada
         Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
-
         // Definir el orden del filtro
         int n = 9;
-
         // Aplicar el filtro de orden n
         for (int o = 1; o < srcGris.rows() - 1; o++) {
             for (int j = 1; j < srcGris.cols() - 1; j++) {
@@ -499,13 +494,8 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen prewitt(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
+    	Mat srcGris = checarGris(src);
     	Mat dst = new Mat();
-    	if(src.channels()!=1) {
-    		Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
-    	}else {
-    		srcGris = src;
-    	}
     	float kdatax[] = {1,1,1,0,0,0,-1,-1,-1};
     	float kdatay[] = {-1,0,1,-1,0,1,-1,0,1};
     	Mat kernelx = new Mat(3,3,CvType.CV_32F);
@@ -523,15 +513,10 @@ private static int getNValor(Mat subMatriz, int n) {
    
     public Imagen sobel(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
+    	Mat srcGris = checarGris(src);
     	Mat dst = new Mat();
     	Mat aux1 = new Mat();
     	Mat aux2 = new Mat();
-    	if(src.channels()!=1) {
-    		Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
-    	}else {
-    		srcGris = src;
-    	}
     	Imgproc.GaussianBlur(srcGris, srcGris, new Size(3, 3), 0);
     	Imgproc.Sobel(srcGris, aux1, -1, 1, 0, 3);
     	Imgproc.Sobel(srcGris, aux2, -1, 0, 1, 3);
@@ -543,13 +528,8 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen roberts(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = new Mat();
+    	Mat srcGris = checarGris(src);
     	Mat dst = new Mat();
-    	if(src.channels()!=1) {
-    		Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
-    	}else {
-    		srcGris = src;
-    	}
     	float kdatax[] = {1,0,0,-1};
     	float kdatay[] = {0,1,-1,0};
     	Mat kernelx = new Mat(2,2,CvType.CV_32F);

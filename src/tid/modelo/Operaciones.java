@@ -1,6 +1,7 @@
 package tid.modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -199,11 +200,11 @@ public class Operaciones {
     	return i2;
     }
     
-    private static int getValorModa(Mat subMatrix) {
+    private static int getValorModa(Mat subMatriz) {
         HashMap<Integer, Integer> mapaFrecuencias = new HashMap<>();
-        for (int i = 0; i < subMatrix.rows(); i++) {
-            for (int j = 0; j < subMatrix.cols(); j++) {
-                int value = (int) subMatrix.get(i, j)[0];
+        for (int i = 0; i < subMatriz.rows(); i++) {
+            for (int j = 0; j < subMatriz.cols(); j++) {
+                int value = (int) subMatriz.get(i, j)[0];
                 if (mapaFrecuencias.containsKey(value)) {
                     mapaFrecuencias.put(value, mapaFrecuencias.get(value) + 1);
                 } else {
@@ -257,39 +258,232 @@ public class Operaciones {
     }
     
     public Imagen n1(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 1;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
+
+private static int getNValor(Mat subMatriz, int n) {
+    int[] valores = new int[9];
+    int idx = 0;
+    for (int i = 0; i < subMatriz.rows(); i++) {
+        for (int j = 0; j < subMatriz.cols(); j++) {
+            valores[idx++] = (int) subMatriz.get(i, j)[0];
+        }
+    }
+    Arrays.sort(valores);
+    return valores[n-1];
+}
+
     
     public Imagen n2(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 2;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n3(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 3;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n4(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 4;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n5(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 5;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n6(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 6;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n7(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 7;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n8(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 8;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen n9(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+        Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+
+        // Crear una nueva matriz para almacenar la imagen filtrada
+        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
+
+        // Definir el orden del filtro
+        int n = 9;
+
+        // Aplicar el filtro de orden n
+        for (int o = 1; o < srcGris.rows() - 1; o++) {
+            for (int j = 1; j < srcGris.cols() - 1; j++) {
+                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
+                int nthOrderValue = getNValor(subMatrix, n);
+                dst.put(o, j, nthOrderValue);
+            }
+        }
+        Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen prewitt(Imagen i) {

@@ -502,7 +502,7 @@ private static int getNValor(Mat subMatriz, int n) {
     }
     
     //OPERACIONES DE MORFOLOGÃ�A
-    public Imagen erosion(Imagen i, int[] estruc) {
+    public Imagen erosion(Imagen i, int[][] estruc, int col, int filas) {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	//TODO Falta añadir los datos de estruc
@@ -514,7 +514,7 @@ private static int getNValor(Mat subMatriz, int n) {
     	i2.setMatrizActual(dst);
     	return i2;
     }
-    public Imagen dilatacion(Imagen i, int[] estruc) {
+    public Imagen dilatacion(Imagen i, int[][] estruc, int col, int filas) {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	//TODO Falta añadir los datos de estruc

@@ -53,4 +53,16 @@ public class ControlPrincipal extends ControlAbs{
 		return null;
 	}
 
+	@Override
+	public Imagen erosion(Imagen i, int[][] mat, int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Imagen dilatacion(Imagen i, int[][] mat, int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }//FIN CLASE

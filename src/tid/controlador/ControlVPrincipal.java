@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import tid.gui.VentanaG;
@@ -279,20 +278,7 @@ public class ControlVPrincipal extends ControlAbs {
 			imagenes.add(res);
 			imgInd++;
 			return res;
-			
-		case Comandos.EROSION://CAMBIAR ESTTO
-			img1 = (Imagen)d;
-			res =op.erosion(img1, null);
-			imagenes.add(res);
-			imgInd++;
-			return res;
-			
-		case Comandos.DILATACION://CAMBIAR ESTTO
-			img1 = (Imagen)d;
-			res =op.dilatacion(img1, null);
-			imagenes.add(res);
-			imgInd++;
-			return res;	
+				
 		}//FIN SWITCH
 		
 		
@@ -304,5 +290,19 @@ public class ControlVPrincipal extends ControlAbs {
 		Imagen res = op.collage(imagenes, x, y);
 		return res;
 	}//FIN COLLAGE
+	
+	public Imagen erosion(Imagen i, int[][]mat, int x, int y) {
+		img1 = i;
+		res=op.erosion(img1, mat, x, y);
+		this.imagenes.add(res);
+		return res;
+	}
+	
+	public Imagen dilatacion(Imagen i, int[][]mat, int x, int y) {
+		img1 = i;
+		res=op.dilatacion(img1, mat, x, y);
+		this.imagenes.add(res);
+		return res;
+	}
 
 }//FIN CLASE

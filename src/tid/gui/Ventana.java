@@ -41,6 +41,10 @@ public class Ventana extends VentanaAGeneral{
 	VentanaG ventanaGuar;
 	ArrayList<Imagen> imagenesCollage;
 	
+	private int[][] rElement;
+	private int ay=0;
+	private int ax=0;
+	
 	JPanel panel;
 	JLabel autor, img;
 	JButton bBuscar, bAtras, bDelante, bGuardar;
@@ -72,7 +76,12 @@ public class Ventana extends VentanaAGeneral{
 	
 	//OPERACIONES MORFO
 	JButton ero, dila, estruc;
-	JPanel defEstruc, pDefMor;
+	JPanel defEstruc, pDefMor, ele;
+	JLabel uEle;
+		//PANELES Y COSAS NECESARIAS PARA LA DEFINICION DEL ELEMENTO ESTRUCTURANTE
+		JPanel dimen, mat;
+		JLabel eFilas, eColumnas;
+		JTextArea estrucFilas, estrucColumnas, auxNum;
 	
 	public Ventana() {
 		super("Tratamiento de imagenes");
@@ -96,10 +105,37 @@ public class Ventana extends VentanaAGeneral{
 			segmentacion = new JPanel();
 			
 			//FALTA AGREGAR LO QUE LLEVA CADA PANEL
+			//DEFINICION DE OBJETOS PARA EL PANEL DE EL ELEMENTO ESTRUCTURANTE
+			dimen = new JPanel(new GridLayout(2,2));
+			eColumnas = new JLabel("Define el numero de columnas");
+			dimen.add(eColumnas);
+			estrucColumnas = new JTextArea();
+			dimen.add(estrucColumnas);
+			
+			eFilas = new JLabel("Define el numero de filas");
+			dimen.add(eFilas);
+			estrucFilas = new JTextArea();
+			dimen.add(estrucFilas);
+			
 			//MORFO
 			defEstruc = new JPanel();
 			defEstruc.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Elemento estructurante",TitledBorder.CENTER,TitledBorder.TOP));
 			defEstruc.setLayout(new GridBagLayout());
+			estruc = new JButton("Definir elemento estructurante");
+			estruc.setActionCommand(Comandos.VENTANAESTRUC);
+			estruc.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			defEstruc.add(estruc, rest);
+			
+			ele = new JPanel();
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			defEstruc.add(ele, rest);
 			
 			pDefMor = new JPanel();
 			pDefMor.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Operaciones morfologicas",TitledBorder.CENTER,TitledBorder.TOP));
@@ -1095,22 +1131,95 @@ public void actionPerformed(ActionEvent e) {
 		repaint();
 		break;
 		
-	case Comandos.EROSION:
-		if(imgActRGB!=null) {
-			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.EROSION, imgActRGB, null);
-			this.img.setIcon(imgActRGB.convertirMatAImg());
+	case Comandos.VENTANAESTRUC:
+		if(imgActRGB !=null) {
+			JOptionPane.showMessageDialog(this, dimen);
+			defEstruc.remove(ele);
+			if(estrucColumnas.getText().compareTo("")!=0 && estrucFilas.getText().compareTo("")!=0) {
+				int x0 = Integer.parseInt(estrucColumnas.getText());
+				int y0 = Integer.parseInt(estrucFilas.getText());	
+				
+				JOptionPane.showMessageDialog(this, "En la siguente ventana definiras elemento estructurante, "
+						+ "los espacios que dejes en blanco se rellenaran con un 0\n"
+						+ "Por favor coloca un 2 en el elemento que será el ancla del elemento estructurante\n"
+						+ "Si el ancla no es especificada se tomara la coordenada 1,1");
+				mat = new JPanel(new GridLayout(y0,x0));
+				for(int i = 0; i<(x0*y0);i++) {
+					auxNum = new JTextArea();
+					mat.add(auxNum);
+				}
+				JOptionPane.showMessageDialog(this, mat);
+				int auxc=0;
+				JTextArea si;
+				this.rElement = new int[y0][x0];
+				for(int i =0;i<y0;i++) {//RECORRER FILAS
+					for(int j = 0;j<x0;j++) {//RECORRER COLUMNAS
+						si = (JTextArea)mat.getComponent(auxc);
+						if(si.getText().compareTo("")==0) {
+							rElement[i][j]=0;
+							auxc++;
+						}else {
+							rElement[i][j]=Integer.parseInt(si.getText());
+							auxc++;
+						}
+					}
+				}//FIN DOBLE FOR
+				for(int i =0;i<y0;i++) {//RECORRER FILAS
+					for(int j = 0;j<x0;j++) {//RECORRER COLUMNAS
+						if(rElement[i][j]==2) {
+							rElement[i][j]=1;
+							this.ay=i;
+							this.ax=j;
+						}
+					}
+				}//FIN DOBLE FOR
+				
+				ele = new JPanel(new GridLayout(y0,x0));
+				for(int i =0;i<y0;i++) {//RECORRER FILAS
+					for(int j = 0;j<x0;j++) {//RECORRER COLUMNAS
+						if(i==ay && j==ax) {
+							JLabel auxx = new JLabel("   "+rElement[i][j]+"   ");
+							auxx.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+							ele.add(auxx);
+						}else {
+							ele.add(new JLabel("   "+rElement[i][j]+"   "));
+						}//FIN IF
+					}
+				}//FIN FOR
+				
+				rest.gridx = 0;
+				rest.gridy = 1;
+				rest.gridwidth = 1;
+				rest.gridheight = 1;
+				defEstruc.add(ele, rest);
+					
+				repaint();
+				
+				
+			}else {
+				JOptionPane.showMessageDialog(this, "No has definido las dimensiones del elemento estructurante");
+			}
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		break;
+		
+	case Comandos.EROSION:
+		if(imgActRGB!=null && rElement!=null) {
+			imgActRGB = this.control.erosion(imgActRGB,this.rElement, this.ax, this.ay);
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen y define el elemento estructurante");
 		}
 		repaint();
 		break;
 		
 	case Comandos.DILATACION:
 		if(imgActRGB!=null) {
-			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.DILATACION, imgActRGB, null);
+			imgActRGB = this.control.dilatacion(imgActRGB,this.rElement, this.ax, this.ay);
 			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
-			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen y define el elemento estructurante");
 		}
 		repaint();
 		break;

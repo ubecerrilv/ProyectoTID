@@ -46,5 +46,8 @@ public class Comandos {
 							   SOBEL="filtro sobel",
 							   ROBERT="filtro roberts",
 							   EROSION = "erosiona",
-							   DILATACION ="dilata";
+							   DILATACION ="dilata",
+							   VENTANAESTRUC = "salir ventana de ele",
+							   GENERARESTRUC = "genera elemento estruc",
+							   DEFINIRESTRUC= "define elemento estruc";
 }

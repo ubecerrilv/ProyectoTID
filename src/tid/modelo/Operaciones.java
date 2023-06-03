@@ -503,10 +503,28 @@ private static int getNValor(Mat subMatriz, int n) {
     
     //OPERACIONES DE MORFOLOGÃ�A
     public Imagen erosion(Imagen i, int[] estruc) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	//TODO Falta añadir los datos de estruc
+    	Mat element = Imgproc.getStructuringElement( Imgproc.MORPH_RECT,
+                new Size(3,3),
+                new Point(1, 1));
+    	Imgproc.erode( src, dst, element );
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     public Imagen dilatacion(Imagen i, int[] estruc) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat dst = new Mat();
+    	//TODO Falta añadir los datos de estruc
+    	Mat element = Imgproc.getStructuringElement( Imgproc.MORPH_RECT,
+                new Size(3,3),
+                new Point(1, 1));
+    	Imgproc.dilate( src, dst, element );
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
 

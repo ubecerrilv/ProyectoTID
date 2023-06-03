@@ -551,7 +551,7 @@ public class Ventana extends VentanaAGeneral{
 			contornos.add(sobel, rest);//FILTRO SOBEL
 			
 			robert = new JButton("Roberts");
-			robert.setActionCommand("Roberts");
+			robert.setActionCommand(Comandos.ROBERT);
 			robert.addActionListener(this);
 			rest.gridx = 3;
 			rest.gridy = 0;

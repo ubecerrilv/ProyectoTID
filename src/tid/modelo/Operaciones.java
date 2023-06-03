@@ -267,7 +267,7 @@ public class Operaciones {
     	i2.setMatrizActual(dst);
     	return i2;
     }
-    
+    // TODO agregar condicion por si la imagen ya es gris, no convertirla y evitar errores.
     public Imagen n1(Imagen i) {
     	Mat src = i.getMatrizActual();
     	Mat srcGris = new Mat();
@@ -533,7 +533,23 @@ private static int getNValor(Mat subMatriz, int n) {
     }
     
     public Imagen roberts(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+    	Mat dst = new Mat();
+    	Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	float kdatax[] = {1,0,0,-1};
+    	float kdatay[] = {0,1,-1,0};
+    	Mat kernelx = new Mat(2,2,CvType.CV_32F);
+    	Mat kernely = new Mat(2,2,CvType.CV_32F);
+    	kernelx.put( 0, 0, kdatax);
+    	kernely.put( 0, 0, kdatay);
+    	Imgproc.GaussianBlur(srcGris, srcGris, new Size(3, 3), 0);
+    	Imgproc.filter2D(srcGris, dst, -1, kernelx);
+    	Imgproc.filter2D(srcGris, dst, -1, kernely);
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	System.out.println("Hola");
+    	return i2;
     }
     
     //OPERACIONES DE MORFOLOGÃ�A

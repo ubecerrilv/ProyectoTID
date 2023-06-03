@@ -155,15 +155,24 @@ public class Operaciones {
     }
     public Imagen espejo(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat dst = new Mat(src.width(), src.height(), src.depth());
-    	int width = src.cols()/2;
-    	int height = src.rows()/2;
-    	Size sz = new Size(width,height);
+    	Mat dst = new Mat(src.rows(), src.cols(), src.type());
+    	int cols = src.cols()/2;
+    	int rows = src.rows()/2;
+    	Mat aux = new Mat(rows, cols, src.depth());
+    	Size sz = new Size(cols,rows);
     	// TODO falta hacer el espejo, este es un metodo para generar un "collage"
     	Imgproc.resize(src, src, sz);
-    	src.copyTo(dst.submat(new Rect(1 * width, 0 * height, width, height)));
-    
-    	return null;
+    	src.copyTo(dst.submat(rows, rows * 2, 0, cols));
+    	Core.flip(src, aux, 1);
+    	Imgproc.resize(aux, aux, sz);
+    	aux.copyTo(dst.submat(rows, rows * 2 ,cols, cols * 2));
+    	Core.flip(aux, aux, 0);
+    	aux.copyTo(dst.submat(0, rows, cols, cols * 2));
+    	Core.flip(aux, aux, 1);
+    	aux.copyTo(dst.submat(0, rows, 0, cols));
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     //OPERACIONES PARA FILTROS

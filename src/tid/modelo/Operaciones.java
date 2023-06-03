@@ -160,7 +160,6 @@ public class Operaciones {
     	int rows = src.rows()/2;
     	Mat aux = new Mat(rows, cols, src.depth());
     	Size sz = new Size(cols,rows);
-    	// TODO falta hacer el espejo, este es un metodo para generar un "collage"
     	Imgproc.resize(src, src, sz);
     	src.copyTo(dst.submat(rows, rows * 2, 0, cols));
     	Core.flip(src, aux, 1);
@@ -499,11 +498,38 @@ private static int getNValor(Mat subMatriz, int n) {
     }
     
     public Imagen prewitt(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+    	Mat dst = new Mat();
+    	Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	float kdatax[] = {1,1,1,0,0,0,-1,-1,-1};
+    	float kdatay[] = {-1,0,1,-1,0,1,-1,0,1};
+    	Mat kernelx = new Mat(3,3,CvType.CV_32F);
+    	Mat kernely = new Mat(3,3,CvType.CV_32F);
+    	kernelx.put( 0, 0, kdatax);
+    	kernely.put( 0, 0, kdatay);
+    	Imgproc.GaussianBlur(srcGris, srcGris, new Size(3, 3), 0);
+    	Imgproc.filter2D(srcGris, dst, -1, kernelx);
+    	Imgproc.filter2D(srcGris, dst, -1, kernely);
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen sobel(Imagen i) {
-    	return null;
+    	Mat src = i.getMatrizActual();
+    	Mat srcGris = new Mat();
+    	Mat dst = new Mat();
+    	Mat aux1 = new Mat();
+    	Mat aux2 = new Mat();
+    	Imgproc.cvtColor(src, srcGris, Imgproc.COLOR_BGR2GRAY);
+    	Imgproc.GaussianBlur(srcGris, srcGris, new Size(3, 3), 0);
+    	Imgproc.Sobel(srcGris, aux1, -1, 1, 0, 3);
+    	Imgproc.Sobel(srcGris, aux2, -1, 0, 1, 3);
+    	Core.add(aux1, aux2, dst);
+    	Imagen i2 = new Imagen(i.getRuta());
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     
     public Imagen roberts(Imagen i) {

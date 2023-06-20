@@ -134,7 +134,79 @@ public class Operaciones {
     	return i3;
     }
     public Imagen collage(ArrayList<Imagen> imagenes, int x, int y) {//SE DA UN ARRGEL0 DE IMAGENES, REGRESA UNA IMAGEN DE LAS DIMENSIONES X x Y
-    	return null;
+    	Mat src;
+    	int cols = x/imagenes.size();
+    	int rows = y;
+    	ArrayList<String> rdmCoord = new ArrayList<String>();
+    	int rdm1, rdm2, aux;
+    	Size sz;
+    	src = imagenes.get(0).getMatrizActual();
+    	Mat dst = new Mat(y, x, src.type());
+    	if(imagenes.size()<=3) {
+    		rows = y;
+    		cols = x/imagenes.size();
+    		sz = new Size(cols,rows);
+    		rdm1 = (int)(Math.random() * 1);
+    		rdm2 = (int)(Math.random() * imagenes.size());
+    		aux = 0;
+    		while(aux<imagenes.size()) {
+        		if(!rdmCoord.contains(rdm1+", "+rdm2)) {
+        			src = imagenes.get(aux).getMatrizActual();
+            		Imgproc.resize(src, src, sz);
+            		src.copyTo(dst.submat(rdm1 * rows, (rdm1 + 1) * rows, rdm2 * cols, (rdm2 + 1) * cols));
+            		aux++;
+            		rdmCoord.add(rdm1+", "+rdm2);
+        		}
+        		rdm1 = (int)(Math.random() * 1);
+        		rdm2 = (int)(Math.random() * imagenes.size());
+        		
+    		}
+    	}
+    	if(imagenes.size()>3 && imagenes.size()<=6) {
+    		rows = y/2;
+    		cols = x/3;
+    		sz = new Size(cols,rows);
+    		rdm1 = (int)(Math.random() * 2);
+    		rdm2 = (int)(Math.random() * 3);
+    		aux = 0;
+    		while(aux<imagenes.size()) {
+        		if(!rdmCoord.contains(rdm1+", "+rdm2)) {
+        			src = imagenes.get(aux).getMatrizActual();
+            		Imgproc.resize(src, src, sz);
+            		src.copyTo(dst.submat(rdm1 * rows, (rdm1 + 1) * rows, rdm2 * cols, (rdm2 + 1) * cols));
+            		aux++;
+            		rdmCoord.add(rdm1+", "+rdm2);
+        		}
+        		rdm1 = (int)(Math.random() * 2);
+        		rdm2 = (int)(Math.random() * 3);
+        		
+    		}
+    	}
+    	if(imagenes.size()>6) {
+    		rows = y/3;
+    		cols = x/3;
+    		sz = new Size(cols,rows);
+    		rdm1 = (int)(Math.random() * 3);
+    		rdm2 = (int)(Math.random() * 3);
+    		rdmCoord.add(rdm1+", "+rdm2);
+    		aux = 0;
+    		while(aux<imagenes.size()) {
+        		if(!rdmCoord.contains(rdm1+", "+rdm2)) {
+        			src = imagenes.get(aux).getMatrizActual();
+            		Imgproc.resize(src, src, sz);
+            		src.copyTo(dst.submat(rdm1 * rows, (rdm1 + 1) * rows, rdm2 * cols, (rdm2 + 1) * cols));
+            		aux++;
+            		rdmCoord.add(rdm1+", "+rdm2);
+        		}
+        		rdm1 = (int)(Math.random() * 3);
+        		rdm2 = (int)(Math.random() * 3);
+        		
+    		}
+    	}
+   
+    	Imagen i2 = new Imagen();
+    	i2.setMatrizActual(dst);
+    	return i2;
     }
     public Imagen rotIzq(Imagen i) {//ROTAR 90 A LA IZQUIERDA
     	Mat src = i.getMatrizActual();
@@ -382,23 +454,9 @@ private static int getNValor(Mat subMatriz, int n) {
     
     public Imagen n5(Imagen i) {
     	Mat src = i.getMatrizActual();
-    	Mat srcGris = checarGris(src);
-
-        // Crear una nueva matriz para almacenar la imagen filtrada
-        Mat dst = new Mat(srcGris.rows(), srcGris.cols(), srcGris.type());
-
-        // Definir el orden del filtro
-        int n = 5;
-
-        // Aplicar el filtro de orden n
-        for (int o = 1; o < srcGris.rows() - 1; o++) {
-            for (int j = 1; j < srcGris.cols() - 1; j++) {
-                Mat subMatrix = srcGris.submat(o - 1, o + 2, j - 1, j + 2);
-                int nthOrderValue = getNValor(subMatrix, n);
-                dst.put(o, j, nthOrderValue);
-            }
-        }
-        Imagen i2 = new Imagen(i.getRuta());
+    	Mat dst = new Mat();
+    	Imgproc.medianBlur(src, dst, 3);
+    	Imagen i2 = new Imagen(i.getRuta());
     	i2.setMatrizActual(dst);
     	return i2;
     }
@@ -561,6 +619,7 @@ private static int getNValor(Mat subMatriz, int n) {
     	Mat src = i.getMatrizActual();
     	Mat dst = new Mat();
     	//TODO Falta añadir los datos de estruc
+    	
     	Mat element = Imgproc.getStructuringElement( Imgproc.MORPH_RECT,
                 new Size(3,3),
                 new Point(1, 1));

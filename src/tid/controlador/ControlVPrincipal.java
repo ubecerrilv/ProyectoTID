@@ -14,7 +14,7 @@ import tid.modelo.Operaciones;
 
 public class ControlVPrincipal extends ControlAbs {
 	Operaciones op;
-	ArrayList<Imagen> imagenes;
+	ArrayList<Imagen> imagenes =  new ArrayList<Imagen>();;
 	int imgInd;
 	VentanaG ventGuar;
 	Imagen ag, img1, img2, res;

@@ -633,5 +633,20 @@ private static int getNValor(Mat subMatriz, int n) {
     	return i2;
     }
     
-
-}
+    public Imagen picosHist (Imagen i) {
+    	return null;
+    }
+    
+    public Imagen minHist(Imagen i) {
+    	return null;
+    }
+ 
+    public Imagen segmentar (Imagen i) {
+    	return null;
+    }
+ 
+    public Imagen imgeHist (Imagen i) {
+    	return null;
+ }
+    
+}//FIN CLASE

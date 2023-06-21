@@ -49,5 +49,9 @@ public class Comandos {
 							   DILATACION ="dilata",
 							   VENTANAESTRUC = "salir ventana de ele",
 							   GENERARESTRUC = "genera elemento estruc",
-							   DEFINIRESTRUC= "define elemento estruc";
+							   DEFINIRESTRUC= "define elemento estruc",
+							   HISTMIN = "minimos del histograma",
+							   HISTMAX = "maximos del histograma",
+							   SEGMENTAR = "segmentar imagen",
+							   IMGNHIST= "imagen original e histograma";
 }

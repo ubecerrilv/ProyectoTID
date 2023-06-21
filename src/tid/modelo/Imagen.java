@@ -20,9 +20,11 @@ public class Imagen implements Data {
 	private BufferedImage bufImg;
     
     public Imagen(String ruta) {
-    	this.ruta = ruta;
-    	this.matrizActual = Imgcodecs.imread(ruta);
-    	this.bufImg  = (BufferedImage) HighGui.toBufferedImage(this.matrizActual);
+    	if(ruta != null && ruta.compareTo("")!=0) {
+    		this.ruta = ruta;
+    		this.matrizActual = Imgcodecs.imread(ruta);
+    		this.bufImg  = (BufferedImage) HighGui.toBufferedImage(this.matrizActual);
+    	}
     }
     
     public ImageIcon convertirMatAImg() {

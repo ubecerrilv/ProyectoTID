@@ -82,6 +82,11 @@ public class Ventana extends VentanaAGeneral{
 		JPanel dimen, mat;
 		JLabel eFilas, eColumnas;
 		JTextArea estrucFilas, estrucColumnas, auxNum;
+		
+	//SEGMENTACION
+	JPanel maxmin, segmentarP, Imgehist;
+	JButton max, min, seg, imghist;
+	JLabel infoColores;
 	
 	public Ventana() {
 		super("Tratamiento de imagenes");
@@ -102,9 +107,69 @@ public class Ventana extends VentanaAGeneral{
 			rotacion = new JPanel(new GridLayout(2,1));
 			filtros = new JPanel(new GridBagLayout());
 			morfo = new JPanel(new GridLayout(2,1));
-			segmentacion = new JPanel();
+			segmentacion = new JPanel(new GridLayout(3,1));
 			
-			//FALTA AGREGAR LO QUE LLEVA CADA PANEL
+			//PANELES Y ELEMENTOS DE SEGMENTACION
+			maxmin = new JPanel();
+			maxmin.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Maximos y minimos del histograma",TitledBorder.CENTER,TitledBorder.TOP));
+			maxmin.setLayout(new GridBagLayout());
+			
+			max = new JButton("Picos significativos del histograma");
+			max.setActionCommand(Comandos.HISTMAX);
+			max.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxmin.add(max, rest);
+			
+			min = new JButton("Minimos del histograma");
+			min.setActionCommand(Comandos.HISTMIN);
+			min.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			maxmin.add(min, rest);
+			
+			segmentarP = new JPanel();
+			segmentarP.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Segmentar",TitledBorder.CENTER,TitledBorder.TOP));
+			segmentarP.setLayout(new GridBagLayout());
+			seg = new JButton("Segmentar imagen en N regiones");
+			seg.setActionCommand(Comandos.SEGMENTAR);
+			seg.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			segmentarP.add(seg, rest);
+			
+			infoColores = new JLabel("<html><center>Las N regiones seran separadas y cada una de ellas<br>será etiquetada con un color diferente</center></html>");
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			segmentarP.add(infoColores, rest);
+			
+			
+			Imgehist = new JPanel();
+			Imgehist.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),"Imagen original",TitledBorder.CENTER,TitledBorder.TOP));
+			Imgehist.setLayout(new GridBagLayout());
+			
+			imghist = new JButton("Imagen original con histograma");
+			imghist.setActionCommand(Comandos.IMGNHIST);
+			imghist.addActionListener(this);
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			Imgehist.add(imghist, rest);
+			
+			
+			segmentacion.add(maxmin);
+			segmentacion.add(segmentarP);
+			segmentacion.add(Imgehist);
+			
 			//DEFINICION DE OBJETOS PARA EL PANEL DE EL ELEMENTO ESTRUCTURANTE
 			dimen = new JPanel(new GridLayout(2,2));
 			eColumnas = new JLabel("Define el numero de columnas");
@@ -1223,6 +1288,47 @@ public void actionPerformed(ActionEvent e) {
 		}
 		repaint();
 		break;
+		
+	case Comandos.HISTMAX:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.HISTMAX, imgActRGB, null);
+			this.img.setIcon(imgActRGB.convertirMatAImg());//CAMBIAR, COLOCAR EN JOPTION
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.HISTMIN:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.HISTMIN, imgActRGB, null);//CAMBIAR A MIN
+			this.img.setIcon(imgActRGB.convertirMatAImg());//CAMBIAR, COLOCAR EN JOPTION
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.SEGMENTAR:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.SEGMENTAR, imgActRGB, null);//CAMBIAR A SEGMENTAR
+			this.img.setIcon(imgActRGB.convertirMatAImg());
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
+	case Comandos.IMGNHIST:
+		if(imgActRGB!=null) {
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.IMGNHIST, imgActRGB, null);//CAMBIAR A IMAGEN ORIGINAL E HISTOGRAMA
+			this.img.setIcon(imgActRGB.convertirMatAImg());//CAMBIAR, COLOCAR EN JOPTION
+		}else {
+			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
+		}
+		repaint();
+		break;
+		
 		}//FIN SWITCH
 	}//FIN ACTION
 

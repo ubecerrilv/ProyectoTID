@@ -638,7 +638,7 @@ public class Ventana extends VentanaAGeneral{
 		
 		//CREAR FILE CHOOSER
 		imagen = new JFileChooser();
-		imagen.setFileFilter(new FileNameExtensionFilter ("png","PNG", "jpg", "JPG", "tif", "TIF", "jpeg", "JPEG", "bmp", "BMP", "ppm", "PPM"));
+		imagen.setFileFilter(new FileNameExtensionFilter ("png","PNG", "jpg", "JPG", "tif", "TIF", "tiff", "TIFF", "avif", "AVIF", "jpeg", "JPEG", "bmp", "BMP", "ppm", "PPM"));
 		
 		//CREAR PANELES
 		//PANEL CENTRAL

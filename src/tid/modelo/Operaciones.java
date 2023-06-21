@@ -1,5 +1,7 @@
 package tid.modelo;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -703,8 +705,39 @@ private static int getNValor(Mat subMatriz, int n) {
    	 
     }//FIN PICOS HIST
     
-    public Imagen minHist(Imagen i) {
-    	return null;
+    public Imagen minHist(Imagen o) {
+    	BufferedImage imagen = o.getBufImg();
+    	int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        BufferedImage imagenUmbralizada = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
+
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
+                // Obtener el color de un píxel en la posición (x, y)
+                Color colorOriginal = new Color(imagen.getRGB(x, y));
+                
+                // Obtener los componentes RGB del color original
+                int r = colorOriginal.getRed();
+                int g = colorOriginal.getGreen();
+                int b = colorOriginal.getBlue();
+                
+                // Calcular el promedio de los componentes RGB
+                int promedio = (r + g + b) / 3;
+
+                // Comparar el promedio con el umbral y asignar el nuevo color
+                if (promedio >= 40) {
+                    imagenUmbralizada.setRGB(x, y, Color.BLACK.getRGB());
+                } else {
+                    imagenUmbralizada.setRGB(x, y, Color.WHITE.getRGB());
+                }
+            }
+        }
+    	
+      	Imagen i2 = new Imagen(o.getRuta());
+      	i2.setBufImg(imagenUmbralizada);
+      	
+      	return i2;
+      	 
     }//FIN MINIMOS DEL HISTOGRAMA
  
     public Imagen segmentar (Imagen o) {

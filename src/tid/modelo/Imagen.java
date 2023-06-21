@@ -36,6 +36,11 @@ public class Imagen implements Data {
     	
     }
     
+    public ImageIcon covertirBuff() {
+    	this.imagenActual =new ImageIcon(bufImg.getScaledInstance(379, 439, 0));
+    	return imagenActual;
+    }
+    
     public ImageIcon convertirMataImgHist() {
     	this.bufImg  = (BufferedImage) HighGui.toBufferedImage(this.matrizActual);
     	// Obtener el ancho y alto de la imagen

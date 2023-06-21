@@ -1370,7 +1370,7 @@ public void actionPerformed(ActionEvent e) {
 	case Comandos.HISTMIN:
 		if(imgActRGB!=null) {
 			Imagen si2 = (Imagen)this.control.ejecutaComando(Comandos.HISTMIN, imgActRGB, null);
-			JOptionPane.showMessageDialog(this, new JLabel(si2.convertirMatAImg()));//AGREGAR ETIQUETAS
+			JOptionPane.showMessageDialog(this, new JLabel(si2.covertirBuff()));//AGREGAR ETIQUETAS
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}

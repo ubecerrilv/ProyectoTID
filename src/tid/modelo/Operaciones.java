@@ -636,13 +636,76 @@ private static int getNValor(Mat subMatriz, int n) {
     	return i2;
     }
     
-    public Imagen picosHist (Imagen i) {
-    	return null;
-    }
+    public Imagen picosHist (Imagen o) {
+    	// Cambiar fondo a negro
+   	 Mat src = o.getMatrizActual();
+   	 byte[] srcData = new byte[(int) (src.total() * src.channels())];
+   	 src.get(0, 0, srcData);
+   	 for (int i = 0; i < src.rows(); i++) {
+   		for (int j = 0; j < src.cols(); j++) {
+   			if (srcData[(i * src.cols() + j) * 3] == (byte) 255 && srcData[(i * src.cols() + j) * 3 + 1] == (byte) 255
+   			&& srcData[(i * src.cols() + j) * 3 + 2] == (byte) 255) {
+   				srcData[(i * src.cols() + j) * 3] = 0;
+   				srcData[(i * src.cols() + j) * 3 + 1] = 0;
+   				srcData[(i * src.cols() + j) * 3 + 2] = 0;
+   			}//FIN IF
+   		}//FIN FOR
+   	 }//FIN FOR
+   	 src.put(0, 0, srcData);
+
+   	 // Crear elemento estructurante para dilatar
+   	 Mat kernel = new Mat(3, 3, CvType.CV_32F);
+
+   	 float[] kernelData = new float[(int) (kernel.total() * kernel.channels())];
+   	 kernelData[0] = 1; kernelData[1] = 1; kernelData[2] = 1;
+   	 kernelData[3] = 1; kernelData[4] = -8; kernelData[5] = 1;
+   	 kernelData[6] = 1; kernelData[7] = 1; kernelData[8] = 1;
+   	 kernel.put(0, 0, kernelData);
+   	 
+   	 //Aplicar filtro laplaciano y evitar valores negativos
+   	 Mat imgLaplacian = new Mat();
+   	 Imgproc.filter2D(src, imgLaplacian, CvType.CV_32F, kernel);
+   	 Mat sharp = new Mat();
+   	 src.convertTo(sharp, CvType.CV_32F);
+   	 Mat imgResult = new Mat();
+   	 Core.subtract(sharp, imgLaplacian, imgResult);
+   	 
+   	 imgResult.convertTo(imgResult, CvType.CV_8UC3);
+   	 imgLaplacian.convertTo(imgLaplacian, CvType.CV_8UC3);
+   	 
+   	 Mat bw = new Mat();
+   	 Imgproc.cvtColor(imgResult, bw, Imgproc.COLOR_BGR2GRAY);
+   	 Imgproc.threshold(bw, bw, 40, 255, Imgproc.THRESH_BINARY | Imgproc.THRESH_OTSU);
+   	 
+   	 //Algoritmo de tranformacion de distancia
+   	 Mat dist = new Mat();
+   	 Imgproc.distanceTransform(bw, dist, Imgproc.DIST_L2, 3);
+   	 // Normalize the distance image for range = {0.0, 1.0}
+   	 // so we can visualize and threshold it
+   	 Core.normalize(dist, dist, 0.0, 1.0, Core.NORM_MINMAX);
+   	 Mat distDisplayScaled = new Mat();
+   	 Core.multiply(dist, new Scalar(255), distDisplayScaled);
+   	 Mat distDisplay = new Mat();
+   	 distDisplayScaled.convertTo(distDisplay, CvType.CV_8U);
+   	 
+   	 // Umbralizar para obtener los picos
+   	 Imgproc.threshold(dist, dist, 0.4, 1.0, Imgproc.THRESH_BINARY);
+   	 //Dilatar la imagen
+   	 Mat kernel1 = Mat.ones(3, 3, CvType.CV_8U);
+   	 Imgproc.dilate(dist, dist, kernel1);
+   	 Mat distDisplay2 = new Mat();
+   	 dist.convertTo(distDisplay2, CvType.CV_8U);
+   	 Core.multiply(distDisplay2, new Scalar(255), distDisplay2);
+    
+   	Imagen i2 = new Imagen(o.getRuta());
+	i2.setMatrizActual(distDisplay2);
+	return i2;
+   	 
+    }//FIN PICOS HIST
     
     public Imagen minHist(Imagen i) {
     	return null;
-    }
+    }//FIN MINIMOS DEL HISTOGRAMA
  
     public Imagen segmentar (Imagen o) {
     	 // Cambiar fondo a negro
@@ -684,7 +747,6 @@ private static int getNValor(Mat subMatriz, int n) {
     	 Mat bw = new Mat();
     	 Imgproc.cvtColor(imgResult, bw, Imgproc.COLOR_BGR2GRAY);
     	 Imgproc.threshold(bw, bw, 40, 255, Imgproc.THRESH_BINARY | Imgproc.THRESH_OTSU);
-    	 HighGui.imshow("Binary Image", bw);
     	 
     	 //Algoritmo de tranformacion de distancia
     	 Mat dist = new Mat();
@@ -773,7 +835,7 @@ private static int getNValor(Mat subMatriz, int n) {
     	Imagen i2 = new Imagen(o.getRuta());
     	i2.setMatrizActual(dst);
     	return i2;
-    }
+    }//FIN SEGMENTAR
  
     
 }//FIN CLASE

@@ -144,7 +144,9 @@ public class Ventana extends VentanaAGeneral{
 			rest.gridheight = 1;
 			segmentarP.add(seg, rest);
 			
-			infoColores = new JLabel("<html><center>Las N regiones seran separadas y cada una de ellas<br>será etiquetada con un color diferente</center></html>");
+			infoColores = new JLabel("<html><center>Las N regiones seran separadas y cada una de ellas<br>será etiquetada con un color diferente<br>"
+					+ "Puede tomar algunos segundos dependiendo del "
+					+ "<br>tamaño de la imagen</center></html>");
 			rest.gridx = 0;
 			rest.gridy = 1;
 			rest.gridwidth = 1;
@@ -861,7 +863,40 @@ public void actionPerformed(ActionEvent e) {
 	case Comandos.HISTA://MOSTRAR HISTOGRAMA ANTERIOR
 		if( imgActRGB != null) {
 			Imagen img = (Imagen) this.control.ejecutaComando(Comandos.HISTA, null, null);
-			JOptionPane.showMessageDialog(this, new JLabel(img.convertirMatAImg()));
+			JLabel vert, hori, hist;
+			JPanel pAux;
+
+			vert =new JLabel(new ImageIcon(Ventana.class.getResource("/tid/imagenes/vert.png")));
+			hori = new JLabel(new ImageIcon(Ventana.class.getResource("/tid/imagenes/hori.png")));
+			hist = new JLabel(img.convertirMataImgHist());
+			
+			pAux = new JPanel();
+			pAux.setLayout(new GridBagLayout());
+			
+			rest.fill=GridBagConstraints.BOTH;
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			
+			pAux.add(vert, rest);
+			
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 2;
+			rest.gridheight = 1;
+			
+			pAux.add(hori, rest);
+			
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			
+			pAux.add(hist, rest);
+			rest.fill=GridBagConstraints.NONE;
+			
+			JOptionPane.showMessageDialog(this, pAux);
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}
@@ -870,7 +905,40 @@ public void actionPerformed(ActionEvent e) {
 	case Comandos.HISTN://MOSTRAR HISTOGRAMA NUEVO
 		if(cont1 >0) {
 			Imagen img1 = (Imagen) this.control.ejecutaComando(Comandos.HISTN, imgActRGB, null);
-			JOptionPane.showMessageDialog(this, new JLabel(img1.convertirMatAImg()));
+			JLabel vert, hori, hist;
+			JPanel pAux;
+
+			vert =new JLabel(new ImageIcon(Ventana.class.getResource("/tid/imagenes/vert.png")));
+			hori = new JLabel(new ImageIcon(Ventana.class.getResource("/tid/imagenes/hori.png")));
+			hist = new JLabel(img1.convertirMataImgHist());
+			
+			pAux = new JPanel();
+			pAux.setLayout(new GridBagLayout());
+			
+			rest.fill=GridBagConstraints.BOTH;
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			
+			pAux.add(vert, rest);
+			
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 2;
+			rest.gridheight = 1;
+			
+			pAux.add(hori, rest);
+			
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			
+			pAux.add(hist, rest);
+			rest.fill=GridBagConstraints.NONE;
+			JOptionPane.showMessageDialog(this, pAux);
+			
 		}else {
 			JOptionPane.showMessageDialog(this, "Ecualiza la imagen primero");
 		}
@@ -1291,8 +1359,8 @@ public void actionPerformed(ActionEvent e) {
 		
 	case Comandos.HISTMAX:
 		if(imgActRGB!=null) {
-			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.HISTMAX, imgActRGB, null);
-			this.img.setIcon(imgActRGB.convertirMatAImg());//CAMBIAR, COLOCAR EN JOPTION
+			Imagen si1 = (Imagen)this.control.ejecutaComando(Comandos.HISTMAX, imgActRGB, null);
+			JOptionPane.showMessageDialog(this, new JLabel(si1.convertirMatAImg()));//AGREGAR ETIQUETAS
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}
@@ -1301,8 +1369,8 @@ public void actionPerformed(ActionEvent e) {
 		
 	case Comandos.HISTMIN:
 		if(imgActRGB!=null) {
-			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.HISTMIN, imgActRGB, null);//CAMBIAR A MIN
-			this.img.setIcon(imgActRGB.convertirMatAImg());//CAMBIAR, COLOCAR EN JOPTION
+			Imagen si2 = (Imagen)this.control.ejecutaComando(Comandos.HISTMIN, imgActRGB, null);
+			JOptionPane.showMessageDialog(this, new JLabel(si2.convertirMatAImg()));//AGREGAR ETIQUETAS
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}
@@ -1311,7 +1379,7 @@ public void actionPerformed(ActionEvent e) {
 		
 	case Comandos.SEGMENTAR:
 		if(imgActRGB!=null) {
-			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.SEGMENTAR, imgActRGB, null);//CAMBIAR A SEGMENTAR
+			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.SEGMENTAR, imgActRGB, null);
 			this.img.setIcon(imgActRGB.convertirMatAImg());
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
@@ -1321,8 +1389,49 @@ public void actionPerformed(ActionEvent e) {
 		
 	case Comandos.IMGNHIST:
 		if(imgActRGB!=null) {
-			imgActRGB = (Imagen)this.control.ejecutaComando(Comandos.IMGNHIST, imgActRGB, null);//CAMBIAR A IMAGEN ORIGINAL E HISTOGRAMA
-			this.img.setIcon(imgActRGB.convertirMatAImg());//CAMBIAR, COLOCAR EN JOPTION
+			Imagen si = (Imagen)this.control.ejecutaComando(Comandos.IMGNHIST, null, null);//HISTOGRAMA
+			Imagen seg = (Imagen)this.control.ejecutaComando(Comandos.IMAGENASEGMENTAR, null, null);//IMAGEN
+			JLabel vert, hori, hist;
+			JPanel pAux, imagen, total;
+
+			vert =new JLabel(new ImageIcon(Ventana.class.getResource("/tid/imagenes/vert.png")));
+			hori = new JLabel(new ImageIcon(Ventana.class.getResource("/tid/imagenes/hori.png")));
+			hist = new JLabel(si.convertirMataImgHist());
+			
+			pAux = new JPanel();
+			pAux.setLayout(new GridBagLayout());
+			
+			rest.fill=GridBagConstraints.BOTH;
+			rest.gridx = 0;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			
+			pAux.add(vert, rest);
+			
+			rest.gridx = 0;
+			rest.gridy = 1;
+			rest.gridwidth = 2;
+			rest.gridheight = 1;
+			
+			pAux.add(hori, rest);
+			
+			rest.gridx = 1;
+			rest.gridy = 0;
+			rest.gridwidth = 1;
+			rest.gridheight = 1;
+			
+			pAux.add(hist, rest);
+			rest.fill=GridBagConstraints.NONE;
+			
+			imagen = new JPanel();
+			imagen.add(new JLabel(seg.convertirMatAImg()));
+			
+			total = new JPanel(new GridLayout(1,2));
+			total.add(imagen);
+			total.add(pAux);
+			
+			JOptionPane.showMessageDialog(this, total);
 		}else {
 			JOptionPane.showMessageDialog(this, "Selecciona una imagen");
 		}

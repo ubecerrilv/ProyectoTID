@@ -53,5 +53,6 @@ public class Comandos {
 							   HISTMIN = "minimos del histograma",
 							   HISTMAX = "maximos del histograma",
 							   SEGMENTAR = "segmentar imagen",
-							   IMGNHIST= "imagen original e histograma";
+							   IMGNHIST= "imagen original e histograma",
+							   IMAGENASEGMENTAR = "imagen a segmentar";
 }

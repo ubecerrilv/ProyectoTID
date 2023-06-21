@@ -15,7 +15,7 @@ import tid.modelo.Operaciones;
 public class ControlVPrincipal extends ControlAbs {
 	Operaciones op;
 	ArrayList<Imagen> imagenes =  new ArrayList<Imagen>();;
-	int imgInd;
+	int imgInd, indseg = -1;
 	VentanaG ventGuar;
 	Imagen ag, img1, img2, res;
 	
@@ -33,6 +33,7 @@ public class ControlVPrincipal extends ControlAbs {
 			imgInd=0;
 			img1 = (Imagen)d;
 			imagenes.add(img1);
+			indseg = 0;
 			break;
 				
 		case Comandos.ECUALIZARGB:
@@ -278,7 +279,37 @@ public class ControlVPrincipal extends ControlAbs {
 			imagenes.add(res);
 			imgInd++;
 			return res;
-				
+			
+		case Comandos.HISTMAX://NO SE REQUIERE ANADIR AL ARREGLO
+			img1 = (Imagen)d;
+			res =op.picosHist(img1);
+			return res;
+			
+		case Comandos.HISTMIN://NO SE REQUIERE ANADIR AL ARREGLO
+			img1 = (Imagen)d;
+			res =op.minHist(img1);
+			return res;
+			
+		case Comandos.SEGMENTAR:
+			img1 = (Imagen)d;
+			res =op.segmentar(img1);
+			imagenes.add(res);
+			indseg = imagenes.size()-1;//INDICE PARA SABER LA POSICION DE LA IMAGEN A SEGMENTAR
+			imgInd++;
+			return res;
+			
+		case Comandos.IMGNHIST:
+			if(indseg ==-1) {
+				return null;
+			}else {
+				img1 = imagenes.get(0);
+				res = op.ObtenerHistogramaOriginal(img1);
+				return res;
+			}
+		case Comandos.IMAGENASEGMENTAR:
+			if(indseg !=-1) {
+				return imagenes.get(indseg);				
+			}
 		}//FIN SWITCH
 		
 		
